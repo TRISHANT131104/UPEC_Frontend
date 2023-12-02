@@ -1,10 +1,10 @@
 from django.contrib import admin
 from .models import Post, ChatMsg, GroupMessage, Group
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
  # import UserAdmin
 from django.contrib.auth.admin import UserAdmin
 # Register your models here.
-
+User = get_user_model()
 class CustomUserAdmin(UserAdmin):
     list_display = ('id','username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active', 'last_login')
 

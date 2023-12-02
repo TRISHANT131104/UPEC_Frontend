@@ -35,7 +35,8 @@ SITE_ID = 1
 REST_USE_JWT = True
 INSTALLED_APPS = [
     "daphne",
-    "api.apps.ApiConfig",
+    
+    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -45,7 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'django.contrib.staticfiles',
     'rest_framework',
+    "api",
     "corsheaders",
+    
+    
     'django.contrib.sites',
     
     

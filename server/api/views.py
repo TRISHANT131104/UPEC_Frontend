@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import *
+from .models.chat import *
+from .models.user import *
+from .models.projects import *
+from .models.community import *
 from .serializers import *
 from rest_framework.response import Response
 # Create your views here.

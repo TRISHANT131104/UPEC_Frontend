@@ -1,6 +1,11 @@
 from  rest_framework import serializers
-from .models import *
+from .models.community import *
+from .models.projects import *
+from .models.chat import *
+from .models.user import *
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 class ChatMsgSerializer(serializers.ModelSerializer):
     class Meta:
