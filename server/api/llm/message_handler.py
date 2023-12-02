@@ -3,6 +3,7 @@ import os
 import pinecone
 from langchain.chains import RetrievalQA
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
+from langchain.vectorstores import Pinecone
 from torch import cuda
 
 embed_model_id = "sentence-transformers/all-MiniLM-L6-v2"
@@ -24,7 +25,7 @@ pinecone.init(
     environment=os.environ.get("PINECONE_ENVIRONMENT") or "gcp-starter",
 )
 
-index_name = "llama-rag"
+index_name = "projects"
 index = pinecone.Index(index_name)
 
 text_field = "text"
