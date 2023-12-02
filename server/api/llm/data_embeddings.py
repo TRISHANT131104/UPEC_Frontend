@@ -1,6 +1,10 @@
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from torch import cuda
-from models import Project
+from langchain.vectorstores import Pinecone
+import os
+import pinecone
+from models.projects import Project
+from models.projects import ProjectRequirementDocument
 
 
 embed_model_id = "sentence-transformers/all-MiniLM-L6-v2"
@@ -13,13 +17,39 @@ embed_model = HuggingFaceEmbeddings(
     encode_kwargs={"device": device, "batch_size": 32},
 )
 
+pinecone.init(
+    api_key=os.environ.get("PINECONE_API_KEY"),
+    environment=os.environ.get("PINECONE_ENVIRONMENT") or "gcp-starter",
+)
+
+index_name = "projects"
+index = pinecone.Index(index_name)
+
+text_field = "text"
+vectorstore = Pinecone(index, embed_model.embed_query, text_field)
+
 projects = Project.objects.all()
 batch_size = 32
-metadata = []
 
-for i in range(0, len(projects), batch_size):
-    i_end = min(len(projects), i + batch_size)
-    batch = projects[i:i_end]
-    ids = [project.id for project in batch]
-    titles = [project.title for project in batch]
-    
+for i in range(0, len(projects)):
+    project = projects[i]
+    if project.prd is not None:
+        metadata = [
+            {
+                "id": project.id,
+                "title": project.title,
+                "description": project.description,
+                "start_date": project.start_date,
+                "end_date": project.end_date,
+                "bid_price": project.bid_price,
+                "status": project.status,
+                "project_doc": project.project_doc,
+                "prd": project.prd,
+                "learning_resource": project.learning_resource,
+                "related_techstacks": project.related_techstacks,
+            }
+        ]
+        embeddings = embed_model.embed_documents(metadata)
+        index.upsert(vectors = zip(project.id, embeddings, metadata))
+
+        
