@@ -1,5 +1,5 @@
 import openai
-
+from ..models import workflow, projects
 def generate_project_workflow_prompt(
     project_description, project_requirements, project_timeline, students_skills
 ):
@@ -56,5 +56,11 @@ def make_workflow(project):
         max_tokens=1000,  # Adjust as needed
         temperature=0.7,  # Adjust as needed
     )
-
-    return response.choices[0].text.strip()
+    answer=response.choices[0].text.strip()
+    workflow =workflow(
+        project_workflow: answer
+    )
+    workflow.save()
+    project.object.update(workflow=workflow)
+    project.save()
+    return answer

@@ -1,7 +1,7 @@
 import openai
 import json
 from docx import Document
-
+from ..models import ProjectRequirementDocument
 def generate_prd(project_requirements, project_description, project_timeline):
 
     # Define the prompt based on parameters
@@ -123,28 +123,29 @@ def generate_prd_button_clicked(project):
 
     json_response = json.loads(prd)
 
-    project_details = {
-        "project": project,
-        "project_overview": json_response["project_overview"],
-        "original_requirements": json_response["original_requirements"],
-        "project_goals": json_response["project_goals"],
-        "user_stories": json_response["user_stories"],
-        "system_architecture": json_response["system_architecture"],
-        "requirements_analysis": json_response["requirements_analysis"],
-        "requirement_pool": json_response["requirement_pool"],
-        "ui_ux_design": json_response["ui_ux_design"],
-        "development_methodology": json_response["development_methodology"],
-        "security_measures": json_response["security_measures"],
-        "testing_strategy": json_response["testing_strategy"],
-        "scalability_and_performance": json_response["scalability_and_performance"],
-        "deployment_plan": json_response["deployment_plan"],
-        "maintenance_and_support": json_response["maintenance_and_support"],
-        "risks_and_mitigations": json_response["risks_and_mitigations"],
-        "compliance_and_regulations": json_response["compliance_and_regulations"],
-        "budget_and_resources": json_response["budget_and_resources"],
-        "timeline_and_milestones": json_response["timeline_and_milestones"],
-        "communication_plan": json_response["communication_plan"],
-        "anything_unclear": json_response["anything_unclear"],
-    }
+    project_details = ProjectRequirementDocument(
+        project_overview=json_response["project_overview"],
+        original_requirements=json_response["original_requirements"],
+        project_goals=json_response["project_goals"],
+        user_stories=json_response["user_stories"],
+        system_architecture=json_response["system_architecture"],
+        requirements_analysis=json_response["requirements_analysis"],
+        requirement_pool=json_response["requirement_pool"],
+        ui_ux_design=json_response["ui_ux_design"],
+        development_methodology=json_response["development_methodology"],
+        security_measures=json_response["security_measures"],
+        testing_strategy=json_response["testing_strategy"],
+        scalability_and_performance=json_response["scalability_and_performance"],
+        deployment_plan=json_response["deployment_plan"],
+        maintenance_and_support=json_response["maintenance_and_support"],
+        risks_and_mitigations=json_response["risks_and_mitigations"],
+        compliance_and_regulations=json_response["compliance_and_regulations"],
+        budget_and_resources=json_response["budget_and_resources"],
+        timeline_and_milestones=json_response["timeline_and_milestones"],
+        communication_plan=json_response["communication_plan"],
+        anything_unclear=json_response["anything_unclear"],
+    )
     project_details.save()
+    project.object.update(project_details)
+    project.save()
 

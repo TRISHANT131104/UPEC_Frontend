@@ -33,24 +33,44 @@ batch_size = 32
 
 print(index.describe_index_stats())
 
-for i in range(0, 1):
-    # project = projects[i]
-    # if project.prd is not None:
-        metadata = {
-                "id": 1,
-                "title": "project.title",
-                "description": "project.description",
-                "start_date": "project.start_date",
-                "end_date": "project.end_date",
-                "bid_price": "project.bid_price",
-                "status": "project.status",
-                "project_doc": "project.project_doc",
-                "prd": "project.prd",
-                "learning_resource": "project.learning_resource",
-                "related_techstacks": "project.related_techstacks",
-            }
-        embeddings = embed_model.embed_documents(metadata)
-        index.upsert(vectors = zip([0], embeddings, metadata))
+batch_size = 4
 
-print(index.describe_index_stats()
-)
+for i in range(0, 1):  # Adjust the loop as needed
+    text =[
+    """
+        "id": "1",
+        "title": "project.title",
+        "description": "project.description",
+        "start_date": "project.start_date",
+        "end_date": "project.end_date",
+        "bid_price": "project.bid_price",
+        "status": "project.status",
+        "project_doc": "project.project_doc",
+        "prd": "project.prd",
+        "learning_resource": "project.learning_resource",
+        "related_techstacks": "project.related_techstacks"
+        """
+    ]
+    embeddings = embed_model.embed_documents(text)
+    # Ensure metadata is a list of dictionaries
+    metadata = {
+        "id": 1,
+        "title": "project.title",
+        "description": "project.description",
+        "start_date": "project.start_date",
+        "end_date": "project.end_date",
+        "bid_price": "project.bid_price",
+        "status": "project.status",
+        "project_doc": "project.project_doc",
+        "prd": "project.prd",
+        "learning_resource": "None",
+        "related_techstacks": "None",
+        "text": "project.related_techstacks"
+    }
+
+    update_response = index.update(
+    id='1',
+    values=embeddings,
+    set_metadata=metadata,
+    )
+print(index.describe_index_stats())
