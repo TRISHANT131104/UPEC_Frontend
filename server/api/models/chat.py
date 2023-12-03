@@ -15,6 +15,9 @@ class GroupMessage(models.Model):
     created_at_time = models.CharField(max_length=225,default=gettime(), null=True)
     ai = models.BooleanField(default=False,null=True,blank=True)
 
+
+
+
 class Group(models.Model):
     grp_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     grp_name = models.CharField(max_length=50)

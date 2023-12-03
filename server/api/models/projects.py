@@ -3,6 +3,7 @@ import uuid
 from django.utils import timezone
 from ..helpers import getdate,gettime
 from django.contrib.auth import get_user_model
+from .chat import *
 
 User = get_user_model()
 def __prd__file__path__(instance, filename):
@@ -46,11 +47,12 @@ class Project(models.Model):
     project_doc = models.FileField(upload_to=__prd__file__path__, null=True, blank=True)
     prd = models.OneToOneField(ProjectRequirementDocument, related_name="PRD", on_delete=models.SET_NULL, null=True, blank=True)
     learning_resource = models.ForeignKey('LearningResource', on_delete=models.SET_NULL, null=True)
+    workflow = models.TextField(default=None, blank=True, null=True)
     related_techstacks = models.JSONField(default=list, blank=True, null=True, editable=False)
     created_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     updated_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
-    created_by = models.ManyToManyField(User,null=True,default=None,blank=True,related_name='created_projects')
-    
+    created_by = models.ForeignKey(User,null=True,default=None,blank=True,related_name='created_projects',on_delete=models.SET_NULL)
+    chat_group_id = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True)
     def __str__(self):
         return self.title
 
@@ -98,3 +100,4 @@ class ProjectMembers(models.Model):
     def __str__(self):
         return f'{self.project.title} - {self.user.email}'
     
+

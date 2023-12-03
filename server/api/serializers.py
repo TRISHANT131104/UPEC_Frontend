@@ -33,3 +33,23 @@ class GroupMessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = GroupMessage
         fields = '__all__'
+
+class ClientSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Client
+        fields = '__all__'
+
+class TalentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Talent
+        fields = '__all__'
+
+class MentorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Mentor
+        fields = '__all__'
+
+class ProjectRequirementDocumentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProjectRequirementDocument
+        fields = '__all__'

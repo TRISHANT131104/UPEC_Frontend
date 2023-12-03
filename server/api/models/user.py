@@ -50,5 +50,6 @@ class Team(models.Model):
     created_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     updated_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     created_by = models.ManyToManyField(User, null=True, related_name='created_teams')
+    team_leader = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='team_leaders')
     def __str__(self):
         return self.name
