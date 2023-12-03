@@ -2,8 +2,9 @@ from django.db import models
 import uuid
 from django.utils import timezone
 from ..helpers import getdate,gettime
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 def __post__path__(instance, filename):
     return 'posts/{0}/{1}'.format(instance.id, filename)
 

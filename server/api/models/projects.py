@@ -2,11 +2,9 @@ from django.db import models
 import uuid
 from django.utils import timezone
 from ..helpers import getdate,gettime
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
-    # def __project__image__path__(instance, filename):
-    #     return 'project_images/{0}/{1}'.format(instance.id, filename)
-
+User = get_user_model()
 def __prd__file__path__(instance, filename):
     return 'prds/{0}/{1}'.format(instance.id, filename)
 
@@ -15,17 +13,6 @@ def __prd__file__path__(instance, filename):
 
 def __learning__resource__path__(instance, filename):
     return 'learning_resources/{0}/{1}'.format(instance.id, filename)
-
-
-
-class Client(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='client')
-       
-
-class Talent(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='talent')
-    skills = models.JSONField(default=list, blank=True, null=True, editable=False)
-    rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
 
 class ProjectRequirementDocument(models.Model):
     project_overview = models.TextField()
@@ -62,7 +49,7 @@ class Project(models.Model):
     related_techstacks = models.JSONField(default=list, blank=True, null=True, editable=False)
     created_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     updated_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
-    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='created_projects')
+    created_by = models.ManyToManyField(User,null=True,default=None,blank=True,related_name='created_projects')
     
     def __str__(self):
         return self.title
