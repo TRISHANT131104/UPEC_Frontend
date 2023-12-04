@@ -3,9 +3,9 @@ from torch import cuda
 from langchain.vectorstores import Pinecone
 import os
 import pinecone
-from models.projects import Project
-from models.projects import ProjectRequirementDocument
-from ...server.settings import embed_model
+from ..models.projects import Project
+from ..models.projects import ProjectRequirementDocument
+from server.settings import embed_model
 
 pinecone.init(
     api_key=os.environ.get("PINECONE_API_KEY"),

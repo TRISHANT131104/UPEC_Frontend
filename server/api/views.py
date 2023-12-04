@@ -5,6 +5,8 @@ from .models.user import *
 from .models.projects import *
 from .models.community import *
 from .serializers import *
+from .utils import *
+from .llm import *
 from rest_framework.response import Response
 from django.http import JsonResponse
 # Create your views here.
@@ -45,34 +47,37 @@ class __get__ai__messages__(APIView):
 class __get__user__data__(APIView):
     def get(self,request):
         # get user data
-        user = request.user
-        #check if users is a client,talent / mentor and send the data along with the user data
-        is_client = Client.objects.filter(user=user).exists()
-        is_talent = Talent.objects.filter(user=user).exists()
-        is_mentor = Mentor.objects.filter(user=user).exists()
-        if is_client:
-            client = Client.objects.get(user=user)
-            serializer = ClientSerializer(client)
-            #also add the user details to the client data
-            user_serializer = UserSerializer(user)
-            user_data = user_serializer.data
-            user_data.update(serializer.data)
-            return Response(user_data)
-        elif is_talent:
-            talent = Talent.objects.get(user=user)
-            serializer = TalentSerializer(talent)
-            user_serializer = UserSerializer(user)
-            user_data = user_serializer.data
-            user_data.update(serializer.data)
-            return Response(user_data)
-        elif is_mentor:
-            mentor = Mentor.objects.get(user=user)
-            serializer = MentorSerializer(mentor)
-            user_serializer = UserSerializer(user)
-            user_data = user_serializer.data
-            user_data.update(serializer.data)
-            return Response(user_data)
-        else:
+        try:
+            user = request.user
+            #check if users is a client,talent / mentor and send the data along with the user data
+            is_client = Client.objects.filter(user=user).exists()
+            is_talent = Talent.objects.filter(user=user).exists()
+            is_mentor = Mentor.objects.filter(user=user).exists()
+            if is_client:
+                client = Client.objects.get(user=user)
+                serializer = ClientSerializer(client)
+                #also add the user details to the client data
+                user_serializer = UserSerializer(user)
+                user_data = user_serializer.data
+                user_data.update(serializer.data)
+                return Response(user_data)
+            elif is_talent:
+                talent = Talent.objects.get(user=user)
+                serializer = TalentSerializer(talent)
+                user_serializer = UserSerializer(user)
+                user_data = user_serializer.data
+                user_data.update(serializer.data)
+                return Response(user_data)
+            elif is_mentor:
+                mentor = Mentor.objects.get(user=user)
+                serializer = MentorSerializer(mentor)
+                user_serializer = UserSerializer(user)
+                user_data = user_serializer.data
+                user_data.update(serializer.data)
+                return Response(user_data)
+            else:
+                return Response({"error":"User not found"})
+        except:
             return Response({"error":"User not found"})
         
 class __get__users__recent__chat__(APIView):
@@ -149,7 +154,7 @@ class __send__generated__prd__(APIView):
             #check if the client is the owner of the project
             if project.created_by == client:
                 #generate the prd
-                prd = __generate__prd__(project.title,project.description,project.start_date,project.end_date)
+                prd = generate_prd_button_clicked(project)
                 #prd is a dictionary
                 #save the prd in the ProjectRequirementDocument model
                 PRD_instance = ProjectRequirementDocument.objects.create(

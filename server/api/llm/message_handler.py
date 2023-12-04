@@ -5,23 +5,7 @@ from langchain.chains import RetrievalQA
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import Pinecone
 from torch import cuda
-from ...server.settings import embed_model
-
-docs = ["this is one document", "and another document"]
-
-embeddings = embed_model.embed_documents(docs)
-
-pinecone.init(
-    api_key=os.environ.get("PINECONE_API_KEY"),
-    environment=os.environ.get("PINECONE_ENVIRONMENT") or "gcp-starter",
-)
-
-index_name = "projects"
-index = pinecone.Index(index_name)
-
-text_field = "text"
-vectorstore = Pinecone(index, embed_model.embed_query, text_field)
-
+from server.settings import embed_model
 
 class MessageHandler:
     def __init__(self, api_key):
