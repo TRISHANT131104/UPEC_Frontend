@@ -123,7 +123,7 @@ def generate_prd_button_clicked(project):
 
     json_response = json.loads(prd)
 
-    project_details = ProjectRequirementDocument(
+    project_details = ProjectRequirementDocument.object.create(
         project_overview=json_response["project_overview"],
         original_requirements=json_response["original_requirements"],
         project_goals=json_response["project_goals"],
@@ -146,6 +146,7 @@ def generate_prd_button_clicked(project):
         anything_unclear=json_response["anything_unclear"],
     )
     project_details.save()
-    project.object.update(project_details)
+    project.prd = project_details
     project.save()
+    return project_details.id
 

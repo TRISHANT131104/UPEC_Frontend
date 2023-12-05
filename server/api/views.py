@@ -9,6 +9,8 @@ from .utils import *
 from .llm import *
 from rest_framework.response import Response
 from django.http import JsonResponse
+from .llm.prd import *
+from .llm.workflow import *
 # Create your views here.
 
 
@@ -187,36 +189,10 @@ class __send__generated__prd__(APIView):
             #check if the client is the owner of the project
             if project.created_by == client:
                 #generate the prd
-                prd = generate_prd_button_clicked(project)
-                #prd is a dictionary
-                #save the prd in the ProjectRequirementDocument model
-                PRD_instance = ProjectRequirementDocument.objects.create(
-                    project_overview=prd['project_overview'],
-                    project_goals=prd['project_goals'],
-                    original_requirements=prd['original_requirements'],
-                    user_stories=prd['user_stories'],
-                    system_architecture=prd['system_architecture'],
-                    requirements_analysis=prd['requirements_analysis'],
-                    ui_ux_design=prd['ui_ux_design'],
-                    development_methodology=prd['development_methodology'],
-                    security_measures=prd['security_measures'],
-                    testing_strategy=prd['testing_strategy'],
-                    scalability_and_performance=prd['scalability_and_performance'],
-                    deployment_plan=prd['deployment_plan'],
-                    maintenance_and_support=prd['maintenance_and_support'],
-                    risks_and_mitigations=prd['risks_and_mitigations'],
-                    compliance_and_regulations=prd['compliance_and_regulations'],
-                    budget_and_resources=prd['budget_and_resources'],
-                    timeline_and_milestones=prd['timeline_and_milestones'],
-                    communication_plan=prd['communication_plan'],
-                    anything_unclear=prd['anything_unclear']
-
-                )
-                #save the prd in the project
-                PRD_instance.save()
-                project.prd = PRD_instance
-                project.save()
-                return JsonResponse({"success":"PRD generated successfully","data":prd})
+                prd_id = generate_prd_button_clicked(project)
+                prd = ProjectRequirementDocument.objects.get(id=prd_id)
+                serializer = ProjectRequirementDocumentSerializer(prd)
+                return JsonResponse({"success":"PRD generated successfully","data":serializer.data})
             else:
                 return Response({"error":"You are not the owner of this project"})
         else:
@@ -278,13 +254,7 @@ class __client__accept__bid__(APIView):
             return Response({"error":"You are not a client"})
         
 
-def generate_workflow(title,desc,timeline,students_info):
-    '''
-    call your llm and make it predict the workflow using the above parameters
-    return a dictionary of all the parameters in the predicted workflow similar to the Workflow model
-    '''
-    response = {}
-    return response
+
 
 class __send__generated__workflow__(APIView):
     def post(self,request):
@@ -306,10 +276,7 @@ class __send__generated__workflow__(APIView):
                 team = team[0]
                 if talent == team.team_leader:
                     #generate the workflow
-                    workflow = generate_workflow(project.title,project.description,project.timeline,team.members)
-                    #save the workflow in the Workflow model
-                    project.workflow = workflow
-                    project.save()
+                    workflow = make_workflow(project)
                     return JsonResponse({"success":"Workflow generated successfully","data":workflow})
                 else:
                     return Response({"error":"You are not the team leader of this project"})
