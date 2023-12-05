@@ -5,32 +5,7 @@ from langchain.chains import RetrievalQA
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import Pinecone
 from torch import cuda
-
-embed_model_id = "sentence-transformers/all-MiniLM-L6-v2"
-
-device = f"cuda:{cuda.current_device()}" if cuda.is_available() else "cpu"
-
-embed_model = HuggingFaceEmbeddings(
-    model_name=embed_model_id,
-    model_kwargs={"device": device},
-    encode_kwargs={"device": device, "batch_size": 32},
-)
-
-docs = ["this is one document", "and another document"]
-
-embeddings = embed_model.embed_documents(docs)
-
-pinecone.init(
-    api_key="663983e5-451f-4d33-bf74-6a7b8dbc4bcb",
-    environment=os.environ.get("PINECONE_ENVIRONMENT") or "gcp-starter",
-)
-
-index_name = "projects"
-index = pinecone.Index(index_name)
-
-text_field = "text"
-vectorstore = Pinecone(index, embed_model.embed_query, text_field)
-
+from server.settings import embed_model
 
 class MessageHandler:
     def __init__(self, api_key):
