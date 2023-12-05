@@ -24,22 +24,55 @@ class __get__group__messages__(APIView):
         
 
 class __get__personal__chat__(APIView):
-    def get(self,request,pk):
-        # get user chats related to the user and return the messages of that user if ai = False
-        user = request.user
-        receiver = User.objects.get(id=pk)
-        messages = ChatMsg.objects.filter(sender=user,receiver=receiver,ai=False)
-        serializer = ChatMsgSerializer(messages,many=True)
-        return Response(serializer.data)
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
+    #ordering in terms of date
+
+    def post(self,request):
+        receiver = request.data['receiver']
+        sender = request.user
+        chats = ChatMsg.objects.filter(sender=sender,receiver=receiver) | ChatMsg.objects.filter(sender=receiver,receiver=sender)
+        #order it in terms of date
+        chats = chats.order_by('created_at_date','created_at_time')
+        serializer = ChatMsgSerializer(chats,many=True)
+        #send the user name instead of the id
+        response = []
+        for i in serializer.data:
+            response.append({
+                "message":i['message'],
+                "sender":UserSerializer(User.objects.get(id=i['sender'])).data,
+                "receiver":UserSerializer(User.objects.get(id=i['receiver'])).data,
+                "created_at_date":i['created_at_date'],
+                "created_at_time":i['created_at_time'],
+                "ai":i['ai']
+            })
+        return JsonResponse(response,safe=False)
 
 class __get__ai__messages__(APIView):
-    def __get__ai__messages__(request,pk):
-        # get user chats related to the user and return the messages of that user if ai = True
-        user = request.user
-        receiver = User.objects.get(id=pk)
-        messages = ChatMsg.objects.filter(sender=user,receiver=user,ai=True)
-        serializer = ChatMsgSerializer(messages,many=True)
-        return Response(serializer.data)
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
+    #ordering in terms of date
+
+    def get(self,request):
+        
+        sender = request.user
+        receiver = 4
+        chats = ChatMsg.objects.filter(sender=sender,receiver=receiver,ai=True) | ChatMsg.objects.filter(sender=receiver,receiver=sender,ai=True)
+        #order it in terms of date
+        chats = chats.order_by('created_at_date','created_at_time')
+        serializer = ChatMsgSerializer(chats,many=True)
+        #send the user name instead of the id
+        response = []
+        for i in serializer.data:
+            response.append({
+                "message":i['message'],
+                "sender":UserSerializer(User.objects.get(id=i['sender'])).data,
+                "receiver":UserSerializer(User.objects.get(id=i['receiver'])).data,
+                "created_at_date":i['created_at_date'],
+                "created_at_time":i['created_at_time'],
+                "ai":i['ai']
+            })
+        return JsonResponse(response,safe=False)
     
 
 class __get__user__data__(APIView):

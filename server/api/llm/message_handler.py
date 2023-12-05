@@ -21,7 +21,7 @@ docs = ["this is one document", "and another document"]
 embeddings = embed_model.embed_documents(docs)
 
 pinecone.init(
-    api_key=os.environ.get("PINECONE_API_KEY"),
+    api_key="663983e5-451f-4d33-bf74-6a7b8dbc4bcb",
     environment=os.environ.get("PINECONE_ENVIRONMENT") or "gcp-starter",
 )
 
@@ -46,7 +46,7 @@ class MessageHandler:
         )
 
         answer = response.choices[0].text.strip()
-        answer = answer.toLower()
+        answer = answer.lower()
         return answer == "yes"
 
     def decide_role(self, question):
@@ -72,7 +72,7 @@ class MessageHandler:
         )
 
         answer = response.choices[0].text.strip()
-        answer = answer.toLower()
+        answer = answer.lower()
         return answer == "yes"
 
     def handle_context_required_message(question):
@@ -94,6 +94,7 @@ class MessageHandler:
 
     def handle_message(self, user_question):
         role = self.decide_role(user_question)
+        print(role)
         if role == None:
             response = openai.Completion.create(
                 engine="davinci",
@@ -101,6 +102,7 @@ class MessageHandler:
                 max_tokens=50,
             )
         else:
+            print(self.is_question_project_related(user_question))
             if self.is_question_project_related(user_question):
                 response = self.handle_context_required_message(user_question)
             else:
@@ -109,5 +111,6 @@ class MessageHandler:
                     prompt=f"As a {role}, {user_question}. Give your response as you are best in that field and you really want to help the user .",
                     max_tokens=50,
                 )
+        print(response)
         answer = response.choices[0].text.strip()
         return answer

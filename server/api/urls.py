@@ -22,7 +22,7 @@ from .views import __get__group__messages__,__get__personal__chat__,__get__ai__m
 urlpatterns = [
     path('__get__group__messages__/<uuid:pk>', __get__group__messages__.as_view()),
     path('__get__personal__chat__/<int:pk>', __get__personal__chat__.as_view()),
-    path('__get__ai__messages__/<int:pk>', __get__ai__messages__.as_view()),
+    path('__get__ai__messages__', __get__ai__messages__.as_view()),
     path('__get__user__data__',__get__user__data__.as_view()),
     path('__get__users__recent__chat__',__get__users__recent__chat__.as_view()),
     path('__create__project__/',__create__project__.as_view()),

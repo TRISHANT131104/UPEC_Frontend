@@ -33,10 +33,7 @@ X_FRAME_OPTIONS = "SAMEORIGIN"
 SITE_ID = 1
 # Application definition
 REST_USE_JWT = True
-INSTALLED_APPS = [
-    "daphne",
-    
-    
+INSTALLED_APPS = [  
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,14 +41,12 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django.contrib.messages',
     'django.contrib.postgres',
+    'daphne',
     'django.contrib.staticfiles',
     'rest_framework',
     "api",
     "corsheaders",
-    
-    
     'django.contrib.sites',
-    
     
 ]
 
@@ -164,11 +159,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 CHANNEL_LAYERS = {
     "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [("127.0.0.1", 6379)],
-        },
-    },
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
 }
 
 
@@ -186,9 +178,9 @@ EMAIL_HOST_USER = "rpkiit2022@gmail.com"
 EMAIL_HOST_PASSWORD = "fkpfbydytxiwhstu"
 
 
-
-
-
-
 ASGI_APPLICATION = "server.asgi.application"
+
+
+
+
 
