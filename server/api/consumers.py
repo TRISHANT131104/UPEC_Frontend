@@ -13,7 +13,7 @@ from .llm.message_handler import MessageHandler
 from .helpers import *
 messages = {}
 connectedUsers = {} #list of all connected users , their id along with their socket_id
-handler = MessageHandler('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')
+handler = MessageHandler('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')
 
 print(connectedUsers)
 class ChatConsumer(AsyncJsonWebsocketConsumer):

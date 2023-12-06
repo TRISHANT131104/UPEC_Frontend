@@ -5,11 +5,10 @@ from langchain.chains import RetrievalQA
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import Pinecone
 from torch import cuda
-from server.settings import embed_model
 
 class MessageHandler:
-    def __init__(self, api_key):
-        openai.api_key = api_key
+    def __init__(self):
+        openai.api_key = "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"
         self.roles = "Alumni: Project Owner, Project Owner: Project Manager, Project Manager: Technical Lead, Technical Lead: Developer, Developer: QA Engineer, QA Engineer: Project Manager, Web Developer, Mobile Developer, Desktop Developer, Embedded Systems Developer, Game Developer, Database Developer, DevOps, Quality Assurance and Testing, Artificial Intelligence and Machine Learning, Cloud Computing, Cybersecurity, UI UX Design, API Development, Augmented Reality and Virtual Reality, Robotics, Financial Technology, Education Technology, Blockchain"
         self.role = "Alumni"
 
