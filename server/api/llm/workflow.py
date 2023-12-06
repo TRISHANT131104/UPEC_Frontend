@@ -57,10 +57,6 @@ def make_workflow(project):
         temperature=0.7,  # Adjust as needed
     )
     answer=response.choices[0].text.strip()
-    # workflow =workflow(
-    #     project_workflow: answer
-    # )
-    # workflow.save()
-    # project.object.update(workflow=workflow)
-    # project.save()
+    project.object.update(workflow=workflow)
+    project.save()
     return answer

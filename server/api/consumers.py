@@ -9,10 +9,11 @@ import json
 from django.contrib.auth.models import User
 from .models import ChatMsg,Group,GroupMessage
 from datetime import datetime
+from .llm.message_handler import MessageHandler
 from .helpers import *
 messages = {}
 connectedUsers = {} #list of all connected users , their id along with their socket_id
-
+handler = MessageHandler('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')
 
 print(connectedUsers)
 class ChatConsumer(AsyncJsonWebsocketConsumer):
@@ -150,6 +151,8 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
     @sync_to_async
     def get_group_users(self,group):
         return list(group.grp_members.all())
+
+        
     
     async def send_group_message(self, message, sender, receiver,ai):
         date = getdate()
@@ -162,31 +165,60 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         users = await self.get_group_users(receiver)
         print(users)
         for user in users:
-            print(user.id,list(connectedUsers.keys()))
-            if user.id in list(connectedUsers.keys()):
-                print('userid',user.id)
-                await self.send_json_to_user(connectedUsers[user.id], {"type": "receive_message",
-                    "message": message.message, "sender": str(sender.username), "receiver": str(receiver.grp_id),"created_at_date":date,"created_at_time":time,"id":str(message.id),'ai':ai} 
-                )
-    
+                print(user.id,list(connectedUsers.keys()))
+                if user.id in list(connectedUsers.keys()):
+                    await self.send_json_to_user(connectedUsers[user.id], {"type": "receive_message",
+                        "message": message.message, "sender": str(sender.username), "receiver": str(receiver.grp_id),"created_at_date":date,"created_at_time":time,"id":str(message.id),'ai':ai} 
+                    )
+        
+        if ai:
+            AI_sender = await self.get_user(4)
+            date = getdate()
+            time = gettime()
+            answer = handler.handle_message(message.message)
+            answer_instance = await self.save_group_message(answer,AI_sender,receiver, date, time,ai)
+            await self.save_group_instance(answer_instance)
+            for user in users:
+                print(user.id,list(connectedUsers.keys()))
+                if user.id in list(connectedUsers.keys()):
+                    await self.send_json_to_user(connectedUsers[user.id], {"type": "receive_message",
+                        "message": answer, "sender": str(AI_sender.username), "receiver": str(receiver.grp_id),"created_at_date":date,"created_at_time":time,"id":str(message.id),'ai':ai} 
+                    )
+    @database_sync_to_async
+    def save_ai_message(self,object1):
+        return object1.save()
+
     async def send_individual_message(self, message, sender, receiver,ai):
         date = getdate()
         time = gettime()
-        print(connectedUsers)
-        print("sender",sender)
-        print("receiver",receiver)
-        print('is AI',ai)
         sender = await self.get_user(sender)
         receiver = await self.get_user(receiver)
         query = await self.save_message(message, sender, receiver,date,time,ai)
-        if receiver.id in list(connectedUsers.keys()):
-            await self.send_json_to_user(connectedUsers[receiver.id], {"type": "receive_message",
-                "message": message, "sender":str(sender.username), "receiver": str(receiver.username),"created_at_date":date,"created_at_time":time,"id":str(query.id),'ai':ai} 
-            )
-        #send message to yourself
+        await self.save_ai_message(query)
         await self.send_json_to_user(self.channel_name,{"type":"sent_message",
-            "message":message,"sender":str(sender.username),"receiver":str(receiver.username),"created_at_date":date,"created_at_time":time,"id":str(query.id),'ai':ai}
+                "message":message,"sender":str(sender.username),"receiver":str(receiver.username),"created_at_date":date,"created_at_time":time,"id":str(query.id),'ai':ai}
         )
+        print(message)
+        if ai:
+                date = getdate()
+                time = gettime()
+                answer = handler.handle_message(message.message)
+                save_answer = await self.save_message(answer, receiver,sender,date,time,ai)
+                await self.save_ai_message(save_answer)
+                await self.send_json_to_user(self.channel_name,{"type":"sent_message",
+                "message":answer,"sender":str(receiver.username),"receiver":str(sender.username),"created_at_date":date,"created_at_time":time,"id":str(query.id),'ai':ai}
+                )
+
+                
+        else:
+            if receiver.id in list(connectedUsers.keys()):
+                await self.send_json_to_user(connectedUsers[receiver.id], {"type": "receive_message",
+                    "message": message, "sender":str(sender.username), "receiver": str(receiver.username),"created_at_date":date,"created_at_time":time,"id":str(query.id),'ai':ai} 
+                )
+            #send message to yourself
+            await self.send_json_to_user(self.channel_name,{"type":"sent_message",
+                "message":message,"sender":str(sender.username),"receiver":str(receiver.username),"created_at_date":date,"created_at_time":time,"id":str(query.id),'ai':ai}
+            )
 
     async def send_json_to_room(self, room_id, data):
         await self.channel_layer.group_send(

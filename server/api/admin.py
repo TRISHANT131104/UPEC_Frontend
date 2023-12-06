@@ -3,6 +3,10 @@ from .models import Post, ChatMsg, GroupMessage, Group, Project, Milestone, Proj
 from django.contrib.auth import get_user_model
  # import UserAdmin
 from django.contrib.auth.admin import UserAdmin
+from .models.chat import *
+from .models.community import *
+from .models.projects import *
+from .models.user import *
 # Register your models here.
 User = get_user_model()
 class CustomUserAdmin(UserAdmin):
@@ -36,3 +40,4 @@ admin.site.register(Client)
 admin.site.register(Mentor) 
 
 admin.site.register(Talent)
+

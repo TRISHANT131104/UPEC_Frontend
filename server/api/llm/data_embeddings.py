@@ -16,8 +16,6 @@ index_name = "projects"
 index = pinecone.Index(index_name)
 
 
-
-
 def store_project_requirement_document_embeddings(prd):
     project = Project.objects.get(prd=prd)
     text =[f"""
