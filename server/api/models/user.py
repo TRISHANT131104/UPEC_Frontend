@@ -23,6 +23,7 @@ class Client(models.Model):
 class Talent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='talent')
     skills = models.JSONField(default=list, blank=True, null=True, editable=False)
+    learning_resources = models.JSONField(default=list, blank=True, null=True, editable=False)
     rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     no_projects_completed = models.IntegerField(default=0)
     deadline_missed = models.IntegerField(default=0)
@@ -38,10 +39,6 @@ class Mentor(models.Model):
 
 class University(models.Model):
     name=models.CharField(max_length=255)
-
-
-
-
 
 class Team(models.Model):
     name = models.CharField(max_length=255)

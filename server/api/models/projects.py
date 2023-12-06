@@ -4,6 +4,7 @@ from django.utils import timezone
 from ..helpers import getdate,gettime
 from django.contrib.auth import get_user_model
 from .chat import *
+from django.utils.translation import gettext_lazy as _
 
 User = get_user_model()
 def __prd__file__path__(instance, filename):
@@ -21,7 +22,7 @@ class ProjectRequirementDocument(models.Model):
     project_goals = models.TextField()
     user_stories = models.TextField()
     system_architecture = models.TextField()
-    requirements_analysis = models.TextField()
+    tech_stacks = models.TextField()
     requirement_pool = models.TextField()
     ui_ux_design = models.TextField()
     development_methodology = models.TextField()
@@ -46,7 +47,7 @@ class Project(models.Model):
     status = models.CharField(max_length=20, default='Open')
     project_doc = models.FileField(upload_to=__prd__file__path__, null=True, blank=True)
     prd = models.OneToOneField(ProjectRequirementDocument, related_name="PRD", on_delete=models.SET_NULL, null=True, blank=True)
-    learning_resource = models.ForeignKey('LearningResource', on_delete=models.SET_NULL, null=True,blank=True)
+    Learning_resources = models.TextField(_("Learning Resources"),blank=True,null=True,default=None)
     workflow = models.TextField(default=None, blank=True, null=True)
     related_techstacks = models.JSONField(default=list, blank=True, null=True, editable=False)
     created_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
@@ -73,16 +74,6 @@ class ProjectProgressReport(models.Model):
 
     def __str__(self):
         return f'{self.project.title} - {self.date}'
-
-class LearningResource(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField()
-    url = models.URLField()
-    date = models.DateField(auto_now_add=True)
-    file = models.FileField(upload_to=__learning__resource__path__, null=True, blank=True)
-
-    def __str__(self):
-        return self.name
 
 # Assuming these functions are defined in helpers.py
 

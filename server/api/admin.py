@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, ChatMsg, GroupMessage, Group, Project, Milestone, ProjectProgressReport, LearningResource, ProjectMembers, ProjectRequirementDocument, Client, Mentor,Talent  
+from .models import Post, ChatMsg, GroupMessage, Group, Project, Milestone, ProjectProgressReport, ProjectMembers, ProjectRequirementDocument, Client, Mentor,Talent  
 from django.contrib.auth import get_user_model
  # import UserAdmin
 from django.contrib.auth.admin import UserAdmin
@@ -28,8 +28,6 @@ admin.site.register(Project)
 admin.site.register(Milestone)
 
 admin.site.register(ProjectProgressReport)
-
-admin.site.register(LearningResource)
 
 admin.site.register(ProjectMembers)
 

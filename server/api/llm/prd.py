@@ -37,8 +37,8 @@ def generate_prd(project_requirements, project_description, project_timeline):
         5. **System Architecture:**
             [Outline the high-level system architecture, covering both hardware and software components. Describe how they interact to meet project goals.]
 
-        6. **Requirements Analysis:**
-            and their impact on project success.]
+        6. **Tech Stacks:**
+            [Taking the project description into consideration, list all the tech stacks that will be used in the project.]
 
         7. **Requirement Pool:**
             [List up to 5 key requirements with priority (P0/P1/P2) and brief descriptions. Align each requirement with project goals.]
@@ -87,8 +87,8 @@ def generate_prd(project_requirements, project_description, project_timeline):
         """
 
     # Use OpenAI to generate PRD based on the prompt
-    response = openai.Completion.create(
-        engine="text-davinci-003",
+    response = openai.ChatCompletion.create(
+        engine="gpt-3.5-turbo-instruct",
         prompt=prompt,
         max_tokens=1000,  # Adjust as needed
         temperature=0.7,  # Adjust as needed
@@ -129,7 +129,7 @@ def generate_prd_button_clicked(project):
         project_goals=json_response["project_goals"],
         user_stories=json_response["user_stories"],
         system_architecture=json_response["system_architecture"],
-        requirements_analysis=json_response["requirements_analysis"],
+        tech_stacks=json_response["requirements_analysis"],
         requirement_pool=json_response["requirement_pool"],
         ui_ux_design=json_response["ui_ux_design"],
         development_methodology=json_response["development_methodology"],
