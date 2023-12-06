@@ -31,9 +31,9 @@ def generate_learning_resource_prompt(talent, project):
 def learning_resource(talent, project):
     prompt = generate_learning_resource_prompt(talent, project)
     response = openai.Completion.create(
-        engine="davinci",
+        engine="gpt-3.5-turbo-instruct",
         prompt=prompt,
-        max_tokens=1000,  # Adjust as needed
+        max_tokens=300,  # Adjust as needed
         temperature=0.7,  # Adjust as needed
     )
     answer=response.choices[0].text.strip()
