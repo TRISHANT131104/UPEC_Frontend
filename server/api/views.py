@@ -329,20 +329,7 @@ class __project__management__(APIView):
             project = Project.objects.get(id=data["project_id"])
 
             team = Team.objects.filter(project=project)
-
-            if team:
-                team = team[0]
-
-                management = generate_management(team, project)
-
-                return JsonResponse(
-                    {"success": "Management generated successfully", "data": management}
-                )
-            else:
-                return Response({"error": "Error occured"})
-
-        else:
-            return Response({"error": "You are not talent"})
+            
 
 
 class __learning__resource__(APIView):
