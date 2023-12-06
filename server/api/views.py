@@ -613,7 +613,6 @@ class __project__management__(APIView):
         if is_talent:
             talent = Talent.objects.filter(user=user)
             project = Project.objects.get(id=data["project_id"])
-
             team = Team.objects.filter(project=project)
             
 

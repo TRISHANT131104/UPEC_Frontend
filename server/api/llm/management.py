@@ -1,6 +1,7 @@
 import openai
 import docx
-from ..models import user
+from ..models.user import *
+from ..models.projects import *
 
 def generate_prompt():
     pass
