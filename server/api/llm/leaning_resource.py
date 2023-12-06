@@ -21,7 +21,7 @@ def generate_learning_resource_prompt(talent, project):
             skills_string += f"{user.first_name}'s skills: {skills}\n"
 
     prompt = f"""
-        You have to recomment learning resources to the team members based on the project's required tech stacks and the team members' skills. 
+        You have to recommend learning resources to the team members based on the project's required tech stacks and the team members' skills. 
         The project's required tech stacks are {tech_stack}.
         The team members' skills are as follows: {skills_string}.
 

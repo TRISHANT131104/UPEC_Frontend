@@ -8,6 +8,7 @@ from .serializers import *
 from .utils import *
 from .llm import *
 from .llm.leaning_resource import learning_resource
+from .llm.management import generate_management
 from rest_framework.response import Response
 from django.http import JsonResponse
 from .llm.student_skills import *
@@ -322,13 +323,16 @@ class __project__management__(APIView):
     def post(self, request):
         user = request.user
         data = request.data
-
         is_talent = Talent.objects.filter(user=user).exists()
-
         if is_talent:
             talent = Talent.objects.filter(user=user)
             project = Project.objects.get(id=data["project_id"])
             team = Team.objects.filter(project=project)
+            management = generate_management(team, project)
+
+            return JsonResponse({"success":"Project management generated successfully","data":management}) 
+        else:
+            return Response({"error":"Error occured"})
             
 
 
@@ -336,16 +340,12 @@ class __learning__resource__(APIView):
     def post(self, request):
         user = request.user
         data = request.data
-
         is_talent = Talent.objects.filter(user=user).exists()
-
         if is_talent:
             talent = Talent.objects.filter(user=user)
             project = Project.objects.get(id=data["project_id"])
-
             if team:
                 team = team[0]
-
                 learning_resource = learning_resource(talent, project)
                 project.learning_resource = learning_resource
                 project.save()
@@ -353,9 +353,8 @@ class __learning__resource__(APIView):
                     {"success": "Learning Resources generated successfully", "data": learning_resource}
                 )
             else:
-                return Response({"error": "Error occured"})
+                return Response({"error": "You are not a team"})
             
-
 class __learning__resources__for__talents(APIView):
     def post(self,request):
         #generate the learning resources for the talent
