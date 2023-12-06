@@ -13,7 +13,7 @@ from .llm.message_handler import MessageHandler
 from .helpers import *
 messages = {}
 connectedUsers = {} #list of all connected users , their id along with their socket_id
-handler = MessageHandler('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')
+handler = MessageHandler('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')
 
 print(connectedUsers)
 class ChatConsumer(AsyncJsonWebsocketConsumer):
@@ -198,6 +198,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         await self.send_json_to_user(self.channel_name,{"type":"sent_message",
                 "message":message,"sender":str(sender.username),"receiver":str(receiver.username),"created_at_date":date,"created_at_time":time,"id":str(query.id),'ai':ai}
         )
+        print(message)
         if ai:
                 date = getdate()
                 time = gettime()
