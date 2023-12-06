@@ -13,7 +13,7 @@ from .llm.message_handler import MessageHandler
 from .helpers import *
 messages = {}
 connectedUsers = {} #list of all connected users , their id along with their socket_id
-handler = MessageHandler('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')
+handler = MessageHandler('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')
 
 print(connectedUsers)
 class ChatConsumer(AsyncJsonWebsocketConsumer):
@@ -175,7 +175,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
             AI_sender = await self.get_user(4)
             date = getdate()
             time = gettime()
-            answer = handler.handle_message(message)
+            answer = handler.handle_message(message.message)
             answer_instance = await self.save_group_message(answer,AI_sender,receiver, date, time,ai)
             await self.save_group_instance(answer_instance)
             for user in users:
@@ -198,10 +198,11 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         await self.send_json_to_user(self.channel_name,{"type":"sent_message",
                 "message":message,"sender":str(sender.username),"receiver":str(receiver.username),"created_at_date":date,"created_at_time":time,"id":str(query.id),'ai':ai}
         )
+        print(message)
         if ai:
                 date = getdate()
                 time = gettime()
-                answer = handler.handle_message(message)
+                answer = handler.handle_message(message.message)
                 save_answer = await self.save_message(answer, receiver,sender,date,time,ai)
                 await self.save_ai_message(save_answer)
                 await self.send_json_to_user(self.channel_name,{"type":"sent_message",

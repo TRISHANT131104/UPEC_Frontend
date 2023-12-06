@@ -15,7 +15,7 @@ class MessageHandler:
 
     def __is__question__answerable__(self, question):
         response = openai.Completion.create(
-            engine="davinci",
+            engine="gpt-3.5-turbo-instruct",
             prompt=f"Is this question answerable by any of the above roles {self.roles}? If it is a general question say no. The question is as follows: {question} .Just Return Yes Or No.",
             max_tokens=50,
         )
@@ -28,7 +28,7 @@ class MessageHandler:
         if self.__is__question__answerable__(question):
             # if the question is answerable by any of the above roles , then it goes into this for loop
             response = openai.Completion.create(
-                engine="davinci",
+                engine="gpt-3.5-turbo-instruct",
                 prompt=f"Which role among {self.roles} should handle this question? The question is as follows: {question}. Give your response in just the name of the role.",
                 max_tokens=50,
             )
@@ -41,7 +41,7 @@ class MessageHandler:
 
     def is_question_project_related(question):
         response = openai.Completion.create(
-            engine="davinci",
+            engine="gpt-3.5-turbo-instruct",
             prompt=f"Will this question require some context before you can answer it? The question is as follows: {question}. Just Return Yes Or No.",
             max_tokens=50,
         )
@@ -71,8 +71,9 @@ class MessageHandler:
         role = self.decide_role(user_question)
         print(role)
         if role == None:
+            print("role is none")
             response = openai.Completion.create(
-                engine="davinci",
+                engine="gpt-3.5-turbo-instruct",
                 prompt=f"{user_question}. Give your response as you are best in that field and you really want to help the user .",
                 max_tokens=50,
             )
@@ -82,7 +83,7 @@ class MessageHandler:
                 response = self.handle_context_required_message(user_question)
             else:
                 response = openai.Completion.create(
-                    engine="davinci",
+                    engine="gpt-3.5-turbo-instruct",
                     prompt=f"As a {role}, {user_question}. Give your response as you are best in that field and you really want to help the user .",
                     max_tokens=50,
                 )
