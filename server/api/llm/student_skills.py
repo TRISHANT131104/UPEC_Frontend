@@ -1,8 +1,14 @@
 import openai
 from ..models import Talent
-from .message_handler import query    
+from .message_handler import query
+import google.generativeai as palm
+from dotenv import load_dotenv
+import os
 
-def generate_learning_reasources(student,projects):
+load_dotenv()
+
+
+def generate_learning_reasources(student, projects):
     skills = student.skills
     tech_stacks = projects.prd.tech_stacks
     prompt = f"""
@@ -11,16 +17,30 @@ def generate_learning_reasources(student,projects):
         Based on the projects you are assigned that needed {tech_stacks} knowledge.
         Tell me what all I need to learn to complete the project and its learning resources too.
     """
-    response = openai.Completion.create(
-        engine="gpt-3.5-turbo-instruct",
-        prompt=prompt,
-        max_tokens=50,
-        temperature=0.7,
-    )
+    # response = openai.Completion.create(
+    #     engine="gpt-3.5-turbo-instruct",
+    #     prompt=prompt,
+    #     max_tokens=50,
+    #     temperature=0.7,
+    # )
     # output = query({
     #     "inputs": prompt,
     # })
-    student.learning_resources = response.choices[0].text.strip()
-    student.save()
-    return response.choices[0].text.strip()
 
+    palm.configure(api_key=os.environ.get("PALM_API_KEY"))
+    models = [
+        m
+        for m in palm.list_models()
+        if "generateText" in m.supported_generation_methods
+    ]
+    model = models[0].name
+
+    response = palm.generate_text(
+        model=model,
+        prompt=prompt,
+        temperature=0,
+        max_output_tokens=800,
+    )
+    student.learning_resources = response
+    student.save()
+    return response
