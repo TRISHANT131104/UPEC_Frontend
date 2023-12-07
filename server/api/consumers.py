@@ -176,7 +176,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
             AI_sender = await self.get_user(4)
             date = getdate()
             time = gettime()
-            answer = handler.handle_message(message)
+            answer = handler.handle_message(message.message)
             answer_instance = await self.save_group_message(answer,AI_sender,receiver, date, time,ai)
             await self.save_group_instance(answer_instance)
             for user in users:
