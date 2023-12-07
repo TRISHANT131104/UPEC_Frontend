@@ -30,6 +30,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
     async def receive_json(self, text_data):
         
         data = text_data["data"]
+        print(data)
         if text_data["type"] == 'send_message_to_user':
             await self.send_message_to_user(data['message'], data['sender'], data['receiver'],data['group'],data['ai'])
         elif text_data['type'] == "create_group":
@@ -195,11 +196,12 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         receiver = await self.get_user(receiver)
         query = await self.save_message(message, sender, receiver,date,time,ai)
         await self.save_ai_message(query)
-        await self.send_json_to_user(self.channel_name,{"type":"sent_message",
-                "message":message,"sender":str(sender.username),"receiver":str(receiver.username),"created_at_date":date,"created_at_time":time,"id":str(query.id),'ai':ai}
-        )
+        
         print(message)
         if ai:
+                await self.send_json_to_user(self.channel_name,{"type":"sent_message",
+                "message":message,"sender":str(sender.username),"receiver":str(receiver.username),"created_at_date":date,"created_at_time":time,"id":str(query.id),'ai':ai}
+                )
                 date = getdate()
                 time = gettime()
                 answer = handler.handle_message(message)

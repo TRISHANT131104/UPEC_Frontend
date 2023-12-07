@@ -51,12 +51,12 @@ def make_workflow(project):
         students_skills,
     )
     response = openai.Completion.create(
-        engine="text-davinci-003",
+        engine="gpt-3.5-turbo-instruct",
         prompt=prompt,
         max_tokens=1000,  # Adjust as needed
         temperature=0.7,  # Adjust as needed
     )
-    answer=response.choices[0].text.strip()
+    workflow=response.choices[0].text.strip()
     project.object.update(workflow=workflow)
     project.save()
-    return answer
+    return workflow
