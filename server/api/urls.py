@@ -15,24 +15,50 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include 
+from django.urls import path, include
 
-from .views import __get__group__chat__users__,__get__direct__chat__users__,__get__personal__chat__,__get__ai__messages__,__get__user__data__,__get__users__recent__chat__,__create__project__,__send__generated__prd__,__get__details__of__project__,__client__accept__bid__,__send__generated__workflow__, __learning__resource__,__get__project__related__groups__,__get__group__messages__,__learning__resource__
+from .views import (
+    __get__group__chat__users__,
+    __get__direct__chat__users__,
+    __get__personal__chat__,
+    __get__ai__messages__,
+    __get__user__data__,
+    __get__users__recent__chat__,
+    __create__project__,
+    __send__generated__prd__,
+    __get__details__of__project__,
+    __client__accept__bid__,
+    __send__generated__workflow__,
+    __learning__resource__,
+    __get__project__related__groups__,
+    __get__group__messages__,
+    __learning__resource__,
+    __project__management__,
+)
 
 urlpatterns = [
-    path('__get__group__messages__/',__get__group__messages__.as_view()),
-    path('__get__personal__messages__/', __get__personal__chat__.as_view()),
-    path('__get__direct__chat__users__/<int:pk>', __get__direct__chat__users__.as_view()),
-    path('__get__group__chat__users__/<int:pk>', __get__group__chat__users__.as_view()),
-    path('__get__project__related__groups__/<int:pk>',__get__project__related__groups__.as_view()),
-    path('__get__ai__messages__', __get__ai__messages__.as_view()),
-    path('__get__user__data__',__get__user__data__.as_view()),
-    path('__get__users__recent__chat__',__get__users__recent__chat__.as_view()),
-    path('__create__project__/',__create__project__.as_view()),
-    path('__send__generated__prd__/', __send__generated__prd__.as_view()),
-    path('__get__details__of__project__/<int:pk>', __get__details__of__project__.as_view()),
-    path('__client__accept__bid__/', __client__accept__bid__.as_view()),
-    path('__send__generated__workflow__/', __send__generated__workflow__.as_view()),
-    path('__learning__resource__/', __learning__resource__.as_view()),
-    path('__learning__resources__for__talents__', __learning__resource__.as_view()),
+    path("__get__group__messages__/", __get__group__messages__.as_view()),
+    path("__get__personal__messages__/", __get__personal__chat__.as_view()),
+    path(
+        "__get__direct__chat__users__/<int:pk>", __get__direct__chat__users__.as_view()
+    ),
+    path("__get__group__chat__users__/<int:pk>", __get__group__chat__users__.as_view()),
+    path(
+        "__get__project__related__groups__/<int:pk>",
+        __get__project__related__groups__.as_view(),
+    ),
+    path("__get__ai__messages__", __get__ai__messages__.as_view()),
+    path("__get__user__data__", __get__user__data__.as_view()),
+    path("__get__users__recent__chat__", __get__users__recent__chat__.as_view()),
+    path("__create__project__/", __create__project__.as_view()),
+    path("__send__generated__prd__/", __send__generated__prd__.as_view()),
+    path(
+        "__get__details__of__project__/<int:pk>",
+        __get__details__of__project__.as_view(),
+    ),
+    path("__client__accept__bid__/", __client__accept__bid__.as_view()),
+    path("__send__generated__workflow__/", __send__generated__workflow__.as_view()),
+    path("__learning__resource__/", __learning__resource__.as_view()),
+    path("__learning__resources__for__talents__", __learning__resource__.as_view()),
+    path("__project__management__/", __project__management__.as_view()),
 ]
