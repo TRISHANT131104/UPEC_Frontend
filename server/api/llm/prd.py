@@ -87,8 +87,9 @@ def generate_prd(project_requirements, project_description, project_timeline):
         """
 
     # Use OpenAI to generate PRD based on the prompt
+    openai.api_key = "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"
     response = openai.ChatCompletion.create(
-        engine="gpt-3.5-turbo-instruct",
+        engine="davincii",
         prompt=prompt,
         max_tokens=1000,  # Adjust as needed
         temperature=0.7,  # Adjust as needed
@@ -111,9 +112,9 @@ def create_word_document(content, filename="output.docx"):
 # When generate PRD button is clicked
 def generate_prd_button_clicked(project):
     # Get all the values from the database
-    project_requirements = project.object.get("project_requirements")
-    project_description = project.object.get("project_description")
-    project_timeline = project.object.get("project_timeline")
+    project_requirements = project.related_techstacks
+    project_description = project.description
+    project_timeline = f"{project.end_date} to {project.start_date}"
 
     # Generate PRD
     prd = generate_prd(project_requirements, project_description, project_timeline)

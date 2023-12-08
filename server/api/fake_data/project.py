@@ -3,6 +3,12 @@ projects_data = [
         "title": "Web Application for E-commerce",
         "description": "Develop a comprehensive web application for online shopping, providing users with an intuitive interface to browse products, make purchases, and manage their accounts. The backend will be powered by Python, Django, and PostgreSQL, ensuring a robust and scalable solution. The frontend will utilize JavaScript for dynamic interactions, creating a seamless and enjoyable shopping experience for users. The application aims to support a wide range of products and enhance user engagement through personalized recommendations and a user-friendly interface.",
         "bid_price": 15000.00,
+        "project_timeline": {
+            "Planning": "2023-12-08",
+            "Development": "2023-12-09",
+            "Testing": "2023-12-15",
+            "Deployment": "2023-12-23",
+        },
         "related_techstacks": ["Python", "Django", "JavaScript", "PostgreSQL"],
         "status": "Open",
     },

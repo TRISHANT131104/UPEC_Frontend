@@ -194,7 +194,7 @@ def __generate__prd__(
 class __send__generated__prd__(APIView):
     def post(self, request):
         # send the generated prd to the client
-        user = request.user
+        user = request.data['id']
         # check if user is a client
         is_client = Client.objects.filter(user=user).exists()
         if is_client:
