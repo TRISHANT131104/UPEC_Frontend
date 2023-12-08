@@ -7,11 +7,16 @@ from langchain.vectorstores import Pinecone
 from langchain import HuggingFaceTextGenInference
 from torch import cuda
 import json
+from server.settings import embed_model
 class MessageHandler:
     def __init__(self,api_key):
         openai.api_key = api_key
         self.roles = " Project Owner: Project Manager, Project Manager: Technical Lead, Technical Lead: Developer, Developer: QA Engineer, QA Engineer: Project Manager, Web Developer, Mobile Developer, Desktop Developer, Embedded Systems Developer, Game Developer, Database Developer, DevOps, Quality Assurance and Testing, Artificial Intelligence and Machine Learning, Cloud Computing, Cybersecurity, UI UX Design, API Development, Augmented Reality and Virtual Reality, Robotics, Financial Technology, Education Technology, Blockchain"
         self.role = "Alumni"
+        index="project"
+        text_field="text"
+        if(embed_model):
+            self.vectorstore = Pinecone(index,embed_model.embed_query,text_field)
 
     def prechecks(self, question):
         response = openai.Completion.create(
