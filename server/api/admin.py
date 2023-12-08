@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Post, ChatMsg, GroupMessage, Group, Project, Milestone, ProjectProgressReport, ProjectMembers, ProjectRequirementDocument, Client, Mentor,Talent  
+from .models import Post, ChatMsg, GroupMessage, Group, Project, Milestone, ProjectProgressReport, ProjectMembers, ProjectRequirementDocument, Client, Mentor,Talent,Workflow  
 from django.contrib.auth import get_user_model
  # import UserAdmin
 from django.contrib.auth.admin import UserAdmin
@@ -44,5 +44,6 @@ class CustomTalentAdmin(admin.ModelAdmin):
     list_display = ['id','user']
 admin.site.register(Talent)
 admin.site.register(Team)
+admin.site.register(Workflow)
 
 

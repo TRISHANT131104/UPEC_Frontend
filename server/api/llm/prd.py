@@ -87,7 +87,7 @@ def generate_prd( project_description, project_timeline, project_techstacks):
         JSON format is highly important for the response to be successful."
         """
 
-    openai.api_key = "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"
+    openai.api_key = "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"
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",
         prompt=prompt,

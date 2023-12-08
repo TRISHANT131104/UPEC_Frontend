@@ -27,7 +27,7 @@ class Talent(models.Model):
 
     def __str__(self):
         if(self.user is not None):
-            return f"{self.user.username}"
+            return self.user.username
         else:
             return str(self.id)
 
