@@ -36,7 +36,8 @@ admin.site.register(ProjectRequirementDocument)
 admin.site.register(Client)
 
 admin.site.register(Mentor) 
-
+class CustomTalentAdmin(admin.ModelAdmin):
+    list_display = ['id','user']
 admin.site.register(Talent)
 admin.site.register(Team)
 

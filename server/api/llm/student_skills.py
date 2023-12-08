@@ -2,7 +2,7 @@ import openai
 from ..models import Talent
 from dotenv import load_dotenv
 import os
-
+import google.generativeai as palm
 load_dotenv()
 
 

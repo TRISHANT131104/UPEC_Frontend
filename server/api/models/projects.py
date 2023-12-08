@@ -49,7 +49,7 @@ class Project(models.Model):
     prd = models.OneToOneField(ProjectRequirementDocument, related_name="PRD", on_delete=models.SET_NULL, null=True, blank=True)
     Learning_resources = models.TextField(_("Learning Resources"),blank=True,null=True,default=None)
     workflow = models.TextField(default=None, blank=True, null=True)
-    related_techstacks = models.JSONField(default=list, blank=True, null=True, editable=False)
+    related_techstacks = models.JSONField(default=list, blank=True, null=True)
     created_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     updated_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     created_by = models.ForeignKey(User,null=True,default=None,blank=True,related_name='created_projects',on_delete=models.SET_NULL)
