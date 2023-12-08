@@ -45,9 +45,10 @@ class __get__personal__chat__(APIView):
         # get user chats related to the user and return the messages of that user if ai = False
         user = User.objects.get(id=request.data['sender'])
         receiver = User.objects.get(id=request.data['receiver'])
-        messages = ChatMsg.objects.filter(sender=user,receiver=receiver,ai=False).order_by(
+        ai = request.data['ai']
+        messages = ChatMsg.objects.filter(sender=user,receiver=receiver,ai=ai).order_by(
             "created_at_date", "created_at_time"
-        ) | ChatMsg.objects.filter(receiver=user,sender=receiver,ai=False).order_by(
+        ) | ChatMsg.objects.filter(receiver=user,sender=receiver,ai=ai).order_by(
             "created_at_date", "created_at_time"
         )
         serializer = ChatMsgSerializer(messages, many=True)
@@ -366,19 +367,23 @@ class __project__management__(APIView):
 
 class __learning__resource__(APIView):
     def post(self, request):
-        user = request.user
+        user = User.objects.get(id=request.data['id'])
+        print(user)
         data = request.data
         is_talent = Talent.objects.filter(user=user).exists()
+        print(is_talent)
         if is_talent:
             talent = Talent.objects.filter(user=user)
             project = Project.objects.get(id=data["project_id"])
+            team = Team.objects.filter(project=project)
             if team:
                 team = team[0]
-                learning_resource = learning_resource(talent, project)
-                project.learning_resource = learning_resource
+                learning_resource_output = learning_resource(talent, project)
+                print('learning resource output',learning_resource_output)
+                project.Learning_resources = learning_resource_output
                 project.save()
-                return JsonResponse(
-                    {"success": "Learning Resources generated successfully", "data": learning_resource}
+                return Response(
+                    {"success": "Learning Resources generated successfully", "data": learning_resource_output}
                 )
             else:
                 return Response({"error": "You are not a team"})

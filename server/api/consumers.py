@@ -195,8 +195,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         sender = await self.get_user(sender)
         receiver = await self.get_user(receiver)
         query = await self.save_message(message, sender, receiver,date,time,ai)
-        await self.save_ai_message(query)
-        
         print(message)
         if ai:
                 await self.send_json_to_user(self.channel_name,{"type":"sent_message",
@@ -206,7 +204,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
                 time = gettime()
                 answer = handler.handle_message(message)
                 save_answer = await self.save_message(answer, receiver,sender,date,time,ai)
-                await self.save_ai_message(save_answer)
                 await self.send_json_to_user(self.channel_name,{"type":"sent_message",
                 "message":answer,"sender":str(receiver.username),"receiver":str(sender.username),"created_at_date":date,"created_at_time":time,"id":str(query.id),'ai':ai}
                 )

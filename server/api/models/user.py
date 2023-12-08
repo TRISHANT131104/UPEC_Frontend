@@ -12,23 +12,24 @@ from django.contrib.auth.models import User
 #       abstract = False
 
 
-class Client(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='client')
-    number_of_projects_given = models.IntegerField(default=0)
-    number_of_projects_completed = models.IntegerField(default=0)    
-    rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    current_projects = models.ManyToManyField('Project', null=True, related_name='current_projects_of_client')
+
 
 
 class Talent(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='talent')
-    skills = models.JSONField(default=list, blank=True, null=True, editable=False)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='talent',default=None,null=True,blank=True)
+    skills = models.JSONField(default=list, blank=True, null=True)
     learning_resources = models.JSONField(default=list, blank=True, null=True, editable=False)
     rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     no_projects_completed = models.IntegerField(default=0)
     deadline_missed = models.IntegerField(default=0)
     project_cancelled = models.IntegerField(default=0)
-    currently_working_on = models.ManyToManyField('Project', null=True, related_name='current_projects_of_talent')
+    currently_working_on = models.ManyToManyField('Project', null=True, related_name='current_projects_of_talent',default=None,blank=True)
+
+    def __str__(self):
+        if(self.user is not None):
+            return self.user.username
+        else:
+            return str(self.id)
 
 class Mentor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='mentor')
@@ -42,11 +43,11 @@ class University(models.Model):
 
 class Team(models.Model):
     name = models.CharField(max_length=255)
-    members = models.ManyToManyField(User, related_name='teams')
-    project = models.ForeignKey(Project, on_delete=models.SET_NULL, related_name='teams',null=True)
+    members = models.ManyToManyField(Talent, related_name='team_members')
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, related_name='teams_project',null=True)
     created_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     updated_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
-    created_by = models.ManyToManyField(User, null=True, related_name='created_teams')
-    team_leader = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='team_leaders')
+    created_by = models.ManyToManyField(Talent, null=True, related_name='created_teams')
+    team_leader = models.ForeignKey(Talent, on_delete=models.SET_NULL, null=True, related_name='team_leaders')
     def __str__(self):
         return self.name

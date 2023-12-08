@@ -1,4 +1,4 @@
 from .community import Post
-from .projects import Project, Milestone, ProjectProgressReport, ProjectMembers, ProjectRequirementDocument,Workflow
+from .projects import Project, Milestone, ProjectProgressReport, ProjectMembers, ProjectRequirementDocument,Workflow,Client
 from .chat import ChatMsg, GroupMessage, Group
-from .user import Client, Mentor,Talent
+from .user import  Mentor,Talent
