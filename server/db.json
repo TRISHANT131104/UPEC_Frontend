@@ -1,5 +1,22 @@
 [
-    
+    {
+        "model": "auth.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$390000$CTpP5EWLpUvAwiroXeCEv0$HJak1Km0zHdC/nWTEvccf9myEb8R/57QowoMQWEjGus=",
+            "last_login": "2023-12-08T15:24:44.251Z",
+            "is_superuser": true,
+            "username": "pradeepkumar",
+            "first_name": "",
+            "last_name": "",
+            "email": "",
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2023-12-08T15:10:50.798Z",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
     {
         "model": "auth.user",
         "pk": 2,
@@ -3836,10 +3853,18 @@
     },
     {
         "model": "sessions.session",
-        "pk": "r3qe0ds351mkr01o49j07uq356roeg36",
+        "pk": "nn4oa1wmd2yobzbkfaru4fkbqdg4j4ei",
         "fields": {
-            "session_data": ".eJxVjEEOwiAQRe_C2hAGZACX7nsGAsxEqgaS0q6Md9cmXej2v_f-S8S0rTVug5c4k7gIEKffLafy4LYDuqd267L0ti5zlrsiDzrk1Imf18P9O6hp1G9tfFCExRZOii2CQaQUUHvvUGsdAjEoG8AWDei08pQZAhkFeHbMRbw_uU42vQ:1rAR1w:03VJeOthlnwpcxGbxprR0HTNBSrg-Sguo4wZmgZTTcM",
-            "expire_date": "2023-12-19T08:43:48.585Z"
+            "session_data": ".eJxVjMsOwiAUBf-FtSGUl9Sl-34D4T6QqoGktCvjv2uTLnR7Zua8REzbWuLWeYkziYsYxOl3g4QPrjuge6q3JrHVdZlB7oo8aJdTI35eD_fvoKRevnU2qB25BKO2Gc8cwAccjCd02meT2VgXPKBWY2BHrI1SmNEFyhYBknh_APgNOMY:1rBcia:vTP0-CWQ-STZHOXozD4cL6mqHAI1Jnm1iqz4gSyi4-A",
+            "expire_date": "2023-12-22T15:24:44.259Z"
+        }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "z6wniu2i2nqof4tjbxcvosxhgavmaf62",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAUBf-FtSGUl9Sl-34D4T6QqoGktCvjv2uTLnR7Zua8REzbWuLWeYkziYsYxOl3g4QPrjuge6q3JrHVdZlB7oo8aJdTI35eD_fvoKRevnU2qB25BKO2Gc8cwAccjCd02meT2VgXPKBWY2BHrI1SmNEFyhYBknh_APgNOMY:1rBcVi:2nrHYfn6wp5XOXZc5uf6b8jJ9xIHEqYA3C_1PaOXCz0",
+            "expire_date": "2023-12-22T15:11:26.989Z"
         }
     },
     {
@@ -4743,6 +4768,49 @@
         }
     },
     {
+        "model": "api.group",
+        "pk": "2ea73b0f-ebe2-4a94-b48e-0ea1241e114d",
+        "fields": {
+            "grp_name": "hello",
+            "created_at_date": "5th December 2023",
+            "created_at_time": "10:19:18 pm",
+            "grp_admin": 2,
+            "grp_members": [
+                1,
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "model": "api.group",
+        "pk": "311e958a-3384-4b12-9543-f6b40aa05019",
+        "fields": {
+            "grp_name": "useless 234234",
+            "created_at_date": "7th December 2023",
+            "created_at_time": "2:42:21 pm",
+            "grp_admin": 2,
+            "grp_members": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "api.group",
+        "pk": "c8e2ca91-31a0-4ccc-a2a1-ce7153ea7f48",
+        "fields": {
+            "grp_name": "useless",
+            "created_at_date": "7th December 2023",
+            "created_at_time": "2:39:32 pm",
+            "grp_admin": 2,
+            "grp_members": [
+                1,
+                2,
+                3
+            ]
+        }
+    },
+    {
         "model": "api.chatmsg",
         "pk": "01d1f691-689b-42bc-be94-5eb1267f1a32",
         "fields": {
@@ -4989,458 +5057,6 @@
             "number_of_projects_completed": 3,
             "rating": "4.00",
             "current_projects": []
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 1,
-        "fields": {
-            "title": "Web Application for E-commerce",
-            "description": "Develop a comprehensive web application for online shopping, providing users with an intuitive interface to browse products, make purchases, and manage their accounts. The backend will be powered by Python, Django, and PostgreSQL, ensuring a robust and scalable solution. The frontend will utilize JavaScript for dynamic interactions, creating a seamless and enjoyable shopping experience for users. The application aims to support a wide range of products and enhance user engagement through personalized recommendations and a user-friendly interface.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "15000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "Python",
-                "Django",
-                "JavaScript",
-                "PostgreSQL"
-            ],
-            "project_timeline": "Planning : 2023-12-08 , Development : 2023-12-09 , Testing : 2023-12-15 , Deployment : 2023-12-23",
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 1,
-            "chat_group_id": null
-        }
-    },
-    
-    {
-        "model": "api.project",
-        "pk": 3,
-        "fields": {
-            "title": "Project Management System",
-            "description": "Build a robust project management system to facilitate efficient project collaboration. The system will be developed using Java and Spring Boot, ensuring a secure and scalable backend. MySQL will be used to store project data, and Thymeleaf will provide dynamic templates for the frontend. The goal is to streamline project workflows, enhance communication among team members, and provide real-time updates on project progress. The system will include features such as task management, file sharing, and a dashboard for project analytics.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "18000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "Java",
-                "Spring Boot",
-                "MySQL",
-                "Thymeleaf"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 3,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 4,
-        "fields": {
-            "title": "Mobile App for iOS",
-            "description": "Develop a feature-rich mobile app for iOS, integrating Firebase for real-time data synchronization and authentication. The app, written in Swift, will offer a seamless user experience with a focus on performance and responsiveness. Firebase will handle backend services such as user authentication and data storage. The app's features will include push notifications, in-app messaging, and a user-friendly interface. The goal is to provide users with a convenient and engaging mobile experience while ensuring the security of their data.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "10000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "Swift",
-                "iOS Development",
-                "Firebase"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 4,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 5,
-        "fields": {
-            "title": "E-commerce Platform with Vue.js",
-            "description": "Enhance the existing e-commerce platform with Vue.js to provide a modern and interactive user experience. The platform, built using PHP, Laravel, and MySQL, will be extended with Vue.js for dynamic frontend components. The goal is to improve the overall user interface, making it more responsive and user-friendly. Features will include product recommendations, seamless navigation, and a visually appealing design. The Vue.js integration aims to elevate the platform's frontend capabilities and enhance user satisfaction.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "8500.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "PHP",
-                "Laravel",
-                "MySQL",
-                "Vue.js"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 5,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 6,
-        "fields": {
-            "title": "Android App for Location Tracking",
-            "description": "Develop an Android app for location tracking using Kotlin and SQLite. The app will provide users with the ability to track their location in real-time, view location history, and set location-based reminders. The backend will utilize Kotlin for efficient data processing, and SQLite will store location data locally. The app aims to offer a user-friendly interface, optimize battery usage, and ensure accurate location tracking. It will be a valuable tool for users who require location-based services and reminders.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "16000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "Kotlin",
-                "Android Development",
-                "SQLite"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 6,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 7,
-        "fields": {
-            "title": "GoLang API for Data Analytics",
-            "description": "Build a GoLang API for data analytics with Gin and MongoDB. The API will serve as a backend for data analytics applications, providing robust and efficient data processing. GoLang's concurrency features will be leveraged for parallel processing, and Gin will handle HTTP requests. MongoDB will be used as the database to store and retrieve analytical data. The goal is to create a scalable and performant API that supports various data analytics use cases.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "13000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "Go",
-                "Gin",
-                "MongoDB"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 7,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 8,
-        "fields": {
-            "title": "Content Management System with Flask",
-            "description": "Create a content management system (CMS) with Flask and SQLAlchemy. The CMS will enable users to create, edit, and manage digital content with ease. Flask will serve as the web framework, providing a lightweight and modular structure, while SQLAlchemy will handle database interactions. The CMS will support features such as content versioning, user roles, and a customizable frontend. The goal is to deliver a flexible and user-friendly CMS solution suitable for various content-driven websites.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "11000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "Python",
-                "Flask",
-                "SQLAlchemy",
-                "SQLite"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 8,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 9,
-        "fields": {
-            "title": "Autonomous Drone Surveillance System",
-            "description": "Develop an autonomous drone surveillance system using computer vision and machine learning. The system will consist of a drone equipped with cameras and sensors to monitor and analyze the surrounding environment. Computer vision algorithms will be employed for object detection and tracking, while machine learning models will enhance the system's ability to recognize and respond to specific events. The goal is to create an intelligent and efficient surveillance solution with applications in security and monitoring.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "20000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "Python",
-                "OpenCV",
-                "TensorFlow",
-                "Raspberry Pi",
-                "Drone",
-                "Raspberry Pi",
-                "Camera Module"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 9,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 10,
-        "fields": {
-            "title": "Smart Agriculture Drone",
-            "description": "Build a drone for smart agriculture monitoring and crop analysis. The drone will be equipped with sensors and cameras to collect data on crop health, soil conditions, and environmental factors. The system aims to provide farmers with valuable insights to optimize crop management practices. Arduino will be used for hardware control, and IoT technologies will enable data transmission and remote monitoring. The goal is to contribute to sustainable and efficient agriculture practices through advanced technology.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "18000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "Arduino",
-                "IoT",
-                "Sensors",
-                "Arduino",
-                "Sensors",
-                "GPS Module",
-                "Camera"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 10,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 11,
-        "fields": {
-            "title": "Robotic Arm for Manufacturing",
-            "description": "Design and implement a robotic arm for manufacturing processes. The robotic arm will be programmed to perform precise and repetitive tasks, enhancing efficiency in manufacturing environments. ROS (Robot Operating System) and C++ will be utilized for control and programming, while a PLC (Programmable Logic Controller) will manage hardware integration. The system aims to automate specific tasks in manufacturing, reducing human intervention and improving overall production efficiency.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "22000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "ROS",
-                "C++",
-                "PLC",
-                "Robotic Arm",
-                "PLC",
-                "Sensors"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 11,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 12,
-        "fields": {
-            "title": "Humanoid Robot Assistant",
-            "description": "Create a humanoid robot assistant to aid in daily tasks and interactions. The humanoid robot will be equipped with sensors and cameras for perception and interaction. Python, ROS, and computer vision technologies will be employed for programming and control. The robot's capabilities may include object recognition, natural language processing, and assistance with household activities. The goal is to develop an intelligent and versatile humanoid robot that enhances the quality of life for users.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "25000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "Python",
-                "ROS",
-                "Computer Vision",
-                "Humanoid Robot",
-                "Sensors",
-                "Cameras"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 12,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 13,
-        "fields": {
-            "title": "Industrial IoT Monitoring System",
-            "description": "Develop an Industrial IoT monitoring system for real-time data analysis in manufacturing. The system will utilize Node.js, Express, and MongoDB for backend development, handling data from sensors and PLCs. IoT technologies will enable seamless communication between devices. The goal is to provide manufacturers with valuable insights into equipment performance, predictive maintenance, and overall efficiency. The system will contribute to improved decision-making and streamlined operations in industrial settings.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "19000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "Node.js",
-                "Express",
-                "IoT",
-                "MongoDB",
-                "Sensors",
-                "PLC",
-                "IoT Gateway"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 13,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 14,
-        "fields": {
-            "title": "Smart Traffic Management System",
-            "description": "Implement a smart traffic management system using IoT and machine learning. The system will incorporate cameras, sensors, and IoT devices to monitor and optimize traffic flow. Machine learning algorithms will analyze data to predict traffic patterns and adjust signal timings. The goal is to create an intelligent traffic management solution that reduces congestion, enhances safety, and improves overall transportation efficiency.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "17000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "Python",
-                "Django",
-                "IoT",
-                "Machine Learning",
-                "Cameras",
-                "Sensors",
-                "IoT Gateway"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 4,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 15,
-        "fields": {
-            "title": "Wireless Sensor Network for Environmental Monitoring",
-            "description": "Create a wireless sensor network for monitoring environmental conditions. The network will consist of Arduino-based sensors communicating wirelessly to collect data on temperature, humidity, and air quality. The collected data will be stored and analyzed to gain insights into environmental changes. The goal is to contribute to environmental monitoring efforts, providing valuable data for research and decision-making related to climate and ecology.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "15000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "Arduino",
-                "Wireless Communication",
-                "Sensors",
-                "Arduino",
-                "Wireless Modules",
-                "Environmental Sensors"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 3,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 16,
-        "fields": {
-            "title": "Smart Mirror with Voice Recognition",
-            "description": "Build a smart mirror with voice recognition for personalized information display. The smart mirror will be powered by React and Node.js, providing a dynamic and customizable interface. Speech recognition technology will enable users to interact with the mirror using voice commands. The mirror's display will show relevant information such as weather updates, calendar events, and news. The goal is to create a smart and interactive mirror that enhances the user's daily routine.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "14000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "React",
-                "Node.js",
-                "Speech Recognition",
-                "Raspberry Pi",
-                "Microphone",
-                "Display Panel"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 2,
-            "chat_group_id": null
-        }
-    },
-    {
-        "model": "api.project",
-        "pk": 17,
-        "fields": {
-            "title": "Autonomous Robot for Warehouse Management",
-            "description": "Develop an autonomous robot for efficient warehouse management. The robot will navigate through the warehouse using sensors and computer vision, optimizing inventory management and order fulfillment processes. ROS (Robot Operating System), Python, and computer vision technologies will be utilized for programming and control. The goal is to create a reliable and cost-effective solution for automating warehouse operations, improving efficiency, and reducing manual labor.",
-            "start_date": "8th December 2023 1:03:03 pm",
-            "end_date": "8th December 2023 1:03:03 pm",
-            "bid_price": "21000.00",
-            "status": "Open",
-            "project_doc": "",
-            "prd": null,
-            "Learning_resources": "",
-            "related_techstacks": [
-                "ROS",
-                "Python",
-                "Computer Vision",
-                "Robot Base",
-                "Sensors",
-                "Linux"
-            ],
-            "project_timeline": null,
-            "workflow": null,
-            "created_at": "8th December 2023 1:03:03 pm",
-            "updated_at": "8th December 2023 1:03:03 pm",
-            "created_by": 1,
-            "chat_group_id": null
         }
     },
     {
@@ -5992,34 +5608,6 @@
             "deadline_missed": 3,
             "project_cancelled": 2,
             "currently_working_on": []
-        }
-    },
-    {
-        "model": "api.team",
-        "pk": 6,
-        "fields": {
-            "name": "The Incredelibles",
-            "project": 1,
-            "created_at": "8th December 2023 4:39:17 pm",
-            "updated_at": "8th December 2023 4:39:17 pm",
-            "team_leader": 1,
-            "members": [
-                1,
-                2,
-                3,
-                4
-            ],
-            "created_by": [
-                1
-            ]
-        }
-    },
-    {
-        "model": "sites.site",
-        "pk": 1,
-        "fields": {
-            "domain": "example.com",
-            "name": "example.com"
         }
     }
 ]

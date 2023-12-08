@@ -91,16 +91,16 @@ WSGI_APPLICATION = 'server.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'nexus net',
-#         'USER': 'postgres',
-#         'PASSWORD': 1234,
-#         'HOST': 'localhost',
-#         'PORT': '5433',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'nexus net',
+        'USER': 'postgres',
+        'PASSWORD': 1234,
+        'HOST': 'localhost',
+        'PORT': '5433',
+    }
+}
 
 DATABASES = {
     'default': {
@@ -111,10 +111,13 @@ DATABASES = {
     # 'default':dj_database_url.config(default=env('DATABASE_URL'))
 }
 
-# DATABASES = {
-#     "default":dj_database_url.config(default = env('DATABASE_URL'),ssl_require=True)
-# }
-# Password validation
+DATABASES = {
+      'default': {
+          'ENGINE': 'djongo',
+          'NAME': 'TRUMIO',
+      }
+}
+# # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [

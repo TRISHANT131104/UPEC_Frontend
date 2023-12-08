@@ -402,15 +402,17 @@ class __get__direct__chat__users__(APIView):
     def get(self,request,pk):
         user = User.objects.get(id=pk)
         users_chats = ChatMsg.objects.filter(sender=user) | ChatMsg.objects.filter(receiver=user)
+        print(users_chats)
         serializer = ChatMsgSerializer(users_chats,many=True)
         response = []
         print(serializer.data)
         for i in serializer.data:
+            print('i ',i['sender'],i['receiver'])
             if i['sender'] not in response:
                 response.append(i['sender'])
-            elif i['receiver'] not in response:
+            if i['receiver'] not in response:
                 response.append(i['receiver'])
-        print(response.sort())
+        print('response',response)
         direct_chat_users = []
         for i in response:
             direct_chat_users.append(UserSerializer(User.objects.get(id=i)).data)
