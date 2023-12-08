@@ -10,6 +10,8 @@ from .llm import *
 from .llm.leaning_resource import learning_resource
 from .llm.management import generate_management
 from rest_framework.response import Response
+from .llm.workflow import *
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .llm.student_skills import *
 # Create your views here.
@@ -204,7 +206,7 @@ class __send__generated__prd__(APIView):
             # get the project
             project = Project.objects.get(id=request.data["project_id"])
             # check if the client is the owner of the project
-            if project.created_by == client:
+            if project.created_by == client.user:
                 # generate the prd
                 prd = generate_prd_button_clicked(project)
                 # prd is a dictionary
@@ -311,33 +313,20 @@ def generate_workflow(title, desc, timeline, students_info):
 
 class __send__generated__workflow__(APIView):
     def post(self, request):
-        # send the generated workflow to the client
-        user = request.user
-        # check if user is a client
-        is_talent = Talent.objects.filter(user=user).exists()
-        if is_talent:
-            # check if the person is a team leader else dont allow him to send the workflow
-            talent = Talent.objects.get(user=user)
-            # get the project
-            project = Project.objects.get(id=request.data["project_id"])
-            # check if the talent is the team leader of the project
-            # get the team
-            team = Team.objects.filter(project=project)
+        user_id = request.data.get("id")
 
-            if team:
-                # check if the user is the team leader
-                team = team[0]
-                if talent == team.team_leader:
-                    # generate the workflow
-                    workflow = generate_workflow(
-                        project.title,
-                        project.description,
-                        project.timeline,
-                        team.members,
-                    )
-                    # save the workflow in the Workflow model
-                    project.workflow = workflow
-                    project.save()
+        if user_id is not None:
+            user = get_object_or_404(User, id=user_id)
+            is_talent = Talent.objects.filter(user=user).exists()
+
+            if is_talent:
+                project_id = request.data.get("project_id")
+                project = get_object_or_404(Project, id=project_id)
+
+                team = Team.objects.filter(project=project)
+
+                if team.exists():
+                    workflow = make_workflow(project)
                     return JsonResponse(
                         {"success": "Workflow generated successfully", "data": workflow}
                     )
@@ -345,8 +334,10 @@ class __send__generated__workflow__(APIView):
                     return Response(
                         {"error": "You are not the team leader of this project"}
                     )
+            else:
+                return Response({"error": "You are not a talent"})
         else:
-            return Response({"error": "You are not a client"})
+            return Response({"error": "User ID is not provided in the request data"})
 
 
 class __project__management__(APIView):

@@ -48,11 +48,7 @@ class Client(models.Model):
     rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     current_projects = models.ManyToManyField('Project', related_name='current_projects_of_client',null=True,default=None,blank=True)
 
-    def __str__(self):
-        if(self.user is not None):
-            return f"{self.user.username}"
-        else:
-            return str(self.id)
+    
 
 class Project(models.Model):
     title = models.CharField(max_length=255)
@@ -71,8 +67,7 @@ class Project(models.Model):
     updated_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     created_by = models.ForeignKey(Client,null=True,default=None,blank=True,related_name='created_projects',on_delete=models.SET_NULL)
     chat_group_id = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True)
-    def __str__(self):
-        return f"{self.id}-{self.title}-{self.created_by}"
+    
 
 class Milestone(models.Model):
     name = models.CharField(max_length=255)
