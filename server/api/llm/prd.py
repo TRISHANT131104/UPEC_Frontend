@@ -2,7 +2,7 @@ import openai
 import json
 from docx import Document
 from ..models import ProjectRequirementDocument
-def generate_prd(project_requirements, project_description, project_timeline):
+def generate_prd( project_description, project_timeline, project_techstacks):
 
     # Define the prompt based on parameters
     prompt = f"""
@@ -10,8 +10,6 @@ def generate_prd(project_requirements, project_description, project_timeline):
         Provide the project details in a JSON data structure, ensuring that each key corresponds to the following elements:
         The project involves {project_description}. Below are the key details:
 
-        ### Project Requirements:
-        {project_requirements}
 
         ### Project Description:
         {project_description}
@@ -19,6 +17,8 @@ def generate_prd(project_requirements, project_description, project_timeline):
         ### Project Timeline:
         {project_timeline}
 
+        ### Project Techstacks
+        {project_techstacks}
 
         Considering this information, generate a PRD that adheres to the following structure:
 
@@ -86,10 +86,9 @@ def generate_prd(project_requirements, project_description, project_timeline):
         Please provide the information in a format suitable for easy storage in a database."
         """
 
-    # Use OpenAI to generate PRD based on the prompt
     openai.api_key = "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"
-    response = openai.ChatCompletion.create(
-        engine="davincii",
+    response = openai.Completion.create(
+        engine="gpt-3.5-turbo-instruct",
         prompt=prompt,
         max_tokens=1000,  # Adjust as needed
         temperature=0.7,  # Adjust as needed
@@ -112,12 +111,12 @@ def create_word_document(content, filename="output.docx"):
 # When generate PRD button is clicked
 def generate_prd_button_clicked(project):
     # Get all the values from the database
-    project_requirements = project.related_techstacks
+    project_techstacks = project.related_techstacks
     project_description = project.description
     project_timeline = f"{project.end_date} to {project.start_date}"
 
     # Generate PRD
-    prd = generate_prd(project_requirements, project_description, project_timeline)
+    prd = generate_prd(project_description, project_timeline, project_techstacks)
 
     # Create a Word document
     create_word_document(prd)

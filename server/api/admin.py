@@ -23,7 +23,11 @@ admin.site.register(GroupMessage)
 
 admin.site.register(Group)
 
-admin.site.register(Project)
+@admin.register(Project)
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('id','title', 'created_by', 'created_at')
+    list_filter = ('status', 'created_at', 'updated_at')
+    search_fields = ('title',)
 
 admin.site.register(Milestone)
 

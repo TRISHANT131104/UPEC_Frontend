@@ -21,7 +21,15 @@ class MessageHandler:
     def prechecks(self, question):
         response = openai.Completion.create(
             engine="gpt-3.5-turbo-instruct",
-            prompt=f"I have a Question : {question} and The Current Roles i have is : {self.roles} . Now i have 3 questions for you . Qn1) Is this question answerable by any of the above mentioned roles Just Return yes or no and nothing else , Qn2) If the question is answerable by any of the above roles then which role should take up the question just return the role If no role is decided then return None , Qn3) Will this question require some context / project details before you can answer it Just Return yes or no and nothing else? . Return the answer of all 3 questions In this format : qn1's_answer,qn2's_answer,qn3's_answer . Remmber to answer to the point and only 3 answers splitted with comma's must be returned",
+            prompt=f"""
+            I have a Question : {question} and The Current Roles i have is : {self.roles}. 
+            Now i have 3 questions for you . 
+            Qn1) Is this question answerable by any of the above mentioned roles Just Return yes or no and nothing else , 
+            Qn2) If the question is answerable by any of the above roles then which role should take up the question just return the role If no role is decided then return None , 
+            Qn3) Will this question require some context / project details before you can answer it Just Return yes or no and nothing else. 
+            Return the answer of all 3 questions In this format : qn1's_answer,qn2's_answer,qn3's_answer . 
+            Remmber to answer to the point and only 3 answers splitted with comma's must be returned
+            """,
             max_tokens=50,
         )
 
@@ -43,7 +51,7 @@ class MessageHandler:
             repetition_penalty=1.03,
         )
         rag_pipeline = RetrievalQA.from_chain_type(
-            llm=llm, chain_type="stuff", retriever=vectorstore.as_retriever()
+            llm=llm, chain_type="stuff", retriever=self.vectorstore.as_retriever()
         )
         answer = rag_pipeline(question)
         return answer["result"]
@@ -58,21 +66,20 @@ class MessageHandler:
         is_question_answerable = arr[0]
         role = arr[1]
         is_question_project_related = arr[2]
-        if is_question_answerable.lower().replace(" ","").replace(".","")=="no" or 'yes' in is_question_project_related.lower().replace(" ","").replace(".",""):
+        if is_question_answerable.lower().replace(" ","").replace(".","")=="no" or 'no' in is_question_project_related.lower().replace(" ","").replace(".",""):
             response = openai.Completion.create(
                     engine="gpt-3.5-turbo-instruct",
                     prompt=f"{user_question}. Give your response as you are best in that field and you really want to help the user .",
                     max_tokens=50,
                 )
         elif is_question_answerable.lower().replace(" ","").replace(".","")=="yes" or 'yes' in is_question_project_related.lower().replace(" ","").replace(".",""):
-            if role == None or role=="none" or role.replace(" ","").replace(".","")=="none" or 'none' in role.replace(" ","").replace(".",""):
+            if role == None or role=="none" or role.replace(" ","").replace(".","")=="none" or 'none' in role.replace(" ","").replace(".","") and is_question_project_related.lower().replace(" ","").replace(".","")=="no" or 'no' in is_question_project_related.lower().replace(" ","").replace(".",""):
                 response = openai.Completion.create(
                     engine="gpt-3.5-turbo-instruct",
                     prompt=f"{user_question}. Give your response as you are best in that field and you really want to help the user .",
                     max_tokens=50,
                 )
             else:
-                
                 if is_question_project_related.lower().replace(" ","").replace(".","")=="no" or 'no' in is_question_project_related.lower().replace(" ","").replace(".",""):
                     response = openai.Completion.create(
                     engine="gpt-3.5-turbo-instruct",

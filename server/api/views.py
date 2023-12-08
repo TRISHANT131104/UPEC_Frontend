@@ -194,12 +194,13 @@ def __generate__prd__(
 class __send__generated__prd__(APIView):
     def post(self, request):
         # send the generated prd to the client
-        user = request.data['id']
+        user = User.objects.get(id=request.data['id'])
         # check if user is a client
         is_client = Client.objects.filter(user=user).exists()
         if is_client:
             # get the client
             client = Client.objects.get(user=user)
+            print(client)
             # get the project
             project = Project.objects.get(id=request.data["project_id"])
             # check if the client is the owner of the project
@@ -388,7 +389,7 @@ class __learning__resource__(APIView):
             else:
                 return Response({"error": "You are not a team"})
             
-class __learning__resources__for__talents(APIView):
+class __learning__resources__for__talents__(APIView):
     def post(self,request):
         #generate the learning resources for the talent
         user = request.user
