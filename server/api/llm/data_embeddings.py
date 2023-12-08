@@ -3,12 +3,15 @@ from torch import cuda
 from langchain.vectorstores import Pinecone
 import os
 import pinecone
-from ..models.projects import Project
-from ..models.projects import ProjectRequirementDocument
+from ..models import (
+    Workflow,
+    ProjectRequirementDocument,
+    Project
+)
 from server.settings import embed_model
 
 pinecone.init(
-    api_key=os.environ.get("PINECONE_API_KEY"),
+    api_key=os.environ.get("PINECONE_API_KEY1"),
     environment=os.environ.get("PINECONE_ENVIRONMENT") or "gcp-starter",
 )
 
@@ -35,7 +38,7 @@ def store_project_requirement_document_embeddings(prd):
     "project_goals": {prd.project_goals},
     "user_stories": {prd.user_stories},
     "system_architecture": {prd.system_architecture},
-    "requirements_analysis": {prd.requirements_analysis},
+    "tech_stacks": {prd.tech_stacks},
     "requirement_pool": {prd.requirement_pool},
     "ui_ux_design": {prd.ui_ux_design},
     "development_methodology": {prd.development_methodology},
@@ -71,7 +74,7 @@ def store_project_requirement_document_embeddings(prd):
         "project_goals": {prd.project_goals},
         "user_stories": {prd.user_stories},
         "system_architecture": {prd.system_architecture},
-        "requirements_analysis": {prd.requirements_analysis},
+        "tech_stacks": {prd.tech_stacks},
         "requirement_pool": {prd.requirement_pool},
         "ui_ux_design": {prd.ui_ux_design},
         "development_methodology": {prd.development_methodology},
@@ -110,7 +113,7 @@ def update_project_workflow(workflow):
     "project_goals": {prd.project_goals},
     "user_stories": {prd.user_stories},
     "system_architecture": {prd.system_architecture},
-    "requirements_analysis": {prd.requirements_analysis},
+    "tech_stacks": {prd.tech_stacks},
     "requirement_pool": {prd.requirement_pool},
     "ui_ux_design": {prd.ui_ux_design},
     "development_methodology": {prd.development_methodology},
@@ -146,7 +149,7 @@ def update_project_workflow(workflow):
         "project_goals": {prd.project_goals},
         "user_stories": {prd.user_stories},
         "system_architecture": {prd.system_architecture},
-        "requirements_analysis": {prd.requirements_analysis},
+        "tech_stacks": {prd.tech_stacks},
         "requirement_pool": {prd.requirement_pool},
         "ui_ux_design": {prd.ui_ux_design},
         "development_methodology": {prd.development_methodology},

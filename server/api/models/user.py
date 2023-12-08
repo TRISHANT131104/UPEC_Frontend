@@ -43,7 +43,7 @@ class University(models.Model):
 class Team(models.Model):
     name = models.CharField(max_length=255)
     members = models.ManyToManyField(User, related_name='teams')
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='teams')
+    project = models.ForeignKey(Project, on_delete=models.SET_NULL, related_name='teams',null=True)
     created_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     updated_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     created_by = models.ManyToManyField(User, null=True, related_name='created_teams')

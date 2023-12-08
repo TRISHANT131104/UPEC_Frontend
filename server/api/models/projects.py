@@ -37,6 +37,9 @@ class ProjectRequirementDocument(models.Model):
     timeline_and_milestones = models.TextField()
     communication_plan = models.TextField()
     anything_unclear = models.TextField()
+
+class Workflow(models.Model):
+    description = models.TextField()
     
 class Project(models.Model):
     title = models.CharField(max_length=255)
@@ -48,7 +51,8 @@ class Project(models.Model):
     project_doc = models.FileField(upload_to=__prd__file__path__, null=True, blank=True)
     prd = models.OneToOneField(ProjectRequirementDocument, related_name="PRD", on_delete=models.SET_NULL, null=True, blank=True)
     Learning_resources = models.TextField(_("Learning Resources"),blank=True,null=True,default=None)
-    workflow = models.TextField(default=None, blank=True, null=True)
+    workflow = models.OneToOneField(Workflow, related_name="workflow", on_delete=models.SET_NULL,null=True,blank=True,default=None)
+    # workflow = models.TextField(_("Workflow"),blank=True,null=True,default=None)
     related_techstacks = models.JSONField(default=list, blank=True, null=True, editable=False)
     created_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     updated_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
