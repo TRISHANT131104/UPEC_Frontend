@@ -12,9 +12,10 @@ from .llm import data_embeddings, data_embeddings_community
 @receiver(post_save, sender=ProjectRequirementDocument)
 def store_project_embeddings(sender, instance, created, **kwargs):
     if created:
-        data_embeddings.store_project_embeddings(instance)
+        data_embeddings.store_project_requirement_document_embeddings(instance)
         print("Project embeddings stored")
     else:
+        data_embeddings.store_project_requirement_document_embeddings(instance)
         print("Project embeddings already stored")
 
 @receiver(post_save, sender=Workflow)

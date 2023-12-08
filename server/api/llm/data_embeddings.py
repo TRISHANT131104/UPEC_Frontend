@@ -8,18 +8,23 @@ from ..models import (
     ProjectRequirementDocument,
     Project
 )
-from server.settings import embed_model
+# from server.settings import embed_model
+from ..utils.load_embedding_model import load_embedding_model
 
-pinecone.init(
-    api_key=os.environ.get("PINECONE_API_KEY1"),
-    environment=os.environ.get("PINECONE_ENVIRONMENT") or "gcp-starter",
-)
+def initiate_pinecone():
+    pinecone.init(
+        api_key="663983e5-451f-4d33-bf74-6a7b8dbc4bcb",
+        environment="gcp-starter",
+    )
 
-index_name = "projects"
-index = pinecone.Index(index_name)
+    index_name = "projects"
+    index = pinecone.Index(index_name)
+    return index
 
 
 def store_project_requirement_document_embeddings(prd):
+    embed_model=load_embedding_model()
+    index = initiate_pinecone()
     project = Project.objects.get(prd=prd)
     text =[f"""
     "project_id": {project.id},
@@ -29,7 +34,7 @@ def store_project_requirement_document_embeddings(prd):
     "project_end_date": {project.end_date},
     "project_bid_price": {project.bid_price},
     "project_status": {project.status},
-    "project_related_techstacks": {project.related_techstacks}
+    "project_related_techstacks": {tuple(project.related_techstacks)}
     "project_created_at": {project.created_at},
     "project_updated_at": {project.updated_at},
     "project_created_by": {project.created_by},
@@ -65,7 +70,7 @@ def store_project_requirement_document_embeddings(prd):
         "project_end_date": {project.end_date},
         "project_bid_price": {project.bid_price},
         "project_status": {project.status},
-        "project_related_techstacks": {project.related_techstacks},
+        "project_related_techstacks": {tuple(project.related_techstacks)},
         "project_created_at": {project.created_at},
         "project_updated_at": {project.updated_at},
         "project_created_by": {project.created_by},
@@ -90,9 +95,11 @@ def store_project_requirement_document_embeddings(prd):
         "communication_plan": {prd.communication_plan},
         "anything_unclear": {prd.anything_unclear}
     }]
-    index.upsert(vectors = zip([f'{prd.id}'], embeddings,metadata))
+    index.upsert(vectors = zip([f'{project.id}'], embeddings,metadata))
         
 def update_project_workflow(workflow):
+    embed_model=load_embedding_model()
+    index = initiate_pinecone()
     project = Project.objects.get(workflow=workflow)
     prd=project.prd
     text =[

@@ -25,7 +25,11 @@ class Talent(models.Model):
     project_cancelled = models.IntegerField(default=0)
     currently_working_on = models.ManyToManyField('Project', null=True, related_name='current_projects_of_talent',default=None,blank=True)
 
-    
+    def __str__(self):
+        if(self.user is not None):
+            return self.user.username
+        else:
+            return str(self.id)
 
 class Mentor(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='mentor')

@@ -14,14 +14,15 @@ from .llm.workflow import *
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .llm.student_skills import *
+
 # Create your views here.
 
 
 class __get__group__messages__(APIView):
     def post(self, request):
         # get user , get the group id from pk , query the group messages and return the messages of that group if ai=True
-        user = User.objects.get(id=request.data['sender'])
-        grp_id = request.data['receiver']
+        user = User.objects.get(id=request.data["sender"])
+        grp_id = request.data["receiver"]
         group = Group.objects.get(grp_id=grp_id)
         if user in group.grp_members.all():
             messages = GroupMessage.objects.filter(group=group)
@@ -29,15 +30,15 @@ class __get__group__messages__(APIView):
             response = []
             for i in serializer.data:
                 data = {
-                    "sender":User.objects.get(id=i['sender']).username,
-                    "id":i['id'],
-                    "message":i['message'],
-                    "ai":i['ai'],
-                    "created_at_date":i["created_at_date"],
-                    "created_at_time":i["created_at_time"]
+                    "sender": User.objects.get(id=i["sender"]).username,
+                    "id": i["id"],
+                    "message": i["message"],
+                    "ai": i["ai"],
+                    "created_at_date": i["created_at_date"],
+                    "created_at_time": i["created_at_time"],
                 }
                 response.append(data)
-            return JsonResponse(response,safe=False)
+            return JsonResponse(response, safe=False)
         else:
             return Response({"error": "You are not a member of this group"})
 
@@ -45,28 +46,30 @@ class __get__group__messages__(APIView):
 class __get__personal__chat__(APIView):
     def post(self, request):
         # get user chats related to the user and return the messages of that user if ai = False
-        user = User.objects.get(id=request.data['sender'])
-        receiver = User.objects.get(id=request.data['receiver'])
-        ai = request.data['ai']
-        messages = ChatMsg.objects.filter(sender=user,receiver=receiver,ai=ai).order_by(
-            "created_at_date", "created_at_time"
-        ) | ChatMsg.objects.filter(receiver=user,sender=receiver,ai=ai).order_by(
+        user = User.objects.get(id=request.data["sender"])
+        receiver = User.objects.get(id=request.data["receiver"])
+        ai = request.data["ai"]
+        messages = ChatMsg.objects.filter(
+            sender=user, receiver=receiver, ai=ai
+        ).order_by("created_at_date", "created_at_time") | ChatMsg.objects.filter(
+            receiver=user, sender=receiver, ai=ai
+        ).order_by(
             "created_at_date", "created_at_time"
         )
         serializer = ChatMsgSerializer(messages, many=True)
         response = []
         for i in serializer.data:
             data = {
-                    "sender":User.objects.get(id=i['sender']).username,
-                    "receiver":User.objects.get(id=i['receiver']).username,
-                    "id":i['id'],
-                    "message":i['message'],
-                    "ai":i['ai'],
-                    "created_at_date":i["created_at_date"],
-                    "created_at_time":i["created_at_time"]
+                "sender": User.objects.get(id=i["sender"]).username,
+                "receiver": User.objects.get(id=i["receiver"]).username,
+                "id": i["id"],
+                "message": i["message"],
+                "ai": i["ai"],
+                "created_at_date": i["created_at_date"],
+                "created_at_time": i["created_at_time"],
             }
             response.append(data)
-        return JsonResponse(response,safe=False)
+        return JsonResponse(response, safe=False)
 
 
 class __get__ai__messages__(APIView):
@@ -196,7 +199,7 @@ def __generate__prd__(
 class __send__generated__prd__(APIView):
     def post(self, request):
         # send the generated prd to the client
-        user = User.objects.get(id=request.data['id'])
+        user = User.objects.get(id=request.data["id"])
         # check if user is a client
         is_client = Client.objects.filter(user=user).exists()
         if is_client:
@@ -206,7 +209,7 @@ class __send__generated__prd__(APIView):
             # get the project
             project = Project.objects.get(id=request.data["project_id"])
             # check if the client is the owner of the project
-            if project.created_by == client.user:
+            if project.created_by == client:
                 # generate the prd
                 prd = generate_prd_button_clicked(project)
                 # prd is a dictionary
@@ -342,24 +345,39 @@ class __send__generated__workflow__(APIView):
 
 class __project__management__(APIView):
     def post(self, request):
-        user = request.user
+        user_id = request.data.get("id")
         data = request.data
-        is_talent = Talent.objects.filter(user=user).exists()
-        if is_talent:
-            talent = Talent.objects.filter(user=user)
-            project = Project.objects.get(id=data["project_id"])
-            team = Team.objects.filter(project=project)
-            management = generate_management(team, project)
-
-            return JsonResponse({"success":"Project management generated successfully","data":management}) 
+        if user_id is not None:
+            user = get_object_or_404(User, id=user_id)
+            is_talent = Talent.objects.filter(user=user).exists()
+            if is_talent:
+                project = Project.objects.get(id=data["project_id"])
+                team = Team.objects.filter(project=project)
+                print(team.values)
+                # print(team_id)
+                # team = get_object_or_404(Team, id=team_id)
+                if team.exists():
+                    print(team)
+                    management = generate_management(team, project)
+                    return JsonResponse(
+                        {
+                            "success": "Project management generated successfully",
+                            "data": management,
+                        }
+                    )
+                else:
+                    return Response(
+                        {"error": "You are not a team leader of this project"}
+                    )
+            else:
+                return Response({"error": "Error occured"})
         else:
-            return Response({"error":"Error occured"})
-            
+            return Response({"error": "User ID is not provided in the request data"})
 
 
 class __learning__resource__(APIView):
     def post(self, request):
-        user = User.objects.get(id=request.data['id'])
+        user = User.objects.get(id=request.data["id"])
         print(user)
         data = request.data
         is_talent = Talent.objects.filter(user=user).exists()
@@ -371,35 +389,44 @@ class __learning__resource__(APIView):
             if team:
                 team = team[0]
                 learning_resource_output = learning_resource(talent, project)
-                print('learning resource output',learning_resource_output)
+                print("learning resource output", learning_resource_output)
                 project.Learning_resources = learning_resource_output
                 project.save()
                 return Response(
-                    {"success": "Learning Resources generated successfully", "data": learning_resource_output}
+                    {
+                        "success": "Learning Resources generated successfully",
+                        "data": learning_resource_output,
+                    }
                 )
             else:
                 return Response({"error": "You are not a team"})
-            
+
+
 class __learning__resources__for__talents__(APIView):
-    def post(self,request):
-        #generate the learning resources for the talent
+    def post(self, request):
+        # generate the learning resources for the talent
         user = request.user
-        #check if user is a talent
+        # check if user is a talent
         is_talent = Talent.objects.filter(user=user).exists()
         if is_talent:
-            #get the talent
+            # get the talent
             talent = Talent.objects.get(user=user)
-            #get the project
-            project = Project.objects.get(id=request.data['project_id'])
-            #generate the workflow
-            learning_resource = generate_learning_reasources(talent,project)
-            return JsonResponse({"success":"Learning resources generated successfully","data":learning_resource})
+            # get the project
+            project = Project.objects.get(id=request.data["project_id"])
+            # generate the workflow
+            learning_resource = generate_learning_reasources(talent, project)
+            return JsonResponse(
+                {
+                    "success": "Learning resources generated successfully",
+                    "data": learning_resource,
+                }
+            )
         else:
-            return Response({"error":"You are not a talent"})
+            return Response({"error": "You are not a talent"})
 
 
 class __get__direct__chat__users__(APIView):
-    def get(self,request,pk):
+    def get(self, request, pk):
         user = User.objects.get(id=pk)
         users_chats = ChatMsg.objects.filter(sender=user) | ChatMsg.objects.filter(receiver=user)
         print(users_chats)
@@ -417,43 +444,48 @@ class __get__direct__chat__users__(APIView):
         for i in response:
             direct_chat_users.append(UserSerializer(User.objects.get(id=i)).data)
         print(direct_chat_users)
-        return JsonResponse(direct_chat_users,safe=False)
+        return JsonResponse(direct_chat_users, safe=False)
+
 
 class __get__project__related__groups__(APIView):
-    def get(self,request,pk):
+    def get(self, request, pk):
         user = User.objects.get(id=pk)
         team = Team.objects.filter(members=pk)
-        serializer = TeamSerialzier(team,many=True)
+        serializer = TeamSerialzier(team, many=True)
         project_groups = []
         for i in serializer.data:
-            if i['project'] not in project_groups:
-                project_groups.append(i['project'])
+            if i["project"] not in project_groups:
+                project_groups.append(i["project"])
         response = []
         for i in project_groups:
-            response.append(ProjectSerializer(Project.objects.get(id=i)).data['chat_group_id'])
+            response.append(
+                ProjectSerializer(Project.objects.get(id=i)).data["chat_group_id"]
+            )
         end_response = []
         for i in response:
             end_response.append(GroupSerializer(Group.objects.get(grp_id=i)).data)
-        return JsonResponse(end_response,safe=False)
+        return JsonResponse(end_response, safe=False)
+
 
 class __get__group__chat__users__(APIView):
-    def get(self,request,pk):
+    def get(self, request, pk):
         user = User.objects.get(id=pk)
         team = Team.objects.filter(members=pk)
-        serializer = TeamSerialzier(team,many=True)
+        serializer = TeamSerialzier(team, many=True)
         project_groups = []
         for i in serializer.data:
-            if i['project'] not in project_groups:
-                project_groups.append(i['project'])
+            if i["project"] not in project_groups:
+                project_groups.append(i["project"])
         response = []
         for i in project_groups:
-            response.append(str(ProjectSerializer(Project.objects.get(id=i)).data['chat_group_id']))
+            response.append(
+                str(ProjectSerializer(Project.objects.get(id=i)).data["chat_group_id"])
+            )
         end_response = []
         user_group_chats = Group.objects.filter(grp_members=user)
-        serializer = GroupSerializer(user_group_chats,many=True)
+        serializer = GroupSerializer(user_group_chats, many=True)
         print(response)
         for i in serializer.data:
-            if i['grp_id'] not in response:
+            if i["grp_id"] not in response:
                 end_response.append(i)
-        return JsonResponse(end_response,safe=False)
-        
+        return JsonResponse(end_response, safe=False)
