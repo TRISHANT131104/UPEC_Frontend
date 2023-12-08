@@ -209,7 +209,7 @@ class __send__generated__prd__(APIView):
             # get the project
             project = Project.objects.get(id=request.data["project_id"])
             # check if the client is the owner of the project
-            if project.created_by == client.user:
+            if project.created_by == client:
                 # generate the prd
                 prd = generate_prd_button_clicked(project)
                 # prd is a dictionary

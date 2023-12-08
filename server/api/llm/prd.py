@@ -83,14 +83,15 @@ def generate_prd( project_description, project_timeline, project_techstacks):
             [Address any uncertainties or unclear points in the project. Provide clarifications or assumptions. Encourage further questions or discussions.]
 
        Ensure that the generated PRD is clear, concise, and provides all necessary information for stakeholders to understand and proceed with the project.
-        Please provide the information in a format suitable for easy storage in a database."
+        Please provide the information in only in JSON format for easy storage in a database.
+        JSON format is highly important for the response to be successful."
         """
 
     openai.api_key = "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"
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",
         prompt=prompt,
-        max_tokens=1000,  # Adjust as needed
+        max_tokens=2000,  # Adjust as needed
         temperature=0.7,  # Adjust as needed
     )
 
@@ -120,30 +121,30 @@ def generate_prd_button_clicked(project):
 
     # Create a Word document
     create_word_document(prd)
+    print(prd)
+    json_response = json.loads(prd, strict=False)
 
-    json_response = json.loads(prd)
-
-    project_details = ProjectRequirementDocument.object.create(
-        project_overview=json_response["project_overview"],
-        original_requirements=json_response["original_requirements"],
-        project_goals=json_response["project_goals"],
-        user_stories=json_response["user_stories"],
-        system_architecture=json_response["system_architecture"],
-        tech_stacks=json_response["requirements_analysis"],
-        requirement_pool=json_response["requirement_pool"],
-        ui_ux_design=json_response["ui_ux_design"],
-        development_methodology=json_response["development_methodology"],
-        security_measures=json_response["security_measures"],
-        testing_strategy=json_response["testing_strategy"],
-        scalability_and_performance=json_response["scalability_and_performance"],
-        deployment_plan=json_response["deployment_plan"],
-        maintenance_and_support=json_response["maintenance_and_support"],
-        risks_and_mitigations=json_response["risks_and_mitigations"],
-        compliance_and_regulations=json_response["compliance_and_regulations"],
-        budget_and_resources=json_response["budget_and_resources"],
-        timeline_and_milestones=json_response["timeline_and_milestones"],
-        communication_plan=json_response["communication_plan"],
-        anything_unclear=json_response["anything_unclear"],
+    project_details = ProjectRequirementDocument(
+        project_overview=json_response["Project Overview"],
+        original_requirements=json_response["Original Requirements"],
+        project_goals=json_response["Project Goals"],
+        user_stories=json_response["User Stories"],
+        system_architecture=json_response["System Architecture"],
+        tech_stacks=json_response["Tech Stacks"],
+        requirement_pool=json_response["Requirement Pool"],
+        ui_ux_design=json_response["UI/UX Design"],
+        development_methodology=json_response["Development Methodology"],
+        security_measures=json_response["Security Measures"],
+        testing_strategy=json_response["Testing Strategy"],
+        scalability_and_performance=json_response["Scalability and Performance"],
+        deployment_plan=json_response["Deployment Plan"],
+        maintenance_and_support=json_response["Maintenance and Support"],
+        risks_and_mitigations=json_response["Risks and Mitigations"],
+        compliance_and_regulations=json_response["Compliance and Regulations"],
+        budget_and_resources=json_response["Budget and Resources"],
+        timeline_and_milestones=json_response["Timeline and Milestones"],
+        communication_plan=json_response["Communication Plan"],
+        anything_unclear=json_response["Anything UNCLEAR"],
     )
     project_details.save()
     project.prd = project_details

@@ -15,4 +15,5 @@ def load_embedding_model():
         model_kwargs={"device": device},
         encode_kwargs={"device": device, "batch_size": 32},
     )
+    return embed_model
 
