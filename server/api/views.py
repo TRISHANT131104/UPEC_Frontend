@@ -14,7 +14,7 @@ from .llm.workflow import *
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .llm.student_skills import *
-
+from .llm.project_recommendation import *
 # Create your views here.
 
 
@@ -489,3 +489,21 @@ class __get__group__chat__users__(APIView):
             if i["grp_id"] not in response:
                 end_response.append(i)
         return JsonResponse(end_response, safe=False)
+    
+class __get__project__recommendations__(APIView):
+    def post(self, request):
+        user = User.objects.get(id=request.data["id"])
+        is_talent = Talent.objects.filter(user=user).exists()
+        if is_talent:
+            skills = []
+            for i in Talent.skils:
+                skills.append(i)
+            project_ids = project_recomendation(skills)
+            response=[]
+            for i in project_ids:
+                project = Project.objects.get(id=i)
+                serializer = ProjectSerializer(project)
+                response.append(serializer.data)
+            return JsonResponse(response, safe=False)
+        else:
+            return Response({"error": "You are not a talent"})
