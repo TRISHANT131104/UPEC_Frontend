@@ -30,17 +30,17 @@ def update_workflow_status(sender, instance, created, **kwargs):
 def store_user_embeddings(sender, instance, created, **kwargs):
     if created:
         if User.objects.filter(groups__name='Talent').exists():
-            data_embeddings.store_talent_data(instance.talent)
+            data_embeddings_community.store_talent_data(instance.talent)
         elif User.objects.filter(groups__name='Client').exists():
-            data_embeddings.store_client_data(instance.client)
+            data_embeddings_community.store_client_data(instance.client)
         elif User.objects.filter(groups__name='Mentor').exists():
-            data_embeddings.store_mentor_data(instance.mentor)
+            data_embeddings_community.store_mentor_data(instance.mentor)
         print("User embeddings stored")
     else:
         if User.objects.filter(groups__name='Talent').exists():
-            data_embeddings.update_talent_data(instance.talent)
+            data_embeddings_community.update_talent_data(instance.talent)
         elif User.objects.filter(groups__name='Client').exists():
-            data_embeddings.update_client_data(instance.client)
+            data_embeddings_community.update_client_data(instance.client)
         elif User.objects.filter(groups__name='Mentor').exists():
-            data_embeddings.update_mentor_data(instance.mentor)
+            data_embeddings_community.update_mentor_data(instance.mentor)
         print("User embeddings already stored")
