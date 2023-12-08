@@ -50,7 +50,7 @@ class Client(models.Model):
 
     def __str__(self):
         if(self.user is not None):
-            return self.user.username
+            return f"{self.user.username}"
         else:
             return str(self.id)
 
@@ -65,6 +65,7 @@ class Project(models.Model):
     prd = models.OneToOneField(ProjectRequirementDocument, related_name="PRD", on_delete=models.SET_NULL, null=True, blank=True)
     Learning_resources = models.TextField(_("Learning Resources"),blank=True,null=True,default=None)
     related_techstacks = models.JSONField(default=list, blank=True, null=True)
+    project_timeline = models.JSONField(default=None,null=True,blank=True)
     workflow = models.OneToOneField(Workflow, related_name="workflow", on_delete=models.SET_NULL,null=True,blank=True,default=None)
     created_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     updated_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
