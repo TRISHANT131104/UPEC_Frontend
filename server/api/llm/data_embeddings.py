@@ -66,10 +66,10 @@ def store_project_requirement_document_embeddings(project):
     }]
     index.upsert(vectors = zip([f'{project.id}'], embeddings,record_metadatas))
         
-def update_project_workflow(workflow):
+def update_project_workflow(project):
     embed_model=load_embedding_model()
     index = initiate_pinecone()
-    project = Project.objects.get(workflow=workflow)
+    workflow=project.workflow.description
     prd=project.prd
     text =[
     f"""
@@ -111,9 +111,5 @@ def update_project_workflow(workflow):
     record_metadatas = [{
         "text": str(text), 'ID': project.id,
     }]
-    update_response = index.update(
-    id=f"{project.id}",
-    values=embeddings,
-    set_metadata=record_metadatas,
-    )
+    index.upsert(vectors = zip([f'{project.id}'], embeddings,record_metadatas))
 

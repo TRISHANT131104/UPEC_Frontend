@@ -15,6 +15,7 @@ from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .llm.student_skills import *
 from .llm.project_recommendation import *
+from .llm import data_embeddings
 # Create your views here.
 
 
@@ -301,15 +302,15 @@ class __send__generated__workflow__(APIView):
         if user_id is not None:
             user = get_object_or_404(User, id=user_id)
             is_talent = Talent.objects.filter(user=user).exists()
-
             if is_talent:
                 project_id = request.data.get("project_id")
-                project = get_object_or_404(Project, id=project_id)
+                project= get_object_or_404(Project, id=project_id)
 
                 team = Team.objects.filter(project=project)
 
                 if team.exists():
                     workflow = make_workflow(project)
+                    data_embeddings.update_project_workflow(project)
                     return JsonResponse(
                         {"success": "Workflow generated successfully", "data": workflow}
                     )
