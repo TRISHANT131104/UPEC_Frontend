@@ -23,6 +23,9 @@ class __get__all__projects__(APIView):
     def get(self,request):
         projects = Project.objects.all()
         serializer = ProjectSerializer(projects,many=True)
+        for i in serializer.data:
+            i['created_by'] = ClientSerializer(Client.objects.get(id = i['created_by'])).data
+            i["created_by"]["user"] = UserSerializer(User.objects.get(id = i['created_by']['user'])).data
         return Response(serializer.data)
 
 class __get__group__messages__(APIView):
@@ -380,6 +383,33 @@ class __learning__resource__(APIView):
                 )
             else:
                 return Response({"error": "You are not a team"})
+
+class __get__each__project__(APIView):
+    def get(self, request, pk):
+        try:
+            project = Project.objects.get(id=pk)
+        except Project.DoesNotExist:
+            return Response({"error": "Project not found"}, status=404)
+
+        project_data = ProjectSerializer(project).data
+
+        try:
+            client = Client.objects.get(id=project_data['created_by'])
+        except Client.DoesNotExist:
+            return Response({"error": "Client not found"}, status=404)
+
+        client_data = ClientSerializer(client).data
+        project_data["created_by"] = client_data
+
+        try:
+            user = User.objects.get(id=client_data["user"])
+        except User.DoesNotExist:
+            return Response({"error": "User not found"}, status=404)
+
+        user_data = UserSerializer(user).data
+        project_data["created_by"]["user"] = user_data
+
+        return Response(project_data)
 
 
 class __learning__resources__for__talents__(APIView):
