@@ -7,6 +7,7 @@ from langchain.vectorstores import Pinecone
 from langchain.llms import HuggingFaceTextGenInference
 from torch import cuda
 import json
+from langchain.chat_models import ChatOpenAI
 
 # from server.settings import embed_model
 from ..utils.load_embedding_model import load_embedding_model
@@ -21,24 +22,25 @@ class MessageHandler:
             api_key="663983e5-451f-4d33-bf74-6a7b8dbc4bcb",
             environment="gcp-starter",
         )
-
         index = "projects"
         index = pinecone.Index(index)
         text_field = "text"
         embed_model = load_embedding_model()
-        if embed_model:
-            self.vectorstore = Pinecone(index, embed_model.embed_query, text_field)
-        self.llm = HuggingFaceTextGenInference(
-            inference_server_url="https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-alpha",
-            max_new_tokens=512,
-            top_k=10,
-            top_p=0.95,
-            typical_p=0.95,
-            temperature=0.01,
-            repetition_penalty=1.03,
-        )
-        if self.llm:
-            print("llm loaded")
+        self.vectorstore = Pinecone(index, embed_model.embed_query, text_field)
+        # self.llm = HuggingFaceTextGenInference(
+        #     inference_server_url="https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-alpha",
+        #     max_new_tokens=512,
+        #     top_k=10,
+        #     top_p=0.95,
+        #     typical_p=0.95,
+        #     temperature=0.01,
+        #     repetition_penalty=1.03,
+        # )
+        # if self.llm:
+        #     print("llm loaded")
+        self.llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0,openai_api_key=api_key)
+
+
 
     def prechecks(self, question):
         response = openai.Completion.create(
@@ -48,7 +50,7 @@ class MessageHandler:
             Now i have 3 questions for you . 
             Qn1) Is this question answerable by any of the above mentioned roles Just Return yes or no and nothing else , 
             Qn2) If the question is answerable by any of the above roles then which role should take up the question just return the role If no role is decided then return None , 
-            Qn3) Will this question require some context / project details before you can answer it Just Return yes or no and nothing else. 
+            Qn3) Will this question require some context / project details before you can answer it. Like if it becomes difficult for you to answer a specific question, just say yes I need context. Just Return yes or no and nothing else. 
             Return the answer of all 3 questions In this format : qn1's_answer,qn2's_answer,qn3's_answer . 
             Remmber to answer with 'yes' or 'no' only and 3 answers splitted with comma's must be returned
             """,
@@ -60,7 +62,6 @@ class MessageHandler:
         return answer
 
     def handle_context_required_message(self, question):
-        # llm = openai
         # llm = HuggingFaceTextGenInference(
         #     inference_server_url="https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-alpha",
         #     max_new_tokens=512,
