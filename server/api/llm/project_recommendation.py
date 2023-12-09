@@ -15,22 +15,17 @@ def initiate_pinecone():
     index = pinecone.Index(index_name)
     embed_model = load_embedding_model()
     text_field = 'text'  # field in metadata that contains text content
-
-    vectorstore = Pinecone(
-        index, embed_model.embed_query, text_field
-    )
-    return vectorstore
+    return index,embed_model
 def project_recomendation(skills):
     # Define the prompt based on parameters
-    vectorstore=initiate_pinecone()
+    index,embed_model=initiate_pinecone()
     result = []
-    # retriever = vectorstore.as_retriever()
-    # retriever.get_relevant_documents(f"{skills}")
-    result = vectorstore.similarity_search(
-        f"{skills}",  # the search query
-        k=1  # returns top 3 most relevant chunks of text
+    v=embed_model.embed_documents(skills)
+    result = index.query(
+        vector=v[0],
+        top_k=3,
+        include_values=True,
     )
-
-    return result[0].metadata["ID"]
+    return result['matches'][0]['id']
 
 
