@@ -30,7 +30,7 @@ class MessageHandler:
             Qn2) If the question is answerable by any of the above roles then which role should take up the question just return the role If no role is decided then return None , 
             Qn3) Will this question require some context / project details before you can answer it Just Return yes or no and nothing else. 
             Return the answer of all 3 questions In this format : qn1's_answer,qn2's_answer,qn3's_answer . 
-            Remmber to answer to the point and only 3 answers splitted with comma's must be returned
+            Remmber to answer with 'yes' or 'no' only and 3 answers splitted with comma's must be returned
             """,
             max_tokens=50,
         )
@@ -76,7 +76,7 @@ class MessageHandler:
             response = openai.Completion.create(
                 engine="gpt-3.5-turbo-instruct",
                 prompt=f"{user_question}. Give your response as you are best in that field and you really want to help the user .",
-                max_tokens=50,
+                max_tokens=200,
             )
         elif is_question_answerable.lower().replace(" ", "").replace(
             ".", ""
@@ -100,7 +100,7 @@ class MessageHandler:
                 response = openai.Completion.create(
                     engine="gpt-3.5-turbo-instruct",
                     prompt=f"{user_question}. Give your response as you are best in that field and you really want to help the user .",
-                    max_tokens=50,
+                    max_tokens=200,
                 )
             else:
                 if is_question_project_related.lower().replace(" ", "").replace(
@@ -113,7 +113,7 @@ class MessageHandler:
                     response = openai.Completion.create(
                         engine="gpt-3.5-turbo-instruct",
                         prompt=f"As a {role}, {user_question}. Give your response as you are best in that field and you really want to help the user.",
-                        max_tokens=50,
+                        max_tokens=200,
                     )
                 elif is_question_project_related.lower().replace(" ", "").replace(
                     ".", ""
@@ -127,6 +127,6 @@ class MessageHandler:
                     response = openai.Completion.create(
                         engine="gpt-3.5-turbo-instruct",
                         prompt=f"{user_question}. Give your response as you are best in that field and you really want to help the user .",
-                        max_tokens=50,
+                        max_tokens=200,
                     )
         return response.choices[0].text.strip()
