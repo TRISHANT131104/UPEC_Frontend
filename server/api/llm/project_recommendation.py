@@ -26,6 +26,9 @@ def project_recomendation(skills):
         top_k=3,
         include_values=True,
     )
-    return result['matches'][0]['id']
+    response = []
+    for i in result['matches']:
+        response.append(i['id'])
+    return response
 
 
