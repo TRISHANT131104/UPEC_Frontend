@@ -8,6 +8,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         for projects_entry in projects_data:
-            Project.objects.create(**projects_entry)
+            # Replace None values with None
+            for key, value in projects_entry.items():
+                Project.objects.create(**projects_entry)
 
         self.stdout.write(self.style.SUCCESS('Successfully added projects data'))

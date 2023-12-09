@@ -9,4 +9,4 @@ class ApiConfig(AppConfig):
     def ready(self):
         import api.signals
         openai.api_key = "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"
-        embed_model = load_embedding_model()
+        # embed_model = load_embedding_model()
