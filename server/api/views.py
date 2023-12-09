@@ -18,6 +18,13 @@ from .llm.project_recommendation import *
 # Create your views here.
 
 
+
+class __get__all__projects__(APIView):
+    def get(self,request):
+        projects = Project.objects.all()
+        serializer = ProjectSerializer(projects,many=True)
+        return Response(serializer.data)
+
 class __get__group__messages__(APIView):
     def post(self, request):
         # get user , get the group id from pk , query the group messages and return the messages of that group if ai=True

@@ -12,6 +12,8 @@ db.sqlite3-journal
 media
 server/api/__pycache__
 server/api/migrations/__pycache__
+server/server/__pycache__
+server/server/migrations/__pycache__
 
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
@@ -175,3 +177,5 @@ cython_debug/
 
 # End of https://www.toptal.com/developers/gitignore/api/django
 
+*.pyc
+__pycache__/
