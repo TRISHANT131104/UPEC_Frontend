@@ -27,20 +27,18 @@ class MessageHandler:
         text_field = "text"
         embed_model = load_embedding_model()
         self.vectorstore = Pinecone(index, embed_model.embed_query, text_field)
-        # self.llm = HuggingFaceTextGenInference(
-        #     inference_server_url="https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-alpha",
-        #     max_new_tokens=512,
-        #     top_k=10,
-        #     top_p=0.95,
-        #     typical_p=0.95,
-        #     temperature=0.01,
-        #     repetition_penalty=1.03,
-        # )
-        # if self.llm:
-        #     print("llm loaded")
-        self.llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0,openai_api_key=api_key)
-
-
+        self.llm = HuggingFaceTextGenInference(
+            inference_server_url="https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-alpha",
+            max_new_tokens=512,
+            top_k=10,
+            top_p=0.95,
+            typical_p=0.95,
+            temperature=0.01,
+            repetition_penalty=1.03,
+        )
+        if self.llm:
+            print("llm loaded")
+        # self.llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0,openai_api_key=api_key)
 
     def prechecks(self, question):
         response = openai.Completion.create(
