@@ -39,6 +39,19 @@
         }
     },
     {
+        "model": "admin.logentry",
+        "pk": 4,
+        "fields": {
+            "action_time": "2023-12-09T14:02:54.964Z",
+            "user": 1,
+            "content_type": 16,
+            "object_id": "8",
+            "object_repr": "Workflow object (8)",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Description\"]}}]"
+        }
+    },
+    {
         "model": "auth.permission",
         "pk": 1,
         "fields": {
@@ -907,7 +920,7 @@
         "pk": 1,
         "fields": {
             "password": "pbkdf2_sha256$390000$CTpP5EWLpUvAwiroXeCEv0$HJak1Km0zHdC/nWTEvccf9myEb8R/57QowoMQWEjGus=",
-            "last_login": "2023-12-09T06:49:05.423Z",
+            "last_login": "2023-12-09T12:39:36.036Z",
             "is_superuser": true,
             "username": "pradeepkumar",
             "first_name": "",
@@ -4964,6 +4977,14 @@
     },
     {
         "model": "sessions.session",
+        "pk": "z3enb17x9ybibnfpia5ziunmwjy66rs7",
+        "fields": {
+            "session_data": ".eJxVjMsOwiAUBf-FtSGUl9Sl-34D4T6QqoGktCvjv2uTLnR7Zua8REzbWuLWeYkziYsYxOl3g4QPrjuge6q3JrHVdZlB7oo8aJdTI35eD_fvoKRevnU2qB25BKO2Gc8cwAccjCd02meT2VgXPKBWY2BHrI1SmNEFyhYBknh_APgNOMY:1rBwcK:7oT1CoxUtToPgXt72L_5CcXFZleJNQFuqVPVl6W4iks",
+            "expire_date": "2023-12-23T12:39:36.047Z"
+        }
+    },
+    {
+        "model": "sessions.session",
         "pk": "z6wniu2i2nqof4tjbxcvosxhgavmaf62",
         "fields": {
             "session_data": ".eJxVjMsOwiAUBf-FtSGUl9Sl-34D4T6QqoGktCvjv2uTLnR7Zua8REzbWuLWeYkziYsYxOl3g4QPrjuge6q3JrHVdZlB7oo8aJdTI35eD_fvoKRevnU2qB25BKO2Gc8cwAccjCd02meT2VgXPKBWY2BHrI1SmNEFyhYBknh_APgNOMY:1rBcVi:2nrHYfn6wp5XOXZc5uf6b8jJ9xIHEqYA3C_1PaOXCz0",
@@ -6032,10 +6053,111 @@
         }
     },
     {
+        "model": "api.projectrequirementdocument",
+        "pk": 2,
+        "fields": {
+            "project_overview": "The project aims to develop a comprehensive web application for online shopping, providing users with an intuitive interface to browse products, make purchases, and manage their accounts. The application will be powered by Python, Django, and PostgreSQL, ensuring a robust and scalable solution. The frontend will utilize JavaScript for dynamic interactions, creating a seamless and enjoyable shopping experience for users. The application will support a wide range of products and enhance user engagement through personalized recommendations and a user-friendly interface.",
+            "original_requirements": "Functional Requirements: 1. Intuitive interface for browsing products 2. Ability to make purchases 3. Account management functionality. Non-Functional Requirements: 1. Robust and scalable backend 2. Seamless and enjoyable user experience 3. Personalized recommendations and user-friendly interface",
+            "project_goals": "['1. Develop a user-friendly and intuitive web application for online shopping', '2. Enhance user engagement through personalized recommendations', '3. Ensure a robust and scalable solution for seamless user experience']",
+            "user_stories": "['1. As a user, I want to browse products easily and quickly to find what I am looking for', '2. As a user, I want to receive personalized recommendations based on my browsing and purchasing history', '3. As a user, I want to be able to manage my account and track my orders', '4. As a first-time user, I want to be able to easily create an account and make a purchase', '5. As an administrator, I want to be able to manage and update product listings and user accounts']",
+            "system_architecture": "The web application will consist of both hardware and software components. The hardware components will include servers, databases, and networking equipment. The software components will include Python, Django, JavaScript, and PostgreSQL. These components will interact to provide users with an intuitive interface, personalized recommendations, and account management functionality.",
+            "tech_stacks": "['Python', 'Django', 'JavaScript', 'PostgreSQL']",
+            "requirement_pool": "[{'requirement': 'Intuitive interface for browsing products', 'priority': 'P0', 'description': 'Users should be able to browse products easily and quickly, with filters and search functionality'}, {'requirement': 'Ability to make purchases', 'priority': 'P0', 'description': 'Users should be able to add items to their cart, proceed to checkout, and make a purchase securely'}, {'requirement': 'Account management functionality', 'priority': 'P1', 'description': 'Users should be able to create an account, log in, and manage their account details and order history'}, {'requirement': 'Robust and scalable backend', 'priority': 'P0', 'description': 'The backend should be able to handle high traffic and large amounts of data without performance issues'}, {'requirement': 'Seamless and enjoyable user experience', 'priority': 'P0', 'description': 'The frontend should provide a seamless and enjoyable shopping experience for users'}, {'requirement': 'Personalized recommendations and user-friendly interface', 'priority': 'P2', 'description': 'Users should receive personalized recommendations based on their browsing and purchasing history, with a user-friendly interface for easy navigation'}]",
+            "ui_ux_design": "The UI/UX design will be clean, modern, and user-friendly. The layout will be intuitive, with easy navigation and clear call-to-action buttons. The color scheme will be visually appealing and consistent throughout the application. The design will also incorporate personalized recommendations for users based on their browsing and purchasing history.",
+            "development_methodology": "The development methodology for this project will be Agile, with regular sprints and frequent communication between team members. Development phases will include planning, design, development, testing, and deployment. Testing will be conducted throughout the development process, with a final system test before deployment.",
+            "security_measures": "Both hardware and software components will have security measures in place. The servers will be protected by firewalls, and all data will be encrypted using HTTPS. Access controls will be implemented to restrict unauthorized access to the system. User data will be protected by encryption and strict access controls.",
+            "testing_strategy": "The testing strategy will include unit testing, integration testing, and system testing. Unit testing will be conducted on individual components, integration testing will be conducted on the interaction between components, and system testing will be conducted on the entire application. Both hardware and software components will be tested.",
+            "scalability_and_performance": "The hardware and software components will be designed to handle increased load, with the ability to scale up as needed. The application will be optimized for performance to provide a seamless user experience, even under high traffic.",
+            "deployment_plan": "The deployment plan will include steps for deploying software updates and managing hardware deployment. Software updates will be tested and deployed during low traffic times to minimize disruption. Hardware deployment will involve setting up and configuring servers, databases, and networking equipment.",
+            "maintenance_and_support": "Maintenance and support will be provided for both hardware and software components. Issues will be resolved in a timely manner, and updates will be released as needed. The support team will be available to assist users with any questions or concerns.",
+            "risks_and_mitigations": "[{'risk': 'High traffic and increased load', 'mitigation': 'Designing the system to handle increased load and regularly testing for performance issues'}, {'risk': 'Security breaches', 'mitigation': 'Implementing strict security measures and regularly monitoring for any vulnerabilities'}, {'risk': 'Delays in development', 'mitigation': 'Following an Agile methodology with frequent communication and regular sprints to stay on track'}]",
+            "compliance_and_regulations": "The project will comply with relevant regulations and standards, including data privacy laws and web accessibility guidelines. Any necessary certifications or compliance measures will be obtained before deployment.",
+            "budget_and_resources": "The budget for this project will cover hardware, software development, and any necessary certifications or compliance measures. Resources will include a team of developers, designers, and support staff.",
+            "timeline_and_milestones": "The project timeline will include the following milestones: 1. Planning and design - 2 months 2. Development - 4 months 3. Testing and deployment - 1 month 4. Maintenance and support - ongoing",
+            "communication_plan": "A communication plan will be in place to ensure effective communication between stakeholders. Regular progress updates will be provided, and any major changes or issues will be communicated promptly.",
+            "anything_unclear": "If there are any unclear points or uncertainties, they will be addressed and clarified during the planning and development phases. Any assumptions made will be communicated and discussed with stakeholders. Further questions or discussions are encouraged throughout the project."
+        }
+    },
+    {
+        "model": "api.projectrequirementdocument",
+        "pk": 3,
+        "fields": {
+            "project_overview": "The project involves developing a comprehensive web application for online shopping, providing users with an intuitive interface to browse products, make purchases, and manage their accounts. The backend will be powered by Python, Django, and PostgreSQL, ensuring a robust and scalable solution. The frontend will utilize JavaScript for dynamic interactions, creating a seamless and enjoyable shopping experience for users. The application aims to support a wide range of products and enhance user engagement through personalized recommendations and a user-friendly interface.",
+            "original_requirements": "The original requirements for this project include both functional and non-functional requirements. The application must have the ability to browse products, make purchases, and manage user accounts. It must also have a robust and scalable backend, utilize JavaScript for dynamic interactions, and support a wide range of products. Non-functional requirements include a user-friendly interface and personalized recommendations to enhance user engagement.",
+            "project_goals": "['To create a robust and scalable web application for online shopping', 'To provide users with an intuitive and user-friendly interface', 'To enhance user engagement through personalized recommendations']",
+            "user_stories": "['As a user, I want to be able to browse products easily so that I can find what I am looking for quickly.', 'As a user, I want to be able to make purchases seamlessly so that I can complete my transactions without any issues.', 'As a user, I want to be able to manage my account efficiently so that I can update my information and track my purchases.', 'As a user, I want to receive personalized recommendations so that I can discover new products that may interest me.', 'As a user, I want a user-friendly interface so that I can have an enjoyable shopping experience.']",
+            "system_architecture": "{'Hardware Components': 'The hardware components for this project will include servers, storage devices, and network equipment.', 'Software Components': 'The software components will include Python, Django, JavaScript, and PostgreSQL.', 'Interaction': 'The hardware components will work together to support the software components and ensure the smooth functioning of the application.'}",
+            "tech_stacks": "['Python', 'Django', 'JavaScript', 'PostgreSQL']",
+            "requirement_pool": "[{'Requirement': 'Robust and scalable backend', 'Priority': 'P0', 'Description': 'The backend must be able to handle a large amount of data and be able to scale as needed.'}, {'Requirement': 'User-friendly interface', 'Priority': 'P1', 'Description': 'The application must have a user-friendly interface to enhance user experience.'}, {'Requirement': 'Personalized recommendations', 'Priority': 'P2', 'Description': 'The application must be able to provide personalized recommendations to users based on their browsing and purchase history.'}, {'Requirement': 'Support for wide range of products', 'Priority': 'P1', 'Description': 'The application must be able to support a wide range of products to cater to different user needs.'}, {'Requirement': 'Seamless and enjoyable shopping experience', 'Priority': 'P0', 'Description': 'The application must provide users with a seamless and enjoyable shopping experience.'}]",
+            "ui_ux_design": "The UI/UX design for this project will include a clean and modern layout with easy navigation, visually appealing product displays, and personalized recommendations for users. The design will also include a user-friendly interface with clear call-to-action buttons.",
+            "development_methodology": "The development methodology for this project will be Agile, with a focus on iterative development and frequent testing to ensure a high-quality product. The project will be divided into sprints with clear deliverables and milestones. Testing will be done at each stage of development to catch and address any issues early on. Deployment will be managed through a continuous integration and deployment process.",
+            "security_measures": "{'Hardware Components': 'The hardware components will be located in a secure data center with controlled access.', 'Software Components': 'The software components will be protected through encryption and access control measures.', 'User Data Protection': 'User data will be encrypted and stored in a secure database with strict access controls.', 'Cybersecurity Measures': 'The application will undergo rigorous penetration testing to identify and address any vulnerabilities.'}",
+            "testing_strategy": "The testing strategy for this project will include both manual and automated testing. Unit testing will be done for each individual component, and integration testing will be done to ensure all components work together smoothly. User acceptance testing will also be done to ensure the application meets user needs and expectations.",
+            "scalability_and_performance": "{'Hardware Considerations': 'The hardware components will be able to handle increased load and traffic by scaling up resources as needed.', 'Software Considerations': 'The software components will be optimized for performance to handle large amounts of data and user interactions.', 'Load Testing': 'The application will undergo load testing to identify any performance issues and address them before deployment.'}",
+            "deployment_plan": "{'Software Updates': 'Software updates will be deployed through a continuous integration and deployment process.', 'Hardware Deployment': \"Hardware deployment will be managed through a step-by-step process, ensuring minimal disruption to the application's functionality.\"}",
+            "maintenance_and_support": "Ongoing maintenance and support will be provided to ensure the application's smooth functioning and address any issues that may arise. Updates and bug fixes will also be regularly released to improve the application.",
+            "risks_and_mitigations": "[{'Risk': 'Server downtime', 'Mitigation': 'Maintaining redundant servers and implementing a disaster recovery plan.', 'Component': 'Hardware'}, {'Risk': 'Security breaches', 'Mitigation': 'Implementing strict access controls, encryption, and undergoing regular penetration testing.', 'Component': 'Software'}, {'Risk': 'Lack of user engagement', 'Mitigation': 'Regularly monitoring user feedback and making necessary improvements to enhance user engagement.', 'Component': 'Application'}]",
+            "compliance_and_regulations": "The application will comply with all relevant regulations and standards, including GDPR and PCI-DSS. All necessary certifications and compliance measures will be obtained and implemented to ensure the security and privacy of user data.",
+            "budget_and_resources": "{'Budget': '$500,000', 'Resources': [{'Type': 'Hardware', 'Budget': '$300,000'}, {'Type': 'Software', 'Budget': '$200,000'}]}",
+            "timeline_and_milestones": "[{'Phase': 'Development', 'Milestones': [{'Name': 'Backend development', 'Date': '8th December 2023'}, {'Name': 'Frontend development', 'Date': '1st January 2024'}, {'Name': 'Integration testing', 'Date': '1st February 2024'}]}, {'Phase': 'Testing', 'Milestones': [{'Name': 'Unit testing', 'Date': '15th February 2024'}, {'Name': 'User acceptance testing', 'Date': '1st March 2024'}]}, {'Phase': 'Deployment', 'Milestones': [{'Name': 'Software deployment', 'Date': '15th March 2024'}, {'Name': 'Hardware deployment', 'Date': '1st April 2024'}]}, {'Phase': 'Maintenance and Support', 'Milestones': [{'Name': 'Ongoing maintenance and support', 'Date': '1st April 2024'}]}]",
+            "communication_plan": "{'Stakeholders': ['Project Manager', 'Development Team', 'Testing Team', 'Deployment Team', 'Marketing Team', 'Client'], 'Communication Channels': ['Email', 'Slack', 'Project Management Tool', 'Weekly Meetings']}",
+            "anything_unclear": "In case of any uncertainties or unclear points in the project, please reach out to the Project Manager for further clarifications. Assumptions have been made based on the project description and requirements provided. Further discussions and questions are encouraged to ensure a successful project outcome."
+        }
+    },
+    {
         "model": "api.workflow",
         "pk": 1,
         "fields": {
             "description": "a"
+        }
+    },
+    {
+        "model": "api.workflow",
+        "pk": 2,
+        "fields": {
+            "description": "1. Project Initiation: All team members will meet to discuss the project requirements and timelines.\n2. Database Design: Barkerjennifer will be responsible for designing the database using PostgreSQL and SQL.\n3. Backend Development: Barbara16 and Bbass will work together to develop the backend using Python and Django. Barbara16 will focus on the core functionalities while Bbass will handle network security and hardware troubleshooting.\n4. Frontend Development: Barberpatricia will take the lead in developing the frontend using React, Node.js, and CSS. She will also collaborate with Bbass to integrate network security measures in the frontend.\n5. User Interface: Barberpatricia and Barkerjennifer will work together to create an intuitive and user-friendly interface using their respective skills in CSS and Java.\n6. Dynamic Interactions: Barbara16 will utilize her expertise in JavaScript to add dynamic interactions to the frontend, creating a seamless shopping experience for users.\n7. Personalized Recommendations: Barkerjennifer will utilize her skills in digital signal processing to develop algorithms for personalized product recommendations.\n8. Quality Assurance: All team members will collaborate to ensure the application is thoroughly tested and meets all the project requirements.\n9. Deployment: Bbass will lead the deployment of the application, ensuring it is running smoothly and securely.\n10. Project Management: As the Project Manager, you will oversee the progress of the project, ensure efficient task allocation, and facilitate effective communication among team members.\n11. Project Review: Once the project is completed, all team members will meet to review the project and make any necessary improvements. \n\nNote: Throughout the project, regular communication and collaboration among team members will be encouraged to ensure a successful and timely delivery. Weekly meetings will be held to discuss progress, address any issues, and make necessary adjustments to the workflow. In case of any roadblocks, team members will work together to find solutions and keep the project on track."
+        }
+    },
+    {
+        "model": "api.workflow",
+        "pk": 3,
+        "fields": {
+            "description": "<h2>Workflow Integration:</h2>\n        <p>The following is a detailed workflow for the new project based on the assigned students' skills:</p>\n        <ol>\n            <li>Project Planning:\n                <ul>\n                    <li>Project Manager (assigned by the company) will create a project plan and timeline.</li>\n                    <li>Project Manager will assign roles and responsibilities to each student based on their skills.</li>\n                    <li>Project Manager will schedule regular team meetings and check-ins to ensure progress and address any issues.</li>\n                </ul>\n            </li>\n            <li>Backend Development:\n                <ul>\n                    <li>barbara16 will lead the backend development using Python and Django.</li>\n                    <li>bbass will assist with backend development and handle any hardware troubleshooting if needed.</li>\n                    <li>barkerjennifer will handle database management and SQL queries using PostgreSQL.</li>\n                    <li>barberpatricia will assist with backend development and handle any embedded systems or circuit design aspects if needed.</li>\n                </ul>\n            </li>\n            <li>Frontend Development:\n                <ul>\n                    <li>barberpatricia will lead the frontend development using React and Node.js.</li>\n                    <li>barkerjennifer will handle any dynamic interactions using JavaScript.</li>\n                    <li>barbara16 will assist with frontend development and handle any embedded systems or circuit design aspects if needed.</li>\n                    <li>bbass will handle any network security aspects and assist with frontend development if needed.</li>\n                </ul>\n            </li>\n            <li>User Experience and Design:\n                <ul>\n                    <li>barberpatricia will lead the design and user experience aspect of the project, utilizing their skills in CSS.</li>\n                    <li>bbass will assist with design and handle any hardware troubleshooting if needed.</li>\n                    <li>barbara16 and barkerjennifer will provide input and feedback on the design and user experience.</li>\n                </ul>\n            </li>\n            <li>Testing and Deployment:\n                <ul>\n                    <li>barkerjennifer will lead the testing phase, utilizing their skills in Java and Spring.</li>\n                    <li>barberpatricia will assist with testing and handle any PCB design or Arduino aspects if needed.</li>\n                    <li>barbara16 will handle any FPGA programming aspects and assist with testing if needed.</li>\n                    <li>bbass will handle any network security testing and troubleshooting if needed.</li>\n                </ul>\n            </li>\n            <li>Finalization and Launch:\n                <ul>\n                    <li>Once all aspects of the project are completed and tested, the Project Manager will oversee the finalization and launch of the web application.</li>\n                    <li>All students will provide support and troubleshooting during the launch and initial use of the application.</li>\n                </ul>\n            </li>\n        </ol>\n        <p>The project timeline is from 8th December 2023 1:03:03 pm to 8th December 2023 1:03:03 pm.</p>\n        <p>The workflow will be regularly reviewed and adjusted as needed to ensure a successful and timely completion of the project.</p>"
+        }
+    },
+    {
+        "model": "api.workflow",
+        "pk": 4,
+        "fields": {
+            "description": "<h3>Workflow Integration:</h3>\n<p>After analyzing the project requirements and the skills of the assigned students, the following workflow is proposed:</p>\n\n<h4>1. Planning and Design Stage:</h4>\n<ul>\n    <li>Project Manager to hold a meeting with the team to discuss the project requirements and assign roles and responsibilities based on the students' skills.</li>\n    <li>barberpatricia to work on the frontend design using React and CSS, while barkerjennifer to handle the backend development using Java and Spring.</li>\n    <li>bbass to assist in the planning and design stage by providing hardware troubleshooting expertise.</li>\n    <li>barbara16 to work on the embedded systems and circuit design for the project.</li>\n</ul>\n\n<h4>2. Development Stage:</h4>\n<ul>\n    <li>barberpatricia and barkerjennifer to collaborate on integrating the frontend and backend using Node.js and React.</li>\n    <li>bbass to work on the network security aspect of the application, ensuring it is secure from potential threats.</li>\n    <li>barbara16 to work on the circuit design and embedded systems development, ensuring they are compatible with the frontend and backend.</li>\n</ul>\n\n<h4>3. Testing Stage:</h4>\n<ul>\n    <li>Project Manager to conduct a thorough testing of the application, including functional, unit, and integration testing.</li>\n    <li>barberpatricia and barkerjennifer to work on debugging any issues found during testing.</li>\n    <li>bbass to conduct network security testing to ensure the application is secure.</li>\n    <li>barbara16 to assist in testing the embedded systems and circuit design.</li>\n</ul>\n\n<h4>4. Deployment Stage:</h4>\n<ul>\n    <li>Project Manager to coordinate with the team to ensure all components of the application are ready for deployment.</li>\n    <li>barberpatricia and barkerjennifer to work on deploying the application on a web server.</li>\n    <li>bbass to assist in the deployment process by providing hardware troubleshooting expertise.</li>\n    <li>barbara16 to ensure the embedded systems and circuit design are functioning properly in the deployed application.</li>\n</ul>\n\n<h4>5. Maintenance and Support Stage:</h4>\n<ul>\n    <li>Project Manager to assign team members to handle any maintenance and support requests from users.</li>\n    <li>barberpatricia and barkerjennifer to provide support for frontend and backend issues, respectively.</li>\n    <li>bbass to handle any hardware-related issues that may arise.</li>\n    <li>barbara16 to assist in resolving any embedded systems or circuit design issues.</li>\n</ul>\n\n<p>With this workflow, the project is expected to be completed within the given timeline of 8th December 2023, 1:03:03 pm to 8th December 2023, 1:03:03 pm.</p>"
+        }
+    },
+    {
+        "model": "api.workflow",
+        "pk": 5,
+        "fields": {
+            "description": "<h2>Workflow Integration:</h2>\n\n<strong>Section 1: Project Setup</strong>\n<ul>\n<li>Assign barbara16 to set up the project and install necessary development tools, including Python, Django, and PostgreSQL.</li>\n<li>Assign barberpatricia to set up the frontend development environment, including React, Node.js, and CSS.</li>\n<li>Assign barkerjennifer to set up the database and ensure proper integration with the backend using SQL.</li>\n<li>Assign bbass to set up the security measures for the project, including network security and hardware troubleshooting.</li>\n</ul>\n<br/>\n\n<strong>Section 2: Backend Development</strong>\n<ul>\n<li>Assign barbara16 and barkerjennifer to work on the backend development using Python and Django, following best practices and coding standards.</li>\n<li>Assign barkerjennifer to handle the business logic and data modeling, leveraging their experience with Java and Spring.</li>\n<li>Assign bbass to implement network security measures and ensure proper database management using SQL.</li>\n</ul>\n<br/>\n\n<strong>Section 3: Frontend Development</strong>\n<ul>\n<li>Assign barberpatricia to develop the frontend using React and Node.js, creating a user-friendly and visually appealing interface.</li>\n<li>Assign barbara16 to handle the dynamic interactions using JavaScript and ensure seamless integration with the backend.</li>\n<li>Assign bbass to handle any hardware integration and troubleshooting, leveraging their experience with Angular.</li>\n</ul>\n<br/>\n\n<strong>Section 4: Personalization and Recommendations</strong>\n<ul>\n<li>Assign barberpatricia and barbara16 to implement personalized recommendations for users, leveraging their experience with machine learning and artificial intelligence.</li>\n<li>Assign barkerjennifer to handle any data processing and optimization tasks, using their skills in Digital Signal Processing.</li>\n</ul>\n<br/>\n\n<strong>Section 5: Testing and Quality Assurance</strong>\n<ul>\n<li>Assign bbass to handle the testing and quality assurance process, ensuring the application meets the project requirements and is free of any bugs or errors.</li>\n<li>Assign barbara16 to facilitate a thorough code review and ensure proper documentation of the project.</li>\n</ul>\n<br/>\n\n<strong>Section 6: Deployment and Maintenance</strong>\n<ul>\n<li>Assign barkerjennifer to handle the deployment of the application, ensuring it is robust, scalable, and follows industry standards.</li>\n<li>Assign barberpatricia to handle any maintenance tasks and updates to the application, ensuring it remains user-friendly and up-to-date.</li>\n</ul>\n<br/>\n\n<p>The above workflow integrates the skills of each student, ensuring a collaborative and efficient approach towards developing the comprehensive web application for online shopping. Each section of the project is assigned to students based on their strengths and expertise, ensuring a high-quality and well-rounded solution.</p>"
+        }
+    },
+    {
+        "model": "api.workflow",
+        "pk": 6,
+        "fields": {
+            "description": "<h2>Workflow Integration</h2><br/>        <p>The project will be divided into different sections, each focusing on a specific aspect of the development process. The following is a detailed workflow based on the skills of the assigned students:</p><br/><br/>        <h3>Section 1: Backend Development</h3><br/>        <ul><br/>            <li>Barbara16 will lead the backend development, utilizing her skills in Python and Django.</li><br/>            <li>Barberpatricia will assist with the development, contributing her knowledge of Node.js and React for backend integration.</li><br/>            <li>The team will work together to design and implement the database using PostgreSQL.</li><br/>            <li>The backend development will focus on creating a robust and scalable solution for the application.</li><br/>            <li>The team will also work on incorporating security measures to ensure the safety of user data.</li><br/>            <li>Timeline: 8th December 2023 1:03:03 pm to 8th December 2023 1:03:03 pm</li><br/>        </ul><br/><br/>        <h3>Section 2: Frontend Development</h3><br/>        <ul><br/>            <li>Barberpatricia will lead the frontend development, utilizing her skills in React and CSS for creating a visually appealing interface.</li><br/>            <li>Barbara16 will assist with the development, contributing her knowledge of JavaScript for dynamic interactions.</li><br/>            <li>The team will work together to ensure a seamless and enjoyable shopping experience for users.</li><br/>            <li>The frontend development will include creating a user-friendly interface and incorporating personalized recommendations for enhanced user engagement.</li><br/>            <li>Timeline: 8th December 2023 1:03:03 pm to 8th December 2023 1:03:03 pm</li><br/>        </ul><br/><br/>        <h3>Section 3: Hardware Integration</h3><br/>        <ul><br/>            <li>Barkerjennifer will lead the hardware integration, utilizing her skills in FPGA programming and digital signal processing.</li><br/>            <li>Bbass will assist with the integration, contributing his knowledge of embedded systems and circuit design.</li><br/>            <li>The team will work together to ensure smooth integration of hardware components with the web application.</li><br/>            <li>The hardware integration will focus on incorporating features such as barcode scanning for easy product search and purchase.</li><br/>            <li>Timeline: 8th December 2023 1:03:03 pm to 8th December 2023 1:03:03 pm</li><br/>        </ul><br/><br/>        <h3>Section 4: User Testing and Debugging</h3><br/>        <ul><br/>            <li>The team will work together to conduct user testing and identify any bugs or issues that may arise during the development process.</li><br/>            <li>Barberpatricia and Barbara16 will lead the testing, utilizing their knowledge of frontend and backend development, respectively.</li><br/>            <li>The team will also work on debugging any identified issues to ensure a smooth and error-free application.</li><br/>            <li>Timeline: 8th December 2023 1:03:03 pm to 8th December 2023 1:03:03 pm</li><br/>        </ul><br/><br/>        <h3>Section 5: Final Review and Deployment</h3><br/>        <ul><br/>            <li>The team will work together to review the final product and make any necessary changes.</li><br/>            <li>Barkerjennifer and Bbass will lead the deployment of the application, utilizing their knowledge of hardware and network security, respectively.</li><br/>            <li>The team will also work on creating a user guide for the application to assist users with navigation and usage.</li><br/>            <li>The final product will be deployed on a secure server, ready for public use.</li><br/>            <li>Timeline: 8th December 2023 1:03:03 pm to 8th December 2023 1:03:03 pm</li><br/>        </ul>"
+        }
+    },
+    {
+        "model": "api.workflow",
+        "pk": 7,
+        "fields": {
+            "description": "<h1 class=\"font-bold text-2xl\">Project Workflow for Online Shopping Web Application</h1><br/><br/><h2 class=\"font-bold text-xl mt-4\">Project Overview</h2><br/><p>The project is to develop a comprehensive web application for online shopping with a robust and scalable backend powered by Python, Django, and PostgreSQL, and a user-friendly frontend utilizing JavaScript. The application aims to provide an intuitive interface for users to browse products, make purchases, and manage their accounts, and enhance user engagement through personalized recommendations.</p><br/><br/><h2 class=\"font-bold text-xl mt-4\">Project Timeline</h2><br/><p>The project timeline is set from 8th December 2023 1:03:03 pm to 8th December 2023 1:03:03 pm.</p><br/><br/><h2 class=\"font-bold text-xl mt-4\">Student Skills</h2><br/><p>The following students have been assigned to the project with their respective skillsets:</p><br/><ul><br/>    <li><strong>barbara16:</strong> Python, Django, JavaScript, Embedded Systems, Circuit Design</li><br/>    <li><strong>barberpatricia:</strong> React, Node.js, CSS, PCB Design, Arduino</li><br/>    <li><strong>barkerjennifer:</strong> Java, Spring, SQL, FPGA Programming, Digital Signal Processing</li><br/>    <li><strong>bbass:</strong> C#, .NET, Angular, Network Security, Hardware Troubleshooting</li><br/></ul><br/><br/><h2 class=\"font-bold text-xl mt-4\">Workflow Integration</h2><br/><p>Based on the skills of the assigned students, the project can be divided into the following sections:</p><br/><br/><h3 class=\"font-bold text-lg mt-4\">1. Backend Development</h3><br/><p>The backend development will be handled by <strong>barbara16</strong> and <strong>barkerjennifer</strong> with their expertise in Python, Django, and SQL. The workflow for this section includes the following tasks:</p><br/><ul><br/>    <li>Design and develop the database structure using PostgreSQL.</li><br/>    <li>Integrate Django framework to handle server-side logic and requests.</li><br/>    <li>Implement user authentication and account management functionalities.</li><br/>    <li>Integrate payment gateway for secure and seamless transactions.</li><br/></ul><br/><br/><h3 class=\"font-bold text-lg mt-4\">2. Frontend Development</h3><br/><p>The frontend development will be assigned to <strong>barberpatricia</strong> and <strong>bbass</strong> with their skills in React, Node.js, CSS, and Angular. The workflow for this section includes the following tasks:</p><br/><ul><br/>    <li>Create an intuitive and visually appealing interface for users to browse products and make purchases.</li><br/>    <li>Implement dynamic interactions using JavaScript for a seamless shopping experience.</li><br/>    <li>Integrate personalized recommendations for users based on their browsing history.</li><br/>    <li>Optimize the frontend for different devices and browsers.</li><br/></ul><br/><br/><h3 class=\"font-bold text-lg mt-4\">3. Hardware Integration</h3><br/><p><strong>barberpatricia</strong> and <strong>barkerjennifer</strong> will work together to integrate hardware components into the web application. The workflow for this section includes the following tasks:</p><br/><ul><br/>    <li>Design and develop PCBs for hardware components using circuit design skills.</li><br/>    <li>Integrate hardware components with the web application using Arduino and FPGA programming.</li><br/>    <li>Ensure hardware compatibility and troubleshoot any issues that may arise.</li><br/></ul><br/><br/><h3 class=\"font-bold text-lg mt-4\">4. Testing and Deployment</h3><br/><p>The final section will involve the entire team working together to test and deploy the web application. The workflow for this section includes the following tasks:</p><br/><ul><br/>    <li>Conduct thorough testing of the web application for functionality, performance, and security.</li><br/>    <li>Fix any bugs or issues identified during testing.</li><br/>    <li>Deploy the web application on a secure and scalable server.</li><br/>    <li>Ensure proper documentation and user guides for the application.</li><br/></ul><br/><br/><br/><p>The project will be divided into smaller tasks and assigned to each student based on their skillsets and expertise. Regular communication and collaboration will be maintained throughout the project to ensure timely completion and high-quality deliverables. Any changes or updates to the project timeline or requirements will be discussed and addressed by the project manager and team members. </p>"
+        }
+    },
+    {
+        "model": "api.workflow",
+        "pk": 8,
+        "fields": {
+            "description": "<h1 class=\"text-4xl font-bold\">Project Workflow for Online Shopping Web Application</h1>\r\n\r\n<h2 class=\"text-2xl font-bold mt-8\">Project Overview</h2>\r\n\r\n<p class=\"mt-4\"><strong>Project Name: </strong>Online Shopping Web Application</p>\r\n<p><strong>Project Description: </strong>Develop a comprehensive web application for online shopping, providing users with an intuitive interface to browse products, make purchases, and manage their accounts. The backend will be powered by Python, Django, and PostgreSQL, ensuring a robust and scalable solution. The frontend will utilize JavaScript for dynamic interactions, creating a seamless and enjoyable shopping experience for users. The application aims to support a wide range of products and enhance user engagement through personalized recommendations and a user-friendly interface.</p>\r\n<p><strong>Project Requirements: </strong>Python, Django, JavaScript, PostgreSQL</p>\r\n<p><strong>Project Timeline: </strong>8th December 2023 1:03:03 pm to 8th December 2023 1:03:03 pm</p>\r\n\r\n<h2 class=\"text-2xl font-bold mt-8\">Assigned Students and Their Skills</h2>\r\n\r\n<p class=\"mt-4\"><strong>barbara16's skills: </strong>Python, Django, JavaScript, Embedded Systems, Circuit Design</p>\r\n<p><strong>barberpatricia's skills: </strong>React, Node.js, CSS, PCB Design, Arduino</p>\r\n<p><strong>barkerjennifer's skills: </strong>Java, Spring, SQL, FPGA Programming, Digital Signal Processing</p>\r\n<p><strong>bbass's skills: </strong>C#, .NET, Angular, Network Security, Hardware Troubleshooting</p>\r\n\r\n<h2 class=\"text-2xl font-bold mt-8\">Workflow Integration</h2>\r\n\r\n<p class=\"mt-4\">Based on the skills of the assigned students, the project workflow will be divided into different sections as follows:</p>\r\n\r\n<h3 class=\"text-xl font-bold mt-4\">Section 1: Backend Development</h3>\r\n\r\n<p class=\"mt-4\">This section will be handled by <strong>barbara16</strong> and <strong>barkerjennifer</strong>. They will work together to develop the backend of the web application using Python, Django, and PostgreSQL. The tasks involved in this section include:</p>\r\n\r\n<ul class=\"list-disc list-inside mt-4\">\r\n    <li>Setting up the development environment with Python, Django, and PostgreSQL</li>\r\n    <li>Designing the database structure and creating the necessary tables</li>\r\n    <li>Implementing user authentication and authorization</li>\r\n    <li>Creating APIs for product listing, searching, and purchasing</li>\r\n    <li>Integrating payment gateway for secure transactions</li>\r\n</ul>\r\n\r\n<h3 class=\"text-xl font-bold mt-4\">Section 2: Frontend Development</h3>\r\n\r\n<p class=\"mt-4\">This section will be handled by <strong>barberpatricia</strong> and <strong>bbass</strong>. They will work together to develop the frontend of the web application using JavaScript, React, and CSS. The tasks involved in this section include:</p>\r\n\r\n<ul class=\"list-disc list-inside mt-4\">\r\n    <li>Creating a user-friendly and responsive interface for the web application</li>\r\n    <li>Implementing dynamic interactions using JavaScript</li>\r\n    <li>Integrating APIs from the backend for product listing and purchasing</li>\r\n    <li>Implementing user account management and personalized recommendations</li>\r\n</ul>\r\n\r\n<h3 class=\"text-xl font-bold mt-4\">Section 3: Hardware Integration</h3>\r\n\r\n<p class=\"mt-4\">This section will be handled by <strong>barbara16</strong> and <strong>barberpatricia</strong>. They will work together to integrate hardware components with the web application for a seamless shopping experience. The tasks involved in this section include:</p>\r\n\r\n<ul class=\"list-disc list-inside mt-4\">\r\n    <li>Designing and implementing a PCB for the web application</li>\r\n    <li>Integrating Arduino for sensor-based interactions with the web application</li>\r\n    <li>Testing and troubleshooting hardware components for proper functionality</li>\r\n</ul>\r\n\r\n<h3 class=\"text-xl font-bold mt-4\">Section 4: Security and Performance Optimization</h3>\r\n\r\n<p class=\"mt-4\">This section will be handled by <strong>barkerjennifer</strong> and <strong>bbass</strong>. They will work together to ensure the security and performance optimization of the web application. The tasks involved in this section include:</p>\r\n\r\n<ul class=\"list-disc list-inside mt"
         }
     },
     {
@@ -6214,16 +6336,17 @@
             "bid_price": "15000.00",
             "status": "Open",
             "project_doc": "",
-            "prd": 1,
-            "Learning_resources": "",
+            "prd": 3,
+            "Learning_resources": "### Learning Resources\n\n<h1 class=\"text-3xl font-bold\">Python</h1>\n\n<p>\n    Barbara16 and Barkerjennifer already have some experience with Python, so they can probably get up to speed on the Django framework quickly.\n    Here are some resources that they can use to learn more about Django:\n    <ul>\n        <li><a href=\"https://docs.djangoproject.com/en/dev/\">Django Documentation</a></li>\n        <li><a href=\"https://www.djangogirls.org/\">Django Girls Tutorial</a></li>\n        <li><a href=\"https://www.udemy.com/course/django-tutorial-for-beginners/\">Django Tutorial on Udemy</a></li>\n    </ul>\n</p>\n\n<h1 class=\"text-3xl font-bold\">JavaScript</h1>\n\n<p>\n    All of the team members have some experience with JavaScript, so they should be able to pick up the PostgreSQL database quickly.\n    Here are some resources that they can use to learn more about PostgreSQL:\n    <ul>\n        <li><a href=\"https://www.postgresql.org/docs/current/index.html\">PostgreSQL Documentation</a></li>\n        <li><a href=\"https://www.codecademy.com/learn/learn-postgresql/\">PostgreSQL Tutorial on Codecademy</a></li>\n        <li><a href=\"https://www.udemy.com/course/postgresql-tutorial/\">PostgreSQL Tutorial on Udemy</a></li>\n    </ul>\n</p>\n\n<h1 class=\"text-3xl font-bold\">Embedded Systems</h1>\n\n<p>\n    Barbara16 has some experience with embedded systems, so she can probably get up to speed on circuit design quickly.\n    Here are some resources that she can use to learn more about circuit design:\n    <ul>\n        <li><a href=\"https://www.allaboutcircuits.com/\">All About Circuits</a></li>\n        <li><a href=\"https://www.sparkfun.com/tutorials/\">SparkFun Tutorials</a></li>\n        <li><a href=\"https://www.adafruit.com/learn/\">Adafruit Learning System</a></li>\n    </ul>\n</p>\n\n<h1 class=\"text-3xl font-bold\">Circuit Design</h1>\n\n<p>\n    All of the team members have some experience with circuit design, so they should be able to pick up the Arduino platform quickly.\n    Here are some resources that they can use to learn more about Arduino:\n    <ul>\n        <li><a href=\"https://www.arduino.cc/en/docs/tutorials/index.html\">Arduino Tutorials</a></li>\n        <li><a href=\"https://www.sparkfun.com/tutorials/arduino/\">SparkFun Tutorials</a></li>\n        <li><a href=\"https://www.adafruit.com/learn/arduino/\">Adafruit Learning System</a></li>\n    </ul>\n</p>\n\n<h1 class=\"text-3xl font-bold\">React</h1>\n\n<p>\n    Barberpatricia already has some experience with React, so she can probably get up to speed on Node.js quickly.\n    Here are some resources that she can use to learn more about Node.js",
             "related_techstacks": [
                 "Python",
                 "Django",
                 "JavaScript",
                 "PostgreSQL"
             ],
+            "project_management": "{\n    \"barbara16\": [\n        \"Backend development using Python and Django\",\n        \"Implementing embedded systems for the application\",\n        \"Designing and implementing circuitry for the application\"\n    ],\n    \"barberpatricia\": [\n        \"Frontend development using React and CSS\",\n        \"Utilizing Node.js for dynamic interactions\",\n        \"Designing PCBs for the application\",\n        \"Integrating Arduino for user interactions\"\n    ],\n    \"barkerjennifer\": [\n        \"Backend development using Java and Spring\",\n        \"Database design and management using SQL\",\n        \"Programming and utilizing FPGA for the application\",\n        \"Implementing digital signal processing for user interactions\"\n    ],\n    \"bbass\": [\n        \"Frontend development using Angular and CSS\",\n        \"Utilizing C# and .NET for backend development\",\n        \"Implementing network security measures for the application\",\n        \"Troubleshooting hardware issues for the application\"\n    ]\n}",
             "project_timeline": "Planning : 2023-12-08 , Development : 2023-12-09 , Testing : 2023-12-15 , Deployment : 2023-12-23",
-            "workflow": null,
+            "workflow": 8,
             "created_at": "8th December 2023 1:03:03 pm",
             "updated_at": "8th December 2023 1:03:03 pm",
             "created_by": 1,
@@ -6249,6 +6372,7 @@
                 "MySQL",
                 "Thymeleaf"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6275,6 +6399,7 @@
                 "iOS Development",
                 "Firebase"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6302,6 +6427,7 @@
                 "MySQL",
                 "Vue.js"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6328,6 +6454,7 @@
                 "Android Development",
                 "SQLite"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6354,6 +6481,7 @@
                 "Gin",
                 "MongoDB"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6381,6 +6509,7 @@
                 "SQLAlchemy",
                 "SQLite"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6411,6 +6540,7 @@
                 "Raspberry Pi",
                 "Camera Module"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6441,6 +6571,7 @@
                 "GPS Module",
                 "Camera"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6470,6 +6601,7 @@
                 "PLC",
                 "Sensors"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6499,6 +6631,7 @@
                 "Sensors",
                 "Cameras"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6529,6 +6662,7 @@
                 "PLC",
                 "IoT Gateway"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6559,6 +6693,7 @@
                 "Sensors",
                 "IoT Gateway"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6588,6 +6723,7 @@
                 "Wireless Modules",
                 "Environmental Sensors"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6617,6 +6753,7 @@
                 "Microphone",
                 "Display Panel"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
@@ -6646,6 +6783,7 @@
                 "Sensors",
                 "Linux"
             ],
+            "project_management": null,
             "project_timeline": null,
             "workflow": null,
             "created_at": "8th December 2023 1:03:03 pm",
