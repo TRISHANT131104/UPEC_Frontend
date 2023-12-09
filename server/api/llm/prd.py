@@ -84,8 +84,14 @@ def generate_prd( project_description, project_timeline, project_techstacks):
 
        Ensure that the generated PRD is clear, concise, and provides all necessary information for stakeholders to understand and proceed with the project.
         Please provide the information in only in JSON format for easy storage in a database.
-        JSON format is highly important for the response to be successful."
+        JSON format is highly important for the response to be successful.
+        JSON format example:
         """
+    prompt+="""{
+            "name": "sonoo",
+            "salary": 56000,
+            "married": true,
+        }"""
 
     openai.api_key = "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"
     response = openai.Completion.create(

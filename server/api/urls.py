@@ -34,7 +34,8 @@ from .views import (
     __get__group__messages__,
     __learning__resource__,
     __project__management__,
-    __get__all__projects__
+    __get__all__projects__,
+    __get__project__recommendations__,
 )
 
 urlpatterns = [
@@ -55,4 +56,5 @@ urlpatterns = [
     path("__learning__resources__for__talents__", __learning__resource__.as_view()),
     path("__project__management__/", __project__management__.as_view()),
     path("__get__all__projects__/",__get__all__projects__.as_view()),
+    path("__get__project__recommendations__/", __get__project__recommendations__.as_view()),
 ]
