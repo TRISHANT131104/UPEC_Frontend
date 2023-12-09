@@ -212,33 +212,6 @@ class __send__generated__prd__(APIView):
             if project.created_by == client:
                 # generate the prd
                 prd = generate_prd_button_clicked(project)
-                # prd is a dictionary
-                # save the prd in the ProjectRequirementDocument model
-                PRD_instance = ProjectRequirementDocument.objects.create(
-                    project_overview=prd["project_overview"],
-                    project_goals=prd["project_goals"],
-                    original_requirements=prd["original_requirements"],
-                    user_stories=prd["user_stories"],
-                    system_architecture=prd["system_architecture"],
-                    requirements_analysis=prd["requirements_analysis"],
-                    ui_ux_design=prd["ui_ux_design"],
-                    development_methodology=prd["development_methodology"],
-                    security_measures=prd["security_measures"],
-                    testing_strategy=prd["testing_strategy"],
-                    scalability_and_performance=prd["scalability_and_performance"],
-                    deployment_plan=prd["deployment_plan"],
-                    maintenance_and_support=prd["maintenance_and_support"],
-                    risks_and_mitigations=prd["risks_and_mitigations"],
-                    compliance_and_regulations=prd["compliance_and_regulations"],
-                    budget_and_resources=prd["budget_and_resources"],
-                    timeline_and_milestones=prd["timeline_and_milestones"],
-                    communication_plan=prd["communication_plan"],
-                    anything_unclear=prd["anything_unclear"],
-                )
-                # save the prd in the project
-                PRD_instance.save()
-                project.prd = PRD_instance
-                project.save()
                 return JsonResponse(
                     {"success": "PRD generated successfully", "data": prd}
                 )

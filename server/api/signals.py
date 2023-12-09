@@ -5,17 +5,26 @@ from django.contrib.auth.models import User
 from .models.projects import (
     ProjectRequirementDocument,
     Workflow,
+    Project,
 )
 from .llm import data_embeddings, data_embeddings_community
 
 
-@receiver(post_save, sender=ProjectRequirementDocument)
+# @receiver(post_save, sender=ProjectRequirementDocument)
+# def store_project_embeddings(sender, instance, created, **kwargs):
+#     if created:
+#         data_embeddings.store_project_requirement_document_embeddings(instance)
+#         print("Project embeddings stored")
+#     else:
+#         data_embeddings.store_project_requirement_document_embeddings(instance)
+#         print("Project embeddings already stored")
+
+@receiver(post_save, sender=Project)
 def store_project_embeddings(sender, instance, created, **kwargs):
-    if created:
+    if instance.prd is not None:
         data_embeddings.store_project_requirement_document_embeddings(instance)
         print("Project embeddings stored")
     else:
-        data_embeddings.store_project_requirement_document_embeddings(instance)
         print("Project embeddings already stored")
 
 @receiver(post_save, sender=Workflow)

@@ -22,10 +22,10 @@ def initiate_pinecone():
     return index
 
 
-def store_project_requirement_document_embeddings(prd):
+def store_project_requirement_document_embeddings(project):
     embed_model=load_embedding_model()
     index = initiate_pinecone()
-    project = Project.objects.get(prd=prd)
+    prd = project.prd
     text =[f"""
     "project_id": {project.id},
     "project_title": {project.title},
@@ -89,10 +89,10 @@ def store_project_requirement_document_embeddings(prd):
         "scalability_and_performance": prd.scalability_and_performance,
         "deployment_plan": prd.deployment_plan,
         "maintenance_and_support": prd.maintenance_and_support,
-        "risks_and_mitigations": prd.risks_and_mitigations,
+        "risks_and_mitigations": f"{prd.risks_and_mitigations}",
         "compliance_and_regulations": prd.compliance_and_regulations,
-        "budget_and_resources": prd.budget_and_resources,
-        "timeline_and_milestones": prd.timeline_and_milestones,
+        "budget_and_resources": f"{prd.budget_and_resources}",
+        "timeline_and_milestones": f"{prd.timeline_and_milestones}",
         "communication_plan": prd.communication_plan,
         "anything_unclear": prd.anything_unclear
     },
