@@ -7,7 +7,9 @@ from langchain.vectorstores import Pinecone
 from langchain.llms import HuggingFaceTextGenInference
 from torch import cuda
 import json
-from server.settings import embed_model
+
+# from server.settings import embed_model
+from ..utils.load_embedding_model import load_embedding_model
 
 
 class MessageHandler:
@@ -15,10 +17,28 @@ class MessageHandler:
         openai.api_key = api_key
         self.roles = " Project Owner: Project Manager, Project Manager: Technical Lead, Technical Lead: Developer, Developer: QA Engineer, QA Engineer: Project Manager, Web Developer, Mobile Developer, Desktop Developer, Embedded Systems Developer, Game Developer, Database Developer, DevOps, Quality Assurance and Testing, Artificial Intelligence and Machine Learning, Cloud Computing, Cybersecurity, UI UX Design, API Development, Augmented Reality and Virtual Reality, Robotics, Financial Technology, Education Technology, Blockchain"
         self.role = "Alumni"
-        index = "project"
+        pinecone.init(
+            api_key="663983e5-451f-4d33-bf74-6a7b8dbc4bcb",
+            environment="gcp-starter",
+        )
+
+        index = "projects"
+        index = pinecone.Index(index)
         text_field = "text"
+        embed_model = load_embedding_model()
         if embed_model:
             self.vectorstore = Pinecone(index, embed_model.embed_query, text_field)
+        self.llm = HuggingFaceTextGenInference(
+            inference_server_url="https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-alpha",
+            max_new_tokens=512,
+            top_k=10,
+            top_p=0.95,
+            typical_p=0.95,
+            temperature=0.01,
+            repetition_penalty=1.03,
+        )
+        if self.llm:
+            print("llm loaded")
 
     def prechecks(self, question):
         response = openai.Completion.create(
@@ -40,18 +60,18 @@ class MessageHandler:
         return answer
 
     def handle_context_required_message(self, question):
-        # llm = openai()
-        llm = HuggingFaceTextGenInference(
-            inference_server_url="https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-alpha",
-            max_new_tokens=512,
-            top_k=10,
-            top_p=0.95,
-            typical_p=0.95,
-            temperature=0.01,
-            repetition_penalty=1.03,
-        )
+        # llm = openai
+        # llm = HuggingFaceTextGenInference(
+        #     inference_server_url="https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-alpha",
+        #     max_new_tokens=512,
+        #     top_k=10,
+        #     top_p=0.95,
+        #     typical_p=0.95,
+        #     temperature=0.01,
+        #     repetition_penalty=1.03,
+        # )
         rag_pipeline = RetrievalQA.from_chain_type(
-            llm=llm, chain_type="stuff", retriever=self.vectorstore.as_retriever()
+            llm=self.llm, chain_type="stuff", retriever=self.vectorstore.as_retriever()
         )
         answer = rag_pipeline(question)
         return answer["result"]
