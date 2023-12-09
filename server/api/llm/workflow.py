@@ -20,11 +20,13 @@ def generate_project_workflow_prompt(project_description, project_requirements, 
         {students_skills}
 
         ### Workflow Integration:
-        Considering the skills of each student, outline a detailed workflow that tells what to be done at every important stage of the project . .
+        Considering the skills of each student, outline a detailed workflow , Divide The Whole Project Into Different Sections , Each Section Telling In Details What To Do.
 
         Note: Do not provide actual code; instead, create a narrative or bullet-point format suitable for a Word file.
 
-        Note: Provide the output in html tags . use different html tags to make the output look good in the frontend . Remove \n and use <br/> tags for new line
+        Note: Provide the output in html tags . use different html tags to make the output look good in the frontend .
+
+        Note: Use Tailwind Classes for h1,h2 and other basic tags and make it professional
     """
     return prompt
 

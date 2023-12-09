@@ -35,7 +35,8 @@ from .views import (
     __learning__resource__,
     __project__management__,
     __get__all__projects__,
-    __get__each__project__
+    __get__each__project__,
+    __get__project__recommendations__,
 )
 
 urlpatterns = [
@@ -57,4 +58,5 @@ urlpatterns = [
     path("__project__management__/", __project__management__.as_view()),
     path("__get__all__projects__/",__get__all__projects__.as_view()),
     path("__get__each__project__/<int:pk>",__get__each__project__.as_view()),
+    path("__get__project__recommendations__/", __get__project__recommendations__.as_view()),
 ]

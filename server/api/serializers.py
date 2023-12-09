@@ -58,3 +58,8 @@ class TeamSerialzier(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = '__all__'
+
+class WorkflowSerialzier(serializers.ModelSerializer):
+    class Meta:
+        model = Workflow
+        fields = "__all__"

@@ -16,10 +16,10 @@ def generate_learning_resource_prompt(talent, project):
     skills_string = ""
     print(team)
     for user in team.members.all():
-        talent = Talent.objects.get(user=user)
+        talent = user
         if talent:
             skills = ", ".join(talent.skills) if talent.skills else "No skills listed"
-            skills_string += f"{user.username}'s skills: {skills}\n"
+            skills_string += f"{talent.user.username}'s skills: {skills}\n"
     print('tech_stack',tech_stack)
     print('skills_string',skills_string)
     prompt = f"""
@@ -29,7 +29,11 @@ def generate_learning_resource_prompt(talent, project):
         The team members' skills are as follows: {skills_string}.
 
         ### Learning Resources:
-        Please provide detailed learning resources and include all the necessary links if possible , Remember You Do have to Provide Learning Resources Compulsary , Remember To Use <h1>,<p>,<a>,<b> tags To Make the output look good. .
+        Please provide detailed learning resources and include all the necessary links if possible , Remember You Do have to Provide Learning Resources Compulsary .
+
+        Note: Provide the output in html tags . use different html tags to make the output look good in the frontend .
+
+        Note: Use Tailwind Classes for h1,h2 and other basic tags and make it professional . Colour the <a> tages , Kepp good spacing Between Each Line . Donot give <html>,<head> / <body> tags
         """
 
     return prompt
