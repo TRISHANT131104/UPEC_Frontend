@@ -42,7 +42,7 @@ class Workflow(models.Model):
     description = models.TextField()
     
 class Client(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='client',default=None,null=True,blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client',default=None,null=True,blank=True)
     number_of_projects_given = models.IntegerField(default=0)
     number_of_projects_completed = models.IntegerField(default=0)    
     rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
@@ -57,16 +57,16 @@ class Project(models.Model):
     end_date = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=True, blank=True, null=True)
     bid_price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, default='Open')
-    project_doc = models.FileField(upload_to=__prd__file__path__, null=True, blank=True)
-    prd = models.OneToOneField(ProjectRequirementDocument, related_name="PRD", on_delete=models.SET_NULL, null=True, blank=True)
+    project_doc = models.FileField(upload_to=__prd__file__path__, null=True, blank=True,default=None)
+    prd = models.ForeignKey(ProjectRequirementDocument, related_name="PRD", on_delete=models.SET_NULL, null=True, blank=True,default=None)
     Learning_resources = models.TextField(_("Learning Resources"),blank=True,null=True,default=None)
     related_techstacks = models.JSONField(default=list, blank=True, null=True)
     project_timeline = models.JSONField(default=None,null=True,blank=True)
-    workflow = models.OneToOneField(Workflow, related_name="workflow", on_delete=models.SET_NULL,null=True,blank=True,default=None)
+    workflow = models.ForeignKey(Workflow, related_name="workflow", on_delete=models.SET_NULL,null=True,blank=True,default=None)
     created_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     updated_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
     created_by = models.ForeignKey(Client,null=True,default=None,blank=True,related_name='created_projects',on_delete=models.SET_NULL)
-    chat_group_id = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True)
+    chat_group_id = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True,default=None)
     
 
 class Milestone(models.Model):
