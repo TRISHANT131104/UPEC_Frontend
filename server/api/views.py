@@ -474,16 +474,19 @@ class __get__project__recommendations__(APIView):
     def post(self, request):
         user = User.objects.get(id=request.data["id"])
         is_talent = Talent.objects.filter(user=user).exists()
+        talent_instance = Talent.objects.get(user=user)
         if is_talent:
-            skills = []
-            for i in Talent.skils:
-                skills.append(i)
-            project_ids = project_recomendation(skills)
+            skill = []
+            for i in talent_instance.skills:
+                skill.append(i)
+            print(skill)
+            project_ids = project_recomendation(skill)
             response=[]
-            for i in project_ids:
-                project = Project.objects.get(id=i)
-                serializer = ProjectSerializer(project)
-                response.append(serializer.data)
-            return JsonResponse(response, safe=False)
+            # for i in project_ids:
+            #     project = Project.objects.get(id=i)
+            #     serializer = ProjectSerializer(project)
+            #     response.append(serializer.data)
+            print(project_ids)
+            return JsonResponse(project_ids, safe=False)
         else:
             return Response({"error": "You are not a talent"})

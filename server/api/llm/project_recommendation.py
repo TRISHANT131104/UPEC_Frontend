@@ -21,14 +21,16 @@ def initiate_pinecone():
     )
     return vectorstore
 def project_recomendation(skills):
-
     # Define the prompt based on parameters
     vectorstore=initiate_pinecone()
+    result = []
+    # retriever = vectorstore.as_retriever()
+    # retriever.get_relevant_documents(f"{skills}")
     result = vectorstore.similarity_search(
-        skills,  # the search query
-        k=3  # returns top 3 most relevant chunks of text
+        f"{skills}",  # the search query
+        k=1  # returns top 3 most relevant chunks of text
     )
 
-    return result
+    return result[0].metadata["ID"]
 
 
