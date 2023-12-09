@@ -7,7 +7,7 @@ from .models.community import *
 from .serializers import *
 from .utils import *
 from .llm import *
-from .llm.leaning_resource import learning_resource
+from .llm.learning_resource import learning_resource
 from .llm.management import generate_management
 from rest_framework.response import Response
 from .llm.workflow import *

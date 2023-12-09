@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     "api",
     "corsheaders",
     'django.contrib.sites',
-    
 ]
 
 
