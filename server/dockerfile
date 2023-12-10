@@ -1,0 +1,35 @@
+# Stage 1: Build stage
+FROM python:3.9 AS builder
+
+WORKDIR /app
+
+COPY requirements.txt /app/
+
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
+
+# Stage 2: Production stage
+FROM python:3.9-slim
+
+WORKDIR /app
+
+COPY --from=builder /usr/local/lib/python3.9/site-packages /usr/local/lib/python3.9/site-packages
+COPY . /app
+
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV DEBUG True
+ENV PROD True
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
+# Expose port 8000 for Gunicorn
+EXPOSE 8000
+
+# Start Gunicorn for the main application
+CMD gunicorn -b 0.0.0.0:8000 server.wsgi:application & \
+    daphne -u /app/socket.sock server.asgi:application
+
+# Additional commands for Daphne and websockets
+# CMD ["daphne", "-u", "/app/socket.sock", "server.asgi:application"]

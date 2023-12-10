@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  django:
+    build: .
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && gunicorn -b 0.0.0.0:8000 server.wsgi:application"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    container_name: UPEC-SERVER
+
+  redis:
+    image: "redis:alpine"
+
+
+  daphne:
+    build: .
+    command: daphne -u /app/socket.sock server.asgi:application
+    volumes:
+      - .:/app
+    depends_on:
+      - redis
+    container_name: daphne
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./server/nginx:/etc/nginx/conf.d
+    ports:
+      - "80:80"
+    depends_on:
+      - django
+      - daphne

@@ -86,8 +86,9 @@ def generate_prd( project_description, project_timeline, project_techstacks):
         Please provide the information in only in JSON format for easy storage in a database.
         JSON format is highly important for the response to be successful.
 
-        Note: Provide the output in html tags for every json response . use different html tags to make the output look good in the frontend in e.
+        Note: Provide the output in html tags for every json response . use different html tags to make the output look good in the frontend.
 
+        NOTE:All the 20 points must be addresses compulsary
         JSON format example:
         """
     prompt+="""{
@@ -100,7 +101,7 @@ def generate_prd( project_description, project_timeline, project_techstacks):
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",
         prompt=prompt,
-        max_tokens=3000,  # Adjust as needed
+        max_tokens=2000,  # Adjust as needed
         temperature=0.7,  # Adjust as needed
     )
 
