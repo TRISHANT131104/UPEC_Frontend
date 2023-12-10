@@ -19,10 +19,6 @@ from .llm import data_embeddings
 # Create your views here.
 
 
-
-
-
-
 class __get__all__projects__(APIView):
     def get(self,request):
         projects = Project.objects.all()
@@ -418,12 +414,25 @@ class __get__each__project__(APIView):
 
         user_data = UserSerializer(user).data
         project_data["created_by"]["user"] = user_data
-        if(project_data["workflow"] is not None):
+
+        if project_data["workflow"] is not None:
             project_data["workflow"] = WorkflowSerialzier(Workflow.objects.get(id=project_data["workflow"])).data
-        if(project_data['prd'] is not None):
+
+        if project_data['prd'] is not None:
             project_data["prd"] = ProjectRequirementDocumentSerializer(ProjectRequirementDocument.objects.get(id=project_data["prd"])).data
-        if(project_data["project_management"] is not None):
+
+        if project_data["project_management"] is not None:
             project_data["project_management"] = json.loads(project_data["project_management"])
+
+        team = Team.objects.filter(project=project)
+        if team.exists():
+            team = team.first()
+            team_serializer = TeamSerializer(team)
+            project_data["team"] = team_serializer.data
+            project_data["team"]["members"] = [UserSerializer(Talent.objects.get(id=member_id).user).data for member_id in project_data["team"]["members"]]
+        else:
+            project_data["team"] = None
+
         return Response(project_data)
 
 
@@ -476,7 +485,7 @@ class __get__project__related__groups__(APIView):
     def get(self, request, pk):
         user = User.objects.get(id=pk)
         team = Team.objects.filter(members=pk)
-        serializer = TeamSerialzier(team, many=True)
+        serializer = TeamSerializer(team, many=True)
         project_groups = []
         for i in serializer.data:
             if i["project"] not in project_groups:
@@ -496,7 +505,7 @@ class __get__group__chat__users__(APIView):
     def get(self, request, pk):
         user = User.objects.get(id=pk)
         team = Team.objects.filter(members=pk)
-        serializer = TeamSerialzier(team, many=True)
+        serializer = TeamSerializer(team, many=True)
         project_groups = []
         for i in serializer.data:
             if i["project"] not in project_groups:
@@ -519,20 +528,46 @@ class __get__project__recommendations__(APIView):
     def post(self, request):
         user = User.objects.get(id=request.data["id"])
         is_talent = Talent.objects.filter(user=user).exists()
-        talent_instance = Talent.objects.get(user=user)
+        
         if is_talent:
+            talent_instance = Talent.objects.get(user=user)
             skill = []
             for i in talent_instance.skills:
                 skill.append(i)
             print(skill)
             project_ids = project_recomendation(skill)
-            response=[]
-            # for i in project_ids:
-            #     project = Project.objects.get(id=i)
-            #     serializer = ProjectSerializer(project)
-            #     response.append(serializer.data)
             print(project_ids)
+            response=[]
+            for i in project_ids:
+                project = Project.objects.get(id=i)
+                serializer = ProjectSerializer(project)
+                response.append(serializer.data)
             return JsonResponse(project_ids, safe=False)
         else:
             return Response({"error": "You are not a talent"})
 
+class __get__users__ongoing__projects__(APIView):
+    def get(self,request,pk):
+        user = User.objects.get(id=pk)
+        is_talent = Talent.objects.filter(user=user).exists()
+        if is_talent:
+            talent = Talent.objects.get(user=user)
+            team = Team.objects.filter(members=talent)
+            serializer = TeamSerializer(team,many=True)
+            projects = []
+            for i in serializer.data:
+                projects.append(ProjectSerializer(Project.objects.get(id=i['project'])).data)
+            return JsonResponse(projects,safe=False)
+        else:
+            return Response("You Are Not a Talent , You Cannot Access it")
+        
+class __get__team__related__to__project__(APIView):
+    def get(self,request,pk):
+        project = Project.objects.get(id=pk)
+        team = Team.objects.filter(project = project)
+        if team.exists():
+            team = team.first()
+            serializer =TeamSerializer(team)
+            return Response(serializer.data)
+        else:
+            return Response('team does not exists')
