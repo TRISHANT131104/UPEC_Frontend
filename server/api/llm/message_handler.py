@@ -9,7 +9,7 @@ from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.llms import HuggingFaceTextGenInference
 from langchain.vectorstores import Pinecone
 from torch import cuda
-
+openai.api_key = "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"
 # from server.settings import embed_model
 from ..utils.load_embedding_model import load_embedding_model
 

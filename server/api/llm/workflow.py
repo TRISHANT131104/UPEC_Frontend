@@ -51,6 +51,7 @@ def make_workflow(project):
     prompt = generate_project_workflow_prompt(
         project_description, project_techstacks, project_timeline, skills_string
     )
+    openai.api_key = "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"
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",
         prompt=prompt,

@@ -34,7 +34,9 @@ export default function Projects() {
             <Suspense fallback={<div>Loading...</div>}>
               {CurrentProjects?.data?.map((ele, index) => {
                 return (
+                  <div key={index}>
                   <ProjectCard ele={ele} />
+                  </div>
                 )
               })}
             </Suspense>
@@ -47,7 +49,9 @@ export default function Projects() {
         <Suspense fallback={<div>Loading...</div>}>
           {AllProjects?.data?.map((ele, index) => {
             return (
+              <div key={index}>
               <ProjectCard ele={ele} />
+              </div>
             )
           })}
         </Suspense>

@@ -35,7 +35,7 @@ def generate_prompt(team, project):
         The team members' skills are as follows: {skills_string}.
 
         I need you to divide tasks among users based on their skills and project's requirements. Please provide a json format with username and their responsibilites for the completion of this project.
-        give it in this format username : "roles":"","tasks":""
+        give it in json format username : "roles":"","tasks":""
         """
 
     return prompt

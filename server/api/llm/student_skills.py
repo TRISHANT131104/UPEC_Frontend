@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from ..models import *
 
 load_dotenv()
-
+openai.api_key = "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"
 
 def generate_learning_reasources(student, projects):
     skills = student.skills
@@ -28,7 +28,7 @@ def generate_learning_reasources(student, projects):
     #     "inputs": prompt,
     # })
 
-    palm.configure(api_key=os.environ.get("PALM_API_KEY"))
+    palm.configure(api_key=os.environ.get("AIzaSyAJoZkh9TLWe7SJjfrRnyiO38B4dLNMfXM"))
     models = [
         m
         for m in palm.list_models()

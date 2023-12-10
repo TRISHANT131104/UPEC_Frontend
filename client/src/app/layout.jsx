@@ -14,7 +14,7 @@ import {
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import HomeContext, { HomeProvider } from '@/context/HomeContext'
 const inter = Inter({ subsets: ['latin'] })
-
+import toast, { Toaster } from 'react-hot-toast';
 export default function RootLayout({ children }) {
   const [queryClient] = React.useState(() => new QueryClient())
   return (
@@ -25,6 +25,7 @@ export default function RootLayout({ children }) {
         <QueryClientProvider client={queryClient}>
           <HomeProvider>
             <NavbarComponent />
+            <Toaster/>
             {children}
 
             
