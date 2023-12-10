@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import ProjectCard from '@/components/ProjectPageComponents/ProjectCard'
 
 export default async function Projects() {
@@ -6,6 +6,7 @@ export default async function Projects() {
   console.log(AllProjects)
   return (
     <div className='bg-[#F7F7F7] text-[#D6DCE8]'>
+      <Suspense fallback={<div>Loading...</div>}>
       <div className='shadow-lg m-4 p-4 bg-white rounded-md'>
         <h1 className="text-lg md:text-2xl xl:text-4xl font-bold">Current Projects</h1>
         <div className="flex flex-col items-center justify-start">
@@ -22,6 +23,7 @@ export default async function Projects() {
         })}
         
       </div>
+      </Suspense>
     </div>
   )
 }

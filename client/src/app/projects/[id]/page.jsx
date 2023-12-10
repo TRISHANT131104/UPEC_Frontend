@@ -1,14 +1,16 @@
 'use client'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
-import React from 'react'
+import React, { useContext } from 'react'
 import axios from 'axios'
 import EachProjectCard from '@/components/ProjectPageComponents/EachProjectCard'
 import WorkflowCard from '@/components/ProjectPageComponents/WorkflowCard'
 import parse from 'html-react-parser';
 import PRDCard from '@/components/ProjectPageComponents/PRDCard'
+import HomeContext from '@/context/HomeContext'
 export default function EachProject({ params }) {
     console.log(params)
+    const {auth} = useContext(HomeContext)
     const router = useRouter()
     console.log(router)
     const EachProject = useQuery({
@@ -31,13 +33,28 @@ export default function EachProject({ params }) {
                         <p className="mb-8 leading-relaxed">{EachProject?.data?.description}</p>
                         <div className="grid grid-cols-2 justify-center text-center">
                             {EachProject?.data?.workflow === null && (
-                                <button className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 text-center flex justify-center">Generate Workflow</button>
+                                <button className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 text-center flex justify-center items-center" onClick={()=>{
+                                    axios.post('http://127.0.0.1:8000/api/v1/__send__generated__workflow__/',{id:auth.user.id,project_id:EachProject?.data?.id}).then((response)=>{
+                                        EachProject.refetch()
+                                        console.log(response.data)
+                                    })
+                                }}>Generate Workflow</button>
                             )}
                             {(EachProject?.data?.Learning_resources == null || EachProject?.data?.Learning_resources?.length == 0) && (
-                                <button className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 text-center flex justify-center">Generate Learning Resources</button>
+                                <button onClick={()=>{
+                                    axios.post('http://127.0.0.1:8000/api/v1/__learning__resource__/',{id:auth.user.id,project_id:EachProject?.data?.id}).then((response)=>{
+                                        EachProject.refetch()
+                                        console.log(response.data)
+                                    })
+                                }} className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 text-center flex justify-center items-center">Generate Learning Resources</button>
                             )}
-                            {(EachProject?.data?.prd != null && EachProject?.data?.project_management == null) && (
-                                <button className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5">Generate Project Mangement</button>
+                            {(EachProject?.data?.prd != null && (EachProject?.data?.project_management == null || EachProject?.data?.project_management.length==0 || EachProject?.data?.project_management=="")) && (
+                                <button onClick={()=>{
+                                    axios.post('http://127.0.0.1:8000/api/v1/__project__management__/',{id:auth.user.id,project_id:EachProject?.data?.id}).then((response)=>{
+                                        EachProject.refetch()
+                                        console.log(response.data)
+                                    })
+                                }} className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 items-center">Generate Project Mangement</button>
                             )}
 
 
@@ -45,36 +62,47 @@ export default function EachProject({ params }) {
                     </div>
 
                 </div>
-                <div className='mx-10 my-10 text-black'>
-                    <h1 className='text-center font-bold text-black my-10 text-3xl'>Workflow For Talents</h1>
-                    {parse(EachProject.data ? EachProject?.data?.workflow?.description : "")}
-                </div>
-
-                <div className='mx-10 my-10 text-black'>
-                    <h1 className='text-center font-bold text-black my-10 text-3xl'>Learning Resources For Talents</h1>
-                    <div id="learning_resources">
-                        {parse(EachProject.data ? EachProject?.data?.Learning_resources : "")}
+                {EachProject?.data?.workflow && (
+                    <div className='mx-10 my-10 text-black'>
+                        <h1 className='text-center font-bold text-black my-10 text-3xl'>Workflow For Talents</h1>
+                        {EachProject.isSuccess ? parse(EachProject.data.workflow ? EachProject.data.workflow.description : "") : ""}
                     </div>
-                </div>
+                )}
 
-                <div className='mx-10 my-10 text-black'>
-                    <h1 className='text-center font-bold text-black my-10 text-3xl'>Project Requirement Document</h1>
-                    <div className='grid grid-cols-1 justify-center'>
-                    {["project_overview", "original_requirements", "project_goals", "user_stories", "system_architecture", "tech_stacks", "requirement_pool", "ui_ux_design", "development_methodology", "security_measures", "testing_strategy", "scalability_and_performance", "deployment_plan", "maintenance_and_support", "risks_and_mitigations", "compliance_and_regulations", "budget_and_resources", "timeline_and_milestones", "communication_plan", "anything_unclear"].map((ele, index) => (
-                        <div className='my-10'>
-                        <PRDCard key={index} ele={ele} EachProject={EachProject} />
+                {EachProject?.data?.Learning_resources && (
+                    <div className='mx-10 my-10 text-black'>
+                        <h1 className='text-center font-bold text-black my-10 text-3xl'>Learning Resources For Talents</h1>
+                        <div id="learning_resources">
+                            {EachProject.isSuccess ? parse(EachProject.data.Learning_resources ? EachProject.data.Learning_resources : "") : ""}
                         </div>
-                    ))}
                     </div>
-                </div>
+                )}
 
-                <div className='mx-10 my-10 text-black'>
-                    <h1 className='text-center font-bold text-black my-10 text-3xl'>Project Management</h1>
-                    <div className='grid grid-cols-1 justify-center'>
-                        <WorkflowCard workflowData={EachProject?.data?.project_management} />
-                    {}
+                {EachProject?.data?.prd && (
+                    <div className='mx-10 my-10 text-black'>
+                        <h1 className='text-center font-bold text-black my-10 text-3xl'>Project Requirement Document</h1>
+                        <div className='grid grid-cols-1 justify-center'>
+                            {["project_overview", "original_requirements", "project_goals", "user_stories", "system_architecture", "tech_stacks", "requirement_pool", "ui_ux_design", "development_methodology", "security_measures", "testing_strategy", "scalability_and_performance", "deployment_plan", "maintenance_and_support", "risks_and_mitigations", "compliance_and_regulations", "budget_and_resources", "timeline_and_milestones", "communication_plan", "anything_unclear"].map((ele, index) => (
+                                <div className='my-10'>
+                                    <PRDCard key={index} ele={ele} EachProject={EachProject} />
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
+
+                {EachProject?.data?.project_management && (
+                    <div className='mx-10 my-10 text-black'>
+                        <h1 className='text-center font-bold text-black my-10 text-3xl'>Project Management</h1>
+                        <div className='grid grid-cols-1 justify-center'>
+                            <WorkflowCard workflowData={EachProject?.data?.project_management} />
+                            { }
+                        </div>
+                    </div>
+                )}
+
+
+
             </section>
             <style jsx>
                 {`

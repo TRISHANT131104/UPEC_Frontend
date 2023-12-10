@@ -13,7 +13,7 @@ export default function
                                 <div><div className='grid grid-cols-[auto_auto]'>
                                     <div className="px-2 py-2 text-gray-500 font-semibold">Skills Required</div>
                                     <div className='flex flex-wrap'>
-                                        {ele?.related_techstacks.map((item, index) => {
+                                        {ele?.related_techstacks?.map((item, index) => {
                                             return (
                                                 <div key={index} className="px-2 py-2">
                                                     {item}

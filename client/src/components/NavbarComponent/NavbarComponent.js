@@ -1,11 +1,13 @@
 "use client";
-import React from 'react'
+import React, { useContext } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react';
+import HomeContext from '@/context/HomeContext';
 
 export default function NavbarComponent() {
     const [dropDown, setDropDown] = useState(false)
+    const {auth} = useContext(HomeContext)
     const handleButtonFocus = () => {
       setDropDown(true);
       setDropDown(prevState => !prevState);
@@ -31,14 +33,14 @@ export default function NavbarComponent() {
   </Link>
   <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
       <div className="">
-        <button onClick={handleClick} onFocus={handleButtonFocus} onBlur={handleButtonBlur} type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+        <button onClick={handleClick}  type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
           <span className="sr-only">Open user menu</span>
           <img className="w-8 h-8 rounded-full" src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="user photo"/>
         </button>
         <div className={`${dropDown ? 'block' : 'hidden'} fixed z-50 my-2 -ml-[8rem] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow-lg`} id="user-dropdown">
           <div className="px-4 py-3">
-            <span className="block text-sm text-gray-400">John Doe</span>
-            <span className="block text-sm  text-gray-500 truncate">JohnDoe@gmail.com</span>
+            <span className="block text-sm text-gray-400">{auth.user.username}</span>
+            <span className="block text-sm  text-gray-500 truncate">{auth.user.email}</span>
           </div>
           <ul className="py-2" aria-labelledby="user-menu-button">
             <li>
