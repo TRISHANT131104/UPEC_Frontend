@@ -42,13 +42,13 @@ export default function RecentChats() {
     const test1 = useGetPersonalChats()
     return (
         <div className='bg-white p-2 border border-gray-200 w-[300px] xl:w-1/4 xl:min-w-[350px] hidden md:block'>
-            <div className="w-full flex border border-gray-200 p-2">
+            <div className="w-full flex border border-gray-200 gap-4 p-2">
                 <img src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="" className="w-12 h-12 xl:w-16 xl:h-16 rounded-full mx-auto" />
                 <div className="border border-gray-200 flex rounded-full px-4 items-center w-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25" viewBox="0 0 50 50">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="20" height="20" viewBox="0 0 50 50">
                         <path d="M 21 3 C 11.6 3 4 10.6 4 20 C 4 29.4 11.6 37 21 37 C 24.354553 37 27.47104 36.01984 30.103516 34.347656 L 42.378906 46.621094 L 46.621094 42.378906 L 34.523438 30.279297 C 36.695733 27.423994 38 23.870646 38 20 C 38 10.6 30.4 3 21 3 z M 21 7 C 28.2 7 34 12.8 34 20 C 34 27.2 28.2 33 21 33 C 13.8 33 8 27.2 8 20 C 8 12.8 13.8 7 21 7 z"></path>
                     </svg>
-                    <div className='text-lg lg:text-lg xl:text-2xl p-2'>Search</div>
+                    <div className='text-base lg:text-base p-2'>Search</div>
                 </div>
             </div>
             <div className="border border-gray-200">
@@ -162,18 +162,18 @@ export default function RecentChats() {
 
                             <li className="py-2">
                                 <div className="flex items-center">
-                                    <div className="flex-1 min-w-0 ms-4">
+                                    <div className="flex-1 min-w-0 border-2 py-3 px-2 rounded">
                                         <p onClick={() => {
                                             setAI(true)
                                             setGroup(false)
                                             setSelectedName('Trumio Copilot')
                                             setReceiver(4)
                                             test1.mutate({ sender: auth.user.id, receiver: 4, group: false, ai: true })
-                                        }} className="text-md font-medium text-[#5E5873] truncate hover:text-[#0075FF] hover:underline">
+                                        }} className="text-lg font-semibold text-slate-700 truncate hover:text-[#0075FF] hover:cursor-pointer">
                                             Trumio Copilot
                                         </p>
-                                        <p className="text-md text-[#5E5873] truncate">
-                                            How May i Help You
+                                        <p className="text-sm text-[#5E5873] truncate">
+                                            How May i Help You?
                                         </p>
                                     </div>
                                 </div>
