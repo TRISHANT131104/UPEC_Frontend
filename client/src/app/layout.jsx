@@ -17,7 +17,7 @@ const inter = Inter({ subsets: ['latin'] })
 import toast, { Toaster } from 'react-hot-toast';
 export default function RootLayout({ children }) {
   const [queryClient] = React.useState(() => new QueryClient())
-  const imageDirectURL = `${process.env.SITE_URL}/images/upec-logo.png`
+  const imageDirectURL = `${process.env.SITE_URL}/upec-logo.png`
   return (
 
     <html lang="en">
