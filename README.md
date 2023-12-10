@@ -4,7 +4,7 @@
 	<img
 		width="300"
 		alt="TruConnect"
-		src="">
+		src="./images/logo.png">
 </h1>
 
 <h3 align="center">
