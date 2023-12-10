@@ -181,7 +181,6 @@ Before you begin, ensure you have the following installed:
 - [X] Create a learning resource generator AI tool.
 - [X] Create a Trumio Copilot.
 - [X] Create a intra University Alumini student engagement chat groups with Trumio Copilot.
-- [ ] Create a rating based feature.
 
 
 
