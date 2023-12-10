@@ -4,7 +4,10 @@
 
 Welcome to the UPEC trumio standalone application. This application is a transformative community engagement platform that serves as a centralized hub for students to connect with industry professionals and alumni to deepen their ties with their alma mater. Our platform leverages AI to personalize recommendations, offer real-time support, and facilitate seamless collaboration, fostering a thriving ecosystem where individuals can flourish all while following Trumio’s objectives and Business goals.
 
-![homepage](./images/homepage.png)
+<div style="display: inline-block; background-color: black; padding: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);">
+    <!-- Inline styles for the image -->
+    <img src="./images/homepage.png" alt="Homepage" style="width: 100%; height: auto; display: block;">
+  </div>
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>

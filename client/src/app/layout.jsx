@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
 
             
           </HomeProvider>
-          
+          <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
 
       </body>

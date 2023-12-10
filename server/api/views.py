@@ -457,7 +457,7 @@ class __get__each__project__(APIView):
         if project_data['prd'] is not None:
             project_data["prd"] = ProjectRequirementDocumentSerializer(ProjectRequirementDocument.objects.get(id=project_data["prd"])).data
 
-        if project_data["project_management"] is not None or project_data['project_management']=="" or len(project_data["project_management"])==0:
+        if project_data["project_management"] is not None or project_data['project_management']=="":
             project_data["project_management"] = json.loads(project_data["project_management"])
 
         team = Team.objects.filter(project=project)
@@ -587,6 +587,7 @@ class __get__users__ongoing__projects__(APIView):
     def get(self,request,pk):
         user = User.objects.get(id=pk)
         is_talent = Talent.objects.filter(user=user).exists()
+        is_client = Client.objects.filter(user=user).exists()
         if is_talent:
             talent = Talent.objects.get(user=user)
             team = Team.objects.filter(members=talent)
@@ -595,6 +596,11 @@ class __get__users__ongoing__projects__(APIView):
             for i in serializer.data:
                 projects.append(ProjectSerializer(Project.objects.get(id=i['project'])).data)
             return JsonResponse(projects,safe=False)
+        elif is_client:
+            client = Client.objects.get(user=user)
+            project = Project.objects.filter(created_by=client)
+            serializer = ProjectSerializer(project,many=True)
+            return Response(serializer.data)
         else:
             return Response("You Are Not a Talent , You Cannot Access it")
         
@@ -604,7 +610,7 @@ class __get__team__related__to__project__(APIView):
         team = Team.objects.filter(project = project)
         if team.exists():
             team = team.first()
-            serializer =TeamSerializer(team)
+            serializer = TeamSerializer(team)
             return Response(serializer.data)
         else:
             return Response('team does not exists')

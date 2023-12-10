@@ -21,7 +21,7 @@ export default function EachProject({ params }) {
     })
 
     console.log()
-    
+
     // const CheckIfUserIsinTheProject = () =>{
     //     let members = EachProject?.data?.team?.members
     //     console.log(members)
@@ -32,7 +32,7 @@ export default function EachProject({ params }) {
     //         return false;
     //     }
     // }
-    
+
     return (
         <div>
             <section className="text-gray-600 body-font">
@@ -44,41 +44,63 @@ export default function EachProject({ params }) {
                         <h1 className="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">{EachProject?.data?.title}
                         </h1>
                         <p className="mb-8 leading-relaxed">{EachProject?.data?.description}</p>
-                        {(EachProject?.data?.status != "Open" && EachProject?.data?.team?.members?.some((x)=>x.id===auth.user.id) ) && (
+                        {(EachProject?.data?.created_by?.user?.id != auth.user.id) ? (
+                            <>
+                                {(EachProject?.data?.status != "Open" && EachProject?.data?.team?.members?.some((x) => x.id === auth.user.id)) && (
+                                    <div className="grid grid-cols-2 justify-center text-center">
+                                        <>
+                                            {(EachProject?.data?.workflow === null) && (
+                                                <button className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 text-center flex justify-center items-center" onClick={() => {
+                                                    axios.post('http://127.0.0.1:8000/api/v1/__send__generated__workflow__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
+                                                        EachProject.refetch()
+                                                        console.log(response.data)
+                                                    })
+                                                }}>Generate Workflow</button>
+                                            )}
+                                            {(EachProject?.data?.Learning_resources == null || EachProject?.data?.Learning_resources?.length == 0) && (
+                                                <button onClick={() => {
+                                                    axios.post('http://127.0.0.1:8000/api/v1/__learning__resource__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
+                                                        EachProject.refetch()
+                                                        console.log(response.data)
+                                                    })
+                                                }} className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 text-center flex justify-center items-center">Generate Learning Resources</button>
+                                            )}
+                                            {(EachProject?.data?.prd != null && (EachProject?.data?.project_management == null || EachProject?.data?.project_management.length == 0 || EachProject?.data?.project_management == "")) && (
+                                                <button onClick={() => {
+                                                    axios.post('http://127.0.0.1:8000/api/v1/__project__management__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
+                                                        EachProject.refetch()
+                                                        console.log(response.data)
+                                                    })
+                                                }} className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 items-center">Generate Project Mangement</button>
+                                            )}
+                                        </>
+                                    </div>
+                                )}
+                            </>
+                        ) : (
+
                             <div className="grid grid-cols-2 justify-center text-center">
-                                {EachProject?.data?.workflow === null && (
-                                    <button className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 text-center flex justify-center items-center" onClick={() => {
-                                        axios.post('http://127.0.0.1:8000/api/v1/__send__generated__workflow__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
-                                            EachProject.refetch()
-                                            console.log(response.data)
-                                        })
-                                    }}>Generate Workflow</button>
-                                )}
-                                {(EachProject?.data?.Learning_resources == null || EachProject?.data?.Learning_resources?.length == 0) && (
-                                    <button onClick={() => {
-                                        axios.post('http://127.0.0.1:8000/api/v1/__learning__resource__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
-                                            EachProject.refetch()
-                                            console.log(response.data)
-                                        })
-                                    }} className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 text-center flex justify-center items-center">Generate Learning Resources</button>
-                                )}
-                                {(EachProject?.data?.prd != null && (EachProject?.data?.project_management == null || EachProject?.data?.project_management.length == 0 || EachProject?.data?.project_management == "")) && (
-                                    <button onClick={() => {
-                                        axios.post('http://127.0.0.1:8000/api/v1/__project__management__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
-                                            EachProject.refetch()
-                                            console.log(response.data)
-                                        })
-                                    }} className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 items-center">Generate Project Mangement</button>
-                                )}
-
-
+                                <>
+                                    {EachProject?.data?.prd == null && (
+                                        <button onClick={() => {
+                                            axios.post('http://127.0.0.1:8000/api/v1/__send__generated__prd__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
+                                                EachProject.refetch()
+                                                console.log(response.data)
+                                            })
+                                        }} className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 items-center">Generate PRD</button>
+                                    )}
+                                </>
                             </div>
+
                         )}
+
+
+
 
                     </div>
 
                 </div>
-                {(EachProject?.data?.status != "Open" && EachProject?.data?.team?.members?.some((x)=>x.id===auth.user.id) ) && (
+                {(EachProject?.data?.status != "Open" && (EachProject?.data?.team?.members?.some((x) => x.id === auth.user.id) || (EachProject?.data?.created_by?.user?.id == auth.user.id))) && (
                     <>
                         {EachProject?.data?.workflow && (
                             <div className='mx-10 my-10 text-black'>
@@ -87,7 +109,7 @@ export default function EachProject({ params }) {
                             </div>
                         )}
 
-                        {(EachProject?.data?.Learning_resources || EachProject?.data?.Learning_resources.length!=0) && (
+                        {(EachProject?.data?.Learning_resources || EachProject?.data?.Learning_resources.length != 0) && (
                             <div className='mx-10 my-10 text-black'>
                                 <h1 className='text-center font-bold text-black my-10 text-3xl'>Learning Resources For Talents</h1>
                                 <div id="learning_resources">
