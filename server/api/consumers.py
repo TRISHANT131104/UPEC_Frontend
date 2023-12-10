@@ -1,5 +1,5 @@
 # myapp/consumers.py
-
+import os
 import json
 from datetime import datetime
 
@@ -7,14 +7,17 @@ from asgiref.sync import sync_to_async
 from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from django.contrib.auth.models import User
+from dotenv import load_dotenv
 
 from .helpers import *
 from .llm.message_handler import MessageHandler
 from .models import ChatMsg, Group, GroupMessage
 
+load_dotenv()
+
 messages = {}
 connectedUsers = {}  # list of all connected users , their id along with their socket_id
-handler = MessageHandler("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")
+handler = MessageHandler(os.environ.get("OPENAI_API_KEY"))
 
 print(connectedUsers)
 
