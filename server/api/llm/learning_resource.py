@@ -43,7 +43,7 @@ def generate_learning_resource_prompt(talent, project):
 
 def learning_resource(talent, project):
     prompt = generate_learning_resource_prompt(talent, project)
-    palm.configure(api_key="AIzaSyAJoZkh9TLWe7SJjfrRnyiO38B4dLNMfXM")
+    palm.configure(api_key=os.environ.get("PALM_API_KEY"))
     models = [
         m
         for m in palm.list_models()

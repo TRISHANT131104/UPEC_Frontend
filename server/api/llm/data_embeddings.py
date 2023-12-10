@@ -4,17 +4,18 @@ import pinecone
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import Pinecone
 from torch import cuda
+from dotenv import load_dotenv
 
 from ..models import Project, ProjectRequirementDocument, Workflow
 
 # from server.settings import embed_model
 from ..utils.load_embedding_model import load_embedding_model
 
-
+load_dotenv()
 def initiate_pinecone():
     pinecone.init(
-        api_key="663983e5-451f-4d33-bf74-6a7b8dbc4bcb",
-        environment="gcp-starter",
+        api_key=os.environ.get("PINECONE_API_KEY"),
+        environment=os.environ.get("PINECONE_ENVIRONMENT"),
     )
 
     index_name = "projects"

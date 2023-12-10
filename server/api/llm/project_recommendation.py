@@ -1,16 +1,18 @@
 import json
-
+import os
 import openai
 import pinecone
 from langchain.vectorstores import Pinecone
-
+from dotenv import load_dotenv
 from ..utils import *
+
+load_dotenv()
 
 
 def initiate_pinecone():
     pinecone.init(
-        api_key="663983e5-451f-4d33-bf74-6a7b8dbc4bcb",
-        environment="gcp-starter",
+        api_key=os.environ.get("PINECONE_API_KEY"),
+        environment=os.environ.get("PINECONE_ENVIRONMENT"),
     )
 
     index_name = "projects"
