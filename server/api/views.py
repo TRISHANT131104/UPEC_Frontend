@@ -20,6 +20,9 @@ from .llm import data_embeddings
 
 
 
+
+
+
 class __get__all__projects__(APIView):
     def get(self,request):
         projects = Project.objects.all()
@@ -94,10 +97,11 @@ class __get__ai__messages__(APIView):
 
 
 class __get__user__data__(APIView):
-    def get(self, request):
+    def get(self, request,pk):
+        user = User.objects.get(id=pk)
         # get user data
         try:
-            user = request.user
+            
             # check if users is a client,talent / mentor and send the data along with the user data
             is_client = Client.objects.filter(user=user).exists()
             is_talent = Talent.objects.filter(user=user).exists()
@@ -109,6 +113,7 @@ class __get__user__data__(APIView):
                 user_serializer = UserSerializer(user)
                 user_data = user_serializer.data
                 user_data.update(serializer.data)
+                user_data.update({'role':'Client'})
                 return Response(user_data)
             elif is_talent:
                 talent = Talent.objects.get(user=user)
@@ -116,6 +121,7 @@ class __get__user__data__(APIView):
                 user_serializer = UserSerializer(user)
                 user_data = user_serializer.data
                 user_data.update(serializer.data)
+                user_data.update({'role':'Talent'})
                 return Response(user_data)
             elif is_mentor:
                 mentor = Mentor.objects.get(user=user)
@@ -123,6 +129,7 @@ class __get__user__data__(APIView):
                 user_serializer = UserSerializer(user)
                 user_data = user_serializer.data
                 user_data.update(serializer.data)
+                user_data.update({'role':'Mentor'})
                 return Response(user_data)
             else:
                 return Response({"error": "User not found"})
@@ -348,7 +355,7 @@ class __project__management__(APIView):
                     return Response(
                         {
                             "success": "Project management generated successfully",
-                            "data": management,
+                            "data": json.loads(management),
                         }
                     )
                 else:
@@ -411,9 +418,12 @@ class __get__each__project__(APIView):
 
         user_data = UserSerializer(user).data
         project_data["created_by"]["user"] = user_data
-        project_data["workflow"] = WorkflowSerialzier(Workflow.objects.get(id=project_data["workflow"])).data
-        project_data["prd"] = ProjectRequirementDocumentSerializer(ProjectRequirementDocument.objects.get(id=project_data["prd"])).data
-        project_data["project_management"] = json.loads(project_data["project_management"])
+        if(project_data["workflow"] is not None):
+            project_data["workflow"] = WorkflowSerialzier(Workflow.objects.get(id=project_data["workflow"])).data
+        if(project_data['prd'] is not None):
+            project_data["prd"] = ProjectRequirementDocumentSerializer(ProjectRequirementDocument.objects.get(id=project_data["prd"])).data
+        if(project_data["project_management"] is not None):
+            project_data["project_management"] = json.loads(project_data["project_management"])
         return Response(project_data)
 
 

@@ -46,7 +46,7 @@ urlpatterns = [
     path("__get__group__chat__users__/<int:pk>", __get__group__chat__users__.as_view()),
     path("__get__project__related__groups__/<int:pk>",__get__project__related__groups__.as_view(),),
     path("__get__ai__messages__", __get__ai__messages__.as_view()),
-    path("__get__user__data__", __get__user__data__.as_view()),
+    path("__get__user__data__/<int:pk>", __get__user__data__.as_view()),
     path("__get__users__recent__chat__", __get__users__recent__chat__.as_view()),
     path("__create__project__/", __create__project__.as_view()),
     path("__send__generated__prd__/", __send__generated__prd__.as_view()),
