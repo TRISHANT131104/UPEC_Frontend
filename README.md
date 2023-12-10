@@ -42,7 +42,6 @@ Welcome to the UPEC trumio standalone application. This application is a transfo
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contact">Contact</a></li>
   </ol>
@@ -173,9 +172,7 @@ Before you begin, ensure you have the following installed:
     python manage.py loaddata data.json
     ```
 
-## Usage
 
-1. Open your browser and navigate to [http://127.0.0.1/3000](http://127.0.0.1/3000).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
