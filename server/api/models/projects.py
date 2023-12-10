@@ -1,20 +1,26 @@
-from django.db import models
 import uuid
-from django.utils import timezone
-from ..helpers import getdate,gettime
 from django.contrib.auth import get_user_model
-from .chat import *
+from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from ..helpers import getdate, gettime
+from .chat import *
+
 User = get_user_model()
-def __prd__file__path__(instance, filename):
-    return 'prds/{0}/{1}'.format(instance.id, filename)
+
 
 def __prd__file__path__(instance, filename):
-    return 'prds/{0}/{1}'.format(instance.id, filename)
+    return "prds/{0}/{1}".format(instance.id, filename)
+
+
+def __prd__file__path__(instance, filename):
+    return "prds/{0}/{1}".format(instance.id, filename)
+
 
 def __learning__resource__path__(instance, filename):
-    return 'learning_resources/{0}/{1}'.format(instance.id, filename)
+    return "learning_resources/{0}/{1}".format(instance.id, filename)
+
 
 class ProjectRequirementDocument(models.Model):
     project_overview = models.TextField()
@@ -38,17 +44,31 @@ class ProjectRequirementDocument(models.Model):
     communication_plan = models.TextField()
     anything_unclear = models.TextField()
 
+
 class Workflow(models.Model):
     description = models.TextField()
-    
-class Client(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='client',default=None,null=True,blank=True)
-    number_of_projects_given = models.IntegerField(default=0)
-    number_of_projects_completed = models.IntegerField(default=0)    
-    rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
-    current_projects = models.ManyToManyField('Project', related_name='current_projects_of_client',null=True,default=None,blank=True)
 
-    
+
+class Client(models.Model):
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="client",
+        default=None,
+        null=True,
+        blank=True,
+    )
+    number_of_projects_given = models.IntegerField(default=0)
+    number_of_projects_completed = models.IntegerField(default=0)
+    rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    current_projects = models.ManyToManyField(
+        "Project",
+        related_name="current_projects_of_client",
+        null=True,
+        default=None,
+        blank=True,
+    )
+
 
 class Project(models.Model):
     status_options = {
@@ -59,22 +79,73 @@ class Project(models.Model):
     }
     title = models.CharField(max_length=255)
     description = models.TextField()
-    start_date = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=True, blank=True, null=True)
-    end_date = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=True, blank=True, null=True)
+    start_date = models.CharField(
+        max_length=255,
+        default=getdate() + " " + gettime(),
+        editable=True,
+        blank=True,
+        null=True,
+    )
+    end_date = models.CharField(
+        max_length=255,
+        default=getdate() + " " + gettime(),
+        editable=True,
+        blank=True,
+        null=True,
+    )
     bid_price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, default='Open',choices=status_options)
-    project_doc = models.FileField(upload_to=__prd__file__path__, null=True, blank=True,default=None)
-    prd = models.ForeignKey(ProjectRequirementDocument, related_name="PRD", on_delete=models.SET_NULL, null=True, blank=True,default=None)
-    Learning_resources = models.TextField(_("Learning Resources"),blank=True,null=True,default=None)
+    project_doc = models.FileField(
+        upload_to=__prd__file__path__, null=True, blank=True, default=None
+    )
+    prd = models.ForeignKey(
+        ProjectRequirementDocument,
+        related_name="PRD",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        default=None,
+    )
+    Learning_resources = models.TextField(
+        _("Learning Resources"), blank=True, null=True, default=None
+    )
     related_techstacks = models.JSONField(default=list, blank=True, null=True)
-    project_management = models.TextField(default=None,null=True,blank=True)
-    project_timeline = models.JSONField(default=None,null=True,blank=True)
-    workflow = models.ForeignKey(Workflow, related_name="workflow", on_delete=models.SET_NULL,null=True,blank=True,default=None)
-    created_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
-    updated_at = models.CharField(max_length=255, default=getdate() + " " + gettime(), editable=False, blank=True, null=True)
-    created_by = models.ForeignKey(Client,null=True,default=None,blank=True,related_name='created_projects',on_delete=models.SET_NULL)
-    chat_group_id = models.ForeignKey(Group, on_delete=models.SET_NULL, null=True, blank=True,default=None)
-    
+    project_management = models.TextField(default=None, null=True, blank=True)
+    project_timeline = models.JSONField(default=None, null=True, blank=True)
+    workflow = models.ForeignKey(
+        Workflow,
+        related_name="workflow",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        default=None,
+    )
+    created_at = models.CharField(
+        max_length=255,
+        default=getdate() + " " + gettime(),
+        editable=False,
+        blank=True,
+        null=True,
+    )
+    updated_at = models.CharField(
+        max_length=255,
+        default=getdate() + " " + gettime(),
+        editable=False,
+        blank=True,
+        null=True,
+    )
+    created_by = models.ForeignKey(
+        Client,
+        null=True,
+        default=None,
+        blank=True,
+        related_name="created_projects",
+        on_delete=models.SET_NULL,
+    )
+    chat_group_id = models.ForeignKey(
+        Group, on_delete=models.SET_NULL, null=True, blank=True, default=None
+    )
+
 
 class Milestone(models.Model):
     name = models.CharField(max_length=255)
@@ -84,30 +155,39 @@ class Milestone(models.Model):
     def __str__(self):
         return self.name
 
+
 class ProjectProgressReport(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='progress_reports')
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="progress_reports"
+    )
     report = models.TextField()
     date = models.DateField(auto_now_add=True)
-    milestone_accomplished = models.ForeignKey(Milestone, on_delete=models.SET_NULL, null=True, blank=True)
-    project_completion_percentage = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
+    milestone_accomplished = models.ForeignKey(
+        Milestone, on_delete=models.SET_NULL, null=True, blank=True
+    )
+    project_completion_percentage = models.DecimalField(
+        max_digits=5, decimal_places=2, null=True, blank=True
+    )
 
     def __str__(self):
-        return f'{self.project.title} - {self.date}'
+        return f"{self.project.title} - {self.date}"
+
 
 # Assuming these functions are defined in helpers.py
 
+
 class ProjectMembers(models.Model):
     Member_Roles = {
-        ('Member','Member'),
-        ('Leader','Leader'),
-        ('Client','Client'),
-        ('Mentor','Mentor'),
+        ("Member", "Member"),
+        ("Leader", "Leader"),
+        ("Client", "Client"),
+        ("Mentor", "Mentor"),
     }
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='members')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects')
-    role = models.CharField(max_length=20, choices=Member_Roles, default='Member')
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="members"
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="projects")
+    role = models.CharField(max_length=20, choices=Member_Roles, default="Member")
 
     def __str__(self):
-        return f'{self.project.title} - {self.user.email}'
-    
-
+        return f"{self.project.title} - {self.user.email}"

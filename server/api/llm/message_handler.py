@@ -1,13 +1,14 @@
-import openai
+import json
 import os
+
+import openai
 import pinecone
 from langchain.chains import RetrievalQA
-from langchain.embeddings.huggingface import HuggingFaceEmbeddings
-from langchain.vectorstores import Pinecone
-from langchain.llms import HuggingFaceTextGenInference
-from torch import cuda
-import json
 from langchain.chat_models import ChatOpenAI
+from langchain.embeddings.huggingface import HuggingFaceEmbeddings
+from langchain.llms import HuggingFaceTextGenInference
+from langchain.vectorstores import Pinecone
+from torch import cuda
 
 # from server.settings import embed_model
 from ..utils.load_embedding_model import load_embedding_model

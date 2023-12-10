@@ -1,9 +1,12 @@
-import openai
 import json
-from docx import Document
-from ..models import ProjectRequirementDocument
-def generate_prd( project_description, project_timeline, project_techstacks):
 
+import openai
+from docx import Document
+
+from ..models import ProjectRequirementDocument
+
+
+def generate_prd(project_description, project_timeline, project_techstacks):
     # Define the prompt based on parameters
     prompt = f"""
         You Are a Project Manager. Generate a comprehensive Product Requirements Document (PRD) for a new project. Fill In Every Minute Detail Present.
@@ -91,7 +94,7 @@ def generate_prd( project_description, project_timeline, project_techstacks):
         NOTE:All the 20 points must be addresses compulsary
         JSON format example:
         """
-    prompt+="""{
+    prompt += """{
             "name": "sonoo",
             "salary": 56000,
             "married": true,
@@ -183,4 +186,3 @@ def generate_prd_button_clicked(project):
     project.prd = project_details
     project.save()
     return project_details.id
-

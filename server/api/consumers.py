@@ -1,16 +1,16 @@
 # myapp/consumers.py
 
 import json
-from asgiref.sync import sync_to_async
-from channels.generic.websocket import AsyncJsonWebsocketConsumer
-from channels.db import database_sync_to_async
-from asgiref.sync import sync_to_async
-import json
-from django.contrib.auth.models import User
-from .models import ChatMsg, Group, GroupMessage
 from datetime import datetime
-from .llm.message_handler import MessageHandler
+
+from asgiref.sync import sync_to_async
+from channels.db import database_sync_to_async
+from channels.generic.websocket import AsyncJsonWebsocketConsumer
+from django.contrib.auth.models import User
+
 from .helpers import *
+from .llm.message_handler import MessageHandler
+from .models import ChatMsg, Group, GroupMessage
 
 messages = {}
 connectedUsers = {}  # list of all connected users , their id along with their socket_id

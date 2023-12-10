@@ -1,28 +1,31 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 
 from .views import (
-    __get__group__chat__users__,
-    __get__direct__chat__users__,
-    __get__personal__chat__,
+    __client__accept__bid__,
+    __create__project__,
     __get__ai__messages__,
+    __get__all__projects__,
+    __get__details__of__project__,
+    __get__direct__chat__users__,
+    __get__each__project__,
+    __get__group__chat__users__,
+    __get__group__messages__,
+    __get__personal__chat__,
+    __get__project__recommendations__,
+    __get__project__related__groups__,
     __get__user__data__,
     __get__users__recent__chat__,
-    __create__project__,
-    __send__generated__prd__,
-    __get__details__of__project__,
-    __client__accept__bid__,
-    __send__generated__workflow__,
-    __learning__resource__,
-    __get__project__related__groups__,
-    __get__group__messages__,
     __learning__resource__,
     __project__management__,
     __get__all__projects__,
     __get__each__project__,
     __get__project__recommendations__,
     __get__users__ongoing__projects__,
-    __get__team__related__to__project__
+    __get__team__related__to__project__,
+    __send__generated__prd__,
+    __send__generated__workflow__,
+
 )
 
 urlpatterns = [
@@ -36,7 +39,7 @@ urlpatterns = [
     path("__get__users__recent__chat__", __get__users__recent__chat__.as_view()),
     path("__create__project__/", __create__project__.as_view()),
     path("__send__generated__prd__/", __send__generated__prd__.as_view()),
-    path("__get__details__of__project__/<int:pk>",__get__details__of__project__.as_view(),),
+    path("__get__details__of__project__/<int:pk>", __get__details__of__project__.as_view(),),
     path("__client__accept__bid__/", __client__accept__bid__.as_view()),
     path("__send__generated__workflow__/", __send__generated__workflow__.as_view()),
     path("__learning__resource__/", __learning__resource__.as_view()),
@@ -47,4 +50,7 @@ urlpatterns = [
     path("__get__project__recommendations__/", __get__project__recommendations__.as_view()),
     path("__get__users__ongoing__projects__/<int:pk>",__get__users__ongoing__projects__.as_view()),
     path("__get__team__related__to__project__/<int:pk>",__get__team__related__to__project__.as_view()),
+    path("__get__all__projects__/", __get__all__projects__.as_view()),
+    path("__get__each__project__/<int:pk>", __get__each__project__.as_view()),
+    path("__get__project__recommendations__/",__get__project__recommendations__.as_view(),),
 ]
