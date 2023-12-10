@@ -1,10 +1,12 @@
-import openai
-from ..models.user import *
-from ..models.projects import *
-import pprint
-from dotenv import load_dotenv
 import os
+import pprint
+
 import google.generativeai as palm
+import openai
+from dotenv import load_dotenv
+
+from ..models.projects import *
+from ..models.user import *
 
 load_dotenv()
 
@@ -20,8 +22,8 @@ def generate_learning_resource_prompt(talent, project):
         if talent:
             skills = ", ".join(talent.skills) if talent.skills else "No skills listed"
             skills_string += f"{talent.user.username}'s skills: {skills}\n"
-    print('tech_stack',tech_stack)
-    print('skills_string',skills_string)
+    print("tech_stack", tech_stack)
+    print("skills_string", skills_string)
     prompt = f"""
         You have to recommend learning resources to the team members based on the project's required tech stacks and the team members' skills. 
         
@@ -41,7 +43,7 @@ def generate_learning_resource_prompt(talent, project):
 
 def learning_resource(talent, project):
     prompt = generate_learning_resource_prompt(talent, project)
-    palm.configure(api_key='AIzaSyAJoZkh9TLWe7SJjfrRnyiO38B4dLNMfXM')
+    palm.configure(api_key="AIzaSyAJoZkh9TLWe7SJjfrRnyiO38B4dLNMfXM")
     models = [
         m
         for m in palm.list_models()
@@ -63,5 +65,5 @@ def learning_resource(talent, project):
     #     temperature=0.7,  # Adjust as needed
     # )
     # answer = response.choices[0].text.strip()
-    
+
     return answer.result

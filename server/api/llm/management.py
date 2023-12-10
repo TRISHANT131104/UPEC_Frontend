@@ -1,9 +1,10 @@
-import openai
 import docx
-from ..models.user import *
-from ..models.projects import *
-from django.shortcuts import get_object_or_404
+import openai
 from django.forms.models import model_to_dict
+from django.shortcuts import get_object_or_404
+
+from ..models.projects import *
+from ..models.user import *
 
 
 def generate_prompt(team, project):

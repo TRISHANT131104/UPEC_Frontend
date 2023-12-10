@@ -1,15 +1,15 @@
-from langchain.embeddings.huggingface import HuggingFaceEmbeddings
-from torch import cuda
-from langchain.vectorstores import Pinecone
 import os
+
 import pinecone
-from ..models import (
-    Workflow,
-    ProjectRequirementDocument,
-    Project
-)
+from langchain.embeddings.huggingface import HuggingFaceEmbeddings
+from langchain.vectorstores import Pinecone
+from torch import cuda
+
+from ..models import Project, ProjectRequirementDocument, Workflow
+
 # from server.settings import embed_model
 from ..utils.load_embedding_model import load_embedding_model
+
 
 def initiate_pinecone():
     pinecone.init(
@@ -23,10 +23,11 @@ def initiate_pinecone():
 
 
 def store_project_requirement_document_embeddings(project):
-    embed_model=load_embedding_model()
+    embed_model = load_embedding_model()
     index = initiate_pinecone()
     prd = project.prd
-    text =[f"""
+    text = [
+        f"""
     "project_id": {project.id},
     "project_title": {project.title},
     "project_description": {project.description},
@@ -58,21 +59,26 @@ def store_project_requirement_document_embeddings(project):
     "timeline_and_milestones": {prd.timeline_and_milestones},
     "communication_plan": {prd.communication_plan},
     "anything_unclear": {prd.anything_unclear},
-    """]
+    """
+    ]
     embeddings = embed_model.embed_documents(text)
     print(len(embeddings[0]))
-    record_metadatas = [{
-        "text": str(text), 'ID': project.id,
-    }]
-    index.upsert(vectors = zip([f'{project.id}'], embeddings,record_metadatas))
-        
+    record_metadatas = [
+        {
+            "text": str(text),
+            "ID": project.id,
+        }
+    ]
+    index.upsert(vectors=zip([f"{project.id}"], embeddings, record_metadatas))
+
+
 def update_project_workflow(project):
-    embed_model=load_embedding_model()
+    embed_model = load_embedding_model()
     index = initiate_pinecone()
-    workflow=project.workflow.description
-    prd=project.prd
-    text =[
-    f"""
+    workflow = project.workflow.description
+    prd = project.prd
+    text = [
+        f"""
     "project_id": {project.id},
     "project_title": {project.title},
     "project_description": {project.description},
@@ -108,8 +114,10 @@ def update_project_workflow(project):
         """
     ]
     embeddings = embed_model.embed_documents(text)
-    record_metadatas = [{
-        "text": str(text), 'ID': project.id,
-    }]
-    index.upsert(vectors = zip([f'{project.id}'], embeddings,record_metadatas))
-
+    record_metadatas = [
+        {
+            "text": str(text),
+            "ID": project.id,
+        }
+    ]
+    index.upsert(vectors=zip([f"{project.id}"], embeddings, record_metadatas))

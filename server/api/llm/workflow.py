@@ -1,7 +1,11 @@
 import openai
-from ..models import  projects,Workflow,Talent,Team
 
-def generate_project_workflow_prompt(project_description, project_requirements, project_timeline, students_skills):
+from ..models import *
+
+
+def generate_project_workflow_prompt(
+    project_description, project_requirements, project_timeline, students_skills
+):
     prompt = f"""
         As a Project Manager, your task is to generate a comprehensive workflow for a new project based on the skills of the assigned students. The project involves {project_description}. Below are the key details:
 
@@ -44,18 +48,18 @@ def make_workflow(project):
             skills = ", ".join(talent.skills) if talent.skills else "No skills listed"
             skills_string += f"{talent.user.username}'s skills: {skills}\n"
 
-    prompt = generate_project_workflow_prompt(project_description,project_techstacks,project_timeline,skills_string)
+    prompt = generate_project_workflow_prompt(
+        project_description, project_techstacks, project_timeline, skills_string
+    )
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",
         prompt=prompt,
         max_tokens=1000,  # Adjust as needed
         temperature=0.7,  # Adjust as needed
     )
-    workflow=response.choices[0].text.strip()
-    workflow_object=Workflow(
-        description = workflow
-    )
+    workflow = response.choices[0].text.strip()
+    workflow_object = Workflow(description=workflow)
     workflow_object.save()
-    project.workflow=workflow_object
+    project.workflow = workflow_object
     project.save()
     return workflow

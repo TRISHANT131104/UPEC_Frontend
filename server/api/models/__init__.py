@@ -1,4 +1,12 @@
+from .chat import ChatMsg, Group, GroupMessage
 from .community import Post
-from .projects import Project, Milestone, ProjectProgressReport, ProjectMembers, ProjectRequirementDocument,Workflow,Client,Workflow  
-from .chat import ChatMsg, GroupMessage, Group
-from .user import  Mentor,Talent,Team
+from .projects import (
+    Client,
+    Milestone,
+    Project,
+    ProjectMembers,
+    ProjectProgressReport,
+    ProjectRequirementDocument,
+    Workflow,
+)
+from .user import Mentor, Talent, Team

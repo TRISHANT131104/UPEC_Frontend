@@ -1,8 +1,10 @@
-from langchain.embeddings.huggingface import HuggingFaceEmbeddings
-from torch import cuda
-from langchain.vectorstores import Pinecone
 import os
+
 import pinecone
+from langchain.embeddings.huggingface import HuggingFaceEmbeddings
+from langchain.vectorstores import Pinecone
+from torch import cuda
+
 # from models.projects import Project
 # from models.projects import ProjectRequirementDocument
 
@@ -36,8 +38,8 @@ print(index.describe_index_stats())
 batch_size = 4
 
 for i in range(0, 1):  # Adjust the loop as needed
-    text =[
-    """
+    text = [
+        """
         "id": "1",
         "title": "project.title",
         "description": "project.description",
@@ -65,12 +67,12 @@ for i in range(0, 1):  # Adjust the loop as needed
         "prd": "project.prd",
         "learning_resource": "None",
         "related_techstacks": "None",
-        "text": "project.related_techstacks"
+        "text": "project.related_techstacks",
     }
 
     update_response = index.update(
-    id='1',
-    values=embeddings,
-    set_metadata=metadata,
+        id="1",
+        values=embeddings,
+        set_metadata=metadata,
     )
 print(index.describe_index_stats())
