@@ -535,3 +535,4 @@ class __get__project__recommendations__(APIView):
             return JsonResponse(project_ids, safe=False)
         else:
             return Response({"error": "You are not a talent"})
+
