@@ -1,5 +1,4 @@
 import uuid
-
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.utils import timezone
@@ -72,6 +71,12 @@ class Client(models.Model):
 
 
 class Project(models.Model):
+    status_options = {
+        (_("Open"),_("Open")),
+        (_("OnGoing"),_("OnGoing")),
+        (_("inBid"),_("inBid")),
+        (_("Closed"),_("Closed")),
+    }
     title = models.CharField(max_length=255)
     description = models.TextField()
     start_date = models.CharField(
@@ -89,7 +94,7 @@ class Project(models.Model):
         null=True,
     )
     bid_price = models.DecimalField(max_digits=10, decimal_places=2)
-    status = models.CharField(max_length=20, default="Open")
+    status = models.CharField(max_length=20, default='Open',choices=status_options)
     project_doc = models.FileField(
         upload_to=__prd__file__path__, null=True, blank=True, default=None
     )

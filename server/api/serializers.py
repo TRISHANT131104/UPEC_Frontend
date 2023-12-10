@@ -63,7 +63,7 @@ class ProjectRequirementDocumentSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class TeamSerialzier(serializers.ModelSerializer):
+class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = "__all__"
