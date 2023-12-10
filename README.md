@@ -4,6 +4,7 @@
 
 Welcome to the UPEC trumio standalone application. This application is a transformative community engagement platform that serves as a centralized hub for students to connect with industry professionals and alumni to deepen their ties with their alma mater. Our platform leverages AI to personalize recommendations, offer real-time support, and facilitate seamless collaboration, fostering a thriving ecosystem where individuals can flourish all while following Trumio’s objectives and Business goals.
 
+![homepage](./images/homepage.png)
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -149,14 +150,12 @@ Before you begin, ensure you have the following installed:
 12. Create a database named "trumio" in MongoDB and import the database dump file from the database directory.
 
     ```bash
-    python manage.py loaddata db.json
+    python manage.py loaddata data.json
     ```
 
 ## Usage
 
 1. Open your browser and navigate to [http://127.0.0.1/3000](http://127.0.0.1/3000).
-
-2. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

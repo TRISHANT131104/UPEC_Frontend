@@ -87,7 +87,7 @@ export default function EachProject({ params }) {
                             </div>
                         )}
 
-                        {EachProject?.data?.Learning_resources && (
+                        {(EachProject?.data?.Learning_resources || EachProject?.data?.Learning_resources.length!=0) && (
                             <div className='mx-10 my-10 text-black'>
                                 <h1 className='text-center font-bold text-black my-10 text-3xl'>Learning Resources For Talents</h1>
                                 <div id="learning_resources">

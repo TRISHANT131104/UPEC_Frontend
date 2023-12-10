@@ -232,8 +232,9 @@ class __send__generated__prd__(APIView):
             if project.created_by == client:
                 # Generate the prd
                 prd = generate_prd_button_clicked(project)
+                serializer = ProjectRequirementDocumentSerializer(ProjectRequirementDocument.objects.get(id=prd))
                 return JsonResponse(
-                    {"success": "PRD generated successfully", "data": prd}
+                    {"success": "PRD generated successfully", "data": serializer.data}
                 )
             else:
                 return Response({"error": "You are not the owner of this project"})
@@ -456,7 +457,7 @@ class __get__each__project__(APIView):
         if project_data['prd'] is not None:
             project_data["prd"] = ProjectRequirementDocumentSerializer(ProjectRequirementDocument.objects.get(id=project_data["prd"])).data
 
-        if project_data["project_management"] is not None:
+        if project_data["project_management"] is not None or project_data['project_management']=="" or len(project_data["project_management"])==0:
             project_data["project_management"] = json.loads(project_data["project_management"])
 
         team = Team.objects.filter(project=project)
