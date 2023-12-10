@@ -21,7 +21,7 @@ export default function Projects() {
   })
   return (
     <div className='bg-[#F7F7F7] text-[#D6DCE8]'>
-
+      
       <div className='shadow-lg m-4 p-4 bg-white rounded-md'>
         <h1 className="text-lg md:text-2xl xl:text-4xl font-bold">Current Projects</h1>
         {CurrentProjects?.data?.length == 0 ? (

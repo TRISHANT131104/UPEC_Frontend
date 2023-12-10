@@ -10,6 +10,7 @@ export default function Projects() {
   
   return (
     <div className='bg-[#F7F7F7] text-[#D6DCE8] flex m-5'>
+      
       <Suspense fallback={<Loader/>}>
         <RecentChats   />
         </Suspense>

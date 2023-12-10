@@ -21,6 +21,7 @@ export default function page() {
   }
   return (
     <div className='flex max-md:flex-col'>
+      
       <div className="flex flex-col md:basis-1/3">
         <ProfileCard ele={userDetails}/>
         <SocialCard ele={userDetails}/>

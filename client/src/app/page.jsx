@@ -46,6 +46,7 @@ export default function Home() {
   }
   return (
     <div className="flex flex-row p-2 sm:p-5 h-screen lg:text-md text-xs">
+      
       <ProfileCard ele={userDetails}/>
       <div className="flex flex-col w-[90%] lg:w-1/2 mx-auto">
         {/* Make a search box above the posts section*/}

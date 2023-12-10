@@ -68,6 +68,7 @@ export default function EachProject({ params }) {
     const [modalIsOpen, setIsOpen] = React.useState(false);
     return (
         <div>
+            
             <ReactModal
                 isOpen={modalIsOpen}
                 style={customStyles}
