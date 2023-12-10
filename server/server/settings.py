@@ -1,17 +1,17 @@
-
 from pathlib import Path
 import os
 from datetime import timedelta
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-6likh75ebi!_pcp@!skzsk-(4n6#+vv@qy*+)6-6pceb3m*59a'
+SECRET_KEY = "django-insecure-6likh75ebi!_pcp@!skzsk-(4n6#+vv@qy*+)6-6pceb3m*59a"
 
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
 
-embed_model=None
+embed_model = None
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
 
@@ -64,20 +64,24 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'server.wsgi.application'
+WSGI_APPLICATION = "server.wsgi.application"
 
 if DEBUG:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
         }
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'djongo',
-            'NAME': 'TRUMIO',
+        "default": {
+            "ENGINE": "djongo",
+            "NAME": "TRUMIO",
+            "ENFORCE_SCHEMA": False,
+            "CLIENT": {
+                "host": "mongodb+srv://TRUMIO_DB:COXHP8LtEO6SnuFb@cluster0.7wfslpj.mongodb.net/"
+            },
         }
     }
 
@@ -97,7 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -124,11 +128,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 
 if DEBUG:
-    CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "channels.layers.InMemoryChannelLayer"
-        }
-    }
+    CHANNEL_LAYERS = {"default": {"BACKEND": "channels.layers.InMemoryChannelLayer"}}
 else:
     CHANNEL_LAYERS = {
         "default": {
@@ -138,7 +138,6 @@ else:
             },
         },
     }
-
 
 
 CORS_ORIGIN_ALLOW_ALL = True
