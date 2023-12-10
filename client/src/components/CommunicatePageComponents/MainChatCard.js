@@ -62,12 +62,12 @@ export default function MainChatCard({id}) {
   
     }, [socket.current,auth]);
   return (
-    <div className='border border-gray-200 bg-white w-3/4 h-screen  relative'>
+    <div className='border border-gray-200 bg-white w-3/4 h-screen relative'>
         <div className="w-full flex items-start justify-start p-2 border border-gray-200 absolute top-0 bg-white z-1">
             <img src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="" className="w-16 h-16 rounded-full" />
             <div className="flex flex-col px-4 justify-center items-start text-gray-600">
-                <h2 className="text-xl">{SelectedName}</h2>
-                <h3 className="text-lg">Last active at: 3rd Nov 2023, 7:08PM</h3>
+                <h2 className="text-xl font-semibold">{SelectedName}</h2>
+                <h3 className="text-base font-light">Last active at: 3rd Nov 2023, 7:08PM</h3>
             </div>
         </div>
         <div className="h-screen overflow-scroll py-[100px]">
@@ -85,7 +85,7 @@ export default function MainChatCard({id}) {
                 )
             })}
         </div>
-        <div className="flex justify-center items-center border border-gray-200 p-4 absolute bottom-0 bg-white w-full">
+        <div className="flex justify-center items-center border border-gray-200 p-3 absolute bottom-0 bg-white w-full">
             <input onChange={(e)=>{
               setmessage(e.target.value)
             }} placeholder="Enter Your Message" className="mx-4 border border-gray-200 h-10 w-full rounded-lg px-2 text-black"/>
