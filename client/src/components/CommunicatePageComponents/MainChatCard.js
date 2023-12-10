@@ -14,7 +14,7 @@ export default function MainChatCard({id}) {
     useEffect(() => {
       
       socket.current = new WebSocket(
-        `ws://127.0.0.1:8000/ws/chat/${auth?.user?.id}`
+        `ws://103.159.214.229/ws/chat/${auth?.user?.id}`
       );
   
       socket.current.onopen = () => {
@@ -124,7 +124,7 @@ export default function MainChatCard({id}) {
 const fetchPersonalChats = async (data) => {
     return axios
       .post(
-        `http://127.0.0.1:8000/api/v1/__get__personal__chat__/${data.receiver_id}`,
+        `http://103.159.214.229/api/v1/__get__personal__chat__/${data.receiver_id}`,
         {id:data.sender_id},
         {
           headers: {

@@ -37,7 +37,7 @@ export default function page() {
 
 
 const fetchUserDetails = (id) =>{
-  return axios.get(`http://127.0.0.1:8000/api/v1/__get__user__data__/${id}`).then((response)=>{
+  return axios.get(`http://103.159.214.229/api/v1/__get__user__data__/${id}`).then((response)=>{
     return response.data
   }).catch((err)=>{
     alert(err)

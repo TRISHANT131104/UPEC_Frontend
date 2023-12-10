@@ -64,7 +64,7 @@ export default function Projects() {
 
 
 const fetchAllProjects = async (id) => {
-  return axios.get(`http://127.0.0.1:8000/api/v1/__get__all__projects__`).then((response)=>{
+  return axios.get(`http://103.159.214.229/api/v1/__get__all__projects__`).then((response)=>{
     return response.data
   }).catch((err)=>{
     alert(err)
@@ -72,7 +72,7 @@ const fetchAllProjects = async (id) => {
 }
 
 const fetchCurrentProjects = async (id) => {
-  return axios.get(`http://127.0.0.1:8000/api/v1/__get__users__ongoing__projects__/${id}`).then((response)=>{
+  return axios.get(`http://103.159.214.229/api/v1/__get__users__ongoing__projects__/${id}`).then((response)=>{
     return response.data
   }).catch((err)=>{
     alert(err)

@@ -98,7 +98,7 @@ export default function EachProject({ params }) {
                                             {(EachProject?.data?.workflow === null) && (
                                                 <button className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg m-5 text-center flex justify-center items-center" onClick={() => {
                                                     setIsOpen(true)
-                                                    axios.post('http://127.0.0.1:8000/api/v1/__send__generated__workflow__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
+                                                    axios.post('http://103.159.214.229/api/v1/__send__generated__workflow__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
                                                         EachProject.refetch()
                                                         console.log(response.data)
                                                         setIsOpen(false)
@@ -112,7 +112,7 @@ export default function EachProject({ params }) {
                                             {(EachProject?.data?.Learning_resources == null || EachProject?.data?.Learning_resources?.length == 0) && (
                                                 <button onClick={() => {
                                                     setIsOpen(true)
-                                                    axios.post('http://127.0.0.1:8000/api/v1/__learning__resource__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
+                                                    axios.post('http://103.159.214.229/api/v1/__learning__resource__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
                                                         EachProject.refetch()
                                                         console.log(response.data)
                                                         setIsOpen(false)
@@ -126,7 +126,7 @@ export default function EachProject({ params }) {
                                             {(EachProject?.data?.prd != null && (EachProject?.data?.project_management == null || EachProject?.data?.project_management.length == 0 || EachProject?.data?.project_management == "")) && (
                                                 <button onClick={() => {
                                                     setIsOpen(true)
-                                                    axios.post('http://127.0.0.1:8000/api/v1/__project__management__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
+                                                    axios.post('http://103.159.214.229/api/v1/__project__management__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
                                                         EachProject.refetch()
                                                         console.log(response.data)
                                                         setIsOpen(false)
@@ -148,7 +148,7 @@ export default function EachProject({ params }) {
                                     {EachProject?.data?.prd == null && (
                                         <button onClick={() => {
                                             setIsOpen(true)
-                                            axios.post('http://127.0.0.1:8000/api/v1/__send__generated__prd__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
+                                            axios.post('http://103.159.214.229/api/v1/__send__generated__prd__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
                                                 EachProject.refetch()
                                                 console.log(response.data)
                                                 setIsOpen(false)
@@ -288,7 +288,7 @@ export default function EachProject({ params }) {
 
 
 const fetchEachProject = async (id) => {
-    return axios.get(`http://127.0.0.1:8000/api/v1/__get__each__project__/${id}`).then((response) => {
+    return axios.get(`http://103.159.214.229/api/v1/__get__each__project__/${id}`).then((response) => {
         return response.data
     }).catch((error) => {
         return []
