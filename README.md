@@ -47,13 +47,14 @@ This project is a standalone application that can be integrated to trumio's plat
 
 ### Built With
 
-* [Next.js][Next-url]
-* [DjangoREST][DjangoREST-url]
-* [TailwindCSS][TailwindCSS-url]
-* [MongoDB][MongoDB-url]
-* [socket.io][socket.io-url]
-* [WebRTC][WebRTC-url]
-* [Python][python-url]
+* [![Next][Next.js]][Next-url]
+* [![DjangoREST][DjangoREST]][DjangoREST-url]
+* [![TailwindCSS][TailwindCSS]][TailwindCSS-url]
+* [![MongoDB][MongoDB]][MongoDB-url]
+* [![socket.io][socket.io]][socket.io-url]
+* [![python][python]][python-url]
+* [![Docker][Docker]][Docker-url]
+* [![Gunicorn][Gunicorn]][Gunicorn-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -204,4 +205,7 @@ Project Link: [https://github.com/trumio-interiit/team_22](https://github.com/tr
 [WebRTC-url]: https://webrtc.org/
 [python]: https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white
 [python-url]: https://www.python.org/
-
+[Docker]: https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white
+[Docker-url]: https://www.docker.com/
+[Gunicorn]: https://img.shields.io/badge/gunicorn-37474F?style=for-the-badge&logo=gunicorn&logoColor=white
+[Gunicorn-url]: https://gunicorn.org/
