@@ -1,0 +1,45 @@
+{
+    "success": "Project management generated successfully",
+    "data": {
+        "barbara16": {
+            "Roles": [
+                "Backend Developer",
+                "Database Developer"
+            ],
+            "Tasks": [
+                "Develop backend system using Python and Django",
+                "Implement database using PostgreSQL"
+            ]
+        },
+        "barberpatricia": {
+            "Roles": [
+                "Frontend Developer",
+                "UI/UX Designer"
+            ],
+            "Tasks": [
+                "Design and develop user interface using React and CSS",
+                "Create wireframes and mockups for user interface"
+            ]
+        },
+        "barkerjennifer": {
+            "Roles": [
+                "Backend Developer",
+                "Database Developer"
+            ],
+            "Tasks": [
+                "Develop backend system using Java and Spring",
+                "Implement database using SQL"
+            ]
+        },
+        "bbass": {
+            "Roles": [
+                "Frontend Developer",
+                "Network Security Specialist"
+            ],
+            "Tasks": [
+                "Develop user interface using Angular",
+                "Implement network security measures for the application"
+            ]
+        }
+    }
+}
