@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "api",
     "corsheaders",
     "django.contrib.sites",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
