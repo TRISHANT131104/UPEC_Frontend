@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 
 const HomeContext = createContext();
 export const HomeProvider = ({children})=>{
-  const [auth,setauth] = useState({user:{id:parseInt(Cookies.get('id')),username:Cookies.get('username'),last_login:"",email:"rpkiit2022@gmail.com"},"access_token":"","refresh_token":""})
+  const [auth,setauth] = useState({user:{id:Cookies.get('id')?parseInt(Cookies.get('id')):155,username:Cookies.get('username')?Cookies.get('username'):"barbara16",last_login:"",email:"rpkiit2022@gmail.com"},"access_token":"","refresh_token":""})
   const [EachUsersMessages,setEachUsersMessages] = useState([])
   const [SelectedName,setSelectedName] = useState(false)
   const [Group,setGroup] = useState(false)
