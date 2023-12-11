@@ -1,4 +1,6 @@
+// Setting the environment to use client-side rendering
 "use client";
+// Importing React, useContext, useRef, useEffect, useState, and chat card components
 import React, { useContext,useRef,useEffect } from 'react'
 import { useState } from 'react';
 import SenderChatCard from './SenderChatCard';
@@ -6,26 +8,36 @@ import { IoSend } from "react-icons/io5";
 import RecieverChatCard from './RecieverChatCard';
 import HomeContext from '@/context/HomeContext';
 import { GoCopilot } from "react-icons/go";
+
+// Functional component for rendering the main chat card
 export default function MainChatCard({id}) {
+    // Destructuring values from the HomeContext
     const {auth,EachUsersMessages, setEachUsersMessages,SelectedName,setSelectedName,Receiver,Group,AI,setAI} = useContext(HomeContext)
-    console.log(EachUsersMessages)
+    
+    // Initializing WebSocket using useRef hook
     let socket = useRef(null);
+
+    // State for storing the current message
     const [message,setmessage] = useState(null)
+
+    // useEffect for handling WebSocket connection
     useEffect(() => {
-      
+      // Creating a new WebSocket connection when the component mounts
       socket.current = new WebSocket(
         `ws://103.159.214.229/ws/chat/${auth?.user?.id}`
       );
-  
+      
+      // WebSocket event handler for the "open" event
       socket.current.onopen = () => {
-        console.log("ws opened");
       };
+
+      // WebSocket event handler for the "message" event
       socket.current.onmessage = (e) => {
         const data = JSON.parse(e.data);
-        console.log(e);
-        console.log(data);
+
+
+        // Handling different types of messages received
         if (data["type"] === "sent_message") {
-          console.log(data);
           const new_data = {
             sender: data["sender"],
             message: data["message"],
@@ -53,14 +65,19 @@ export default function MainChatCard({id}) {
           });
         }
       };
+
+      // WebSocket event handler for the "close" event
       socket.current.onclose = () => {
-        console.log("ws closed");
       };
+
+      // WebSocket event handler for the "error" event
       socket.current.onerror = (e) => {
-        console.log(e);
       };
   
     }, [socket.current,auth]);
+
+
+  // JSX structure for rendering the main chat card
   return (
     <div className='border border-gray-200 bg-white w-3/4 h-screen relative'>
         <div className="w-full flex items-start justify-start p-2 border border-gray-200 absolute top-0 bg-white z-1">
@@ -88,7 +105,7 @@ export default function MainChatCard({id}) {
               setmessage(e.target.value)
             }} placeholder="Enter Your Message" className="mx-4 border border-gray-200 h-10 w-full rounded-lg px-2 text-black"/>
             <button className='text-black flex' onClick={()=>{
-              
+              // Sending a message to the user through WebSocket
               socket.current.send(JSON.stringify({
                 "type":"send_message_to_user",
                 "data":{
@@ -134,7 +151,6 @@ const fetchPersonalChats = async (data) => {
         return response.data;
       })
       .catch((error) => {
-        console.log(error);
         return [];
       });
   };
@@ -145,7 +161,6 @@ const fetchPersonalChats = async (data) => {
     return useMutation({
       mutationFn: fetchPersonalChats,
       onSuccess: (data) => {
-        console.log(data);
         setEachUsersMessages(data);
         queryClient.invalidateQueries(["UsersMessages"]);
       },

@@ -11,7 +11,6 @@ export default function ProjectCard({ele}) {
   const closeWorkflow = () => {
     setWorkflowData({})
     setOpen(false)
-    console.log("Close Workflow")
   }
   const handleGenerateWorkflow = async () => {
     setOpen(true)
@@ -23,7 +22,6 @@ export default function ProjectCard({ele}) {
 
       // Set the response data to the state
       setWorkflowData(response);
-      console.log(response)
     } catch (error) {
       console.error('Error generating workflow:', error);
     }

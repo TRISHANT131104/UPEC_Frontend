@@ -24,9 +24,6 @@ export default function NavbarComponent() {
     const handleToggleNavbar = () => {
     setIsNavbarVisible((prevState) => !prevState);
     };
-    const call = () => {
-      console.log("profile")
-    }
   return (
 <nav className="bg-white border-gray-200 shadow-lg relative">
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 md:overflow-visible h-min md:max-h-20">

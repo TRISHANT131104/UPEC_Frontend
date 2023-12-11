@@ -1,3 +1,4 @@
+// Import necessary dependencies
 'use client'
 import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
@@ -12,11 +13,15 @@ import ReactModal from 'react-modal'
 import Loader from '@/components/Loader'
 import toast, { Toaster } from 'react-hot-toast';
 import { ClipLoader } from 'react-spinners'
+
+// Define the EachProject component
 export default function EachProject({ params }) {
+  // State variables for managing modal and section visibility
     const [workflowOpen, setWorkflowOpen] = useState(false)
     const [learningResourcesOpen, setlearningResourcesOpen] = useState(false)
     const [prdOpen, setPrdOpen] = useState(false)
     const [projectManagementOpen, setProjectManagementOpen] = useState(false)
+  // Event handlers for toggling section visibility
     const workflowClick = () => {
         setWorkflowOpen(prevState => !prevState);
     };
@@ -29,17 +34,19 @@ export default function EachProject({ params }) {
     const projectManagementClick = () => {
         setProjectManagementOpen(prevState => !prevState);
     };
-    console.log(params)
+    // Log params and get authentication info from HomeContext
     const { auth } = useContext(HomeContext)
     const router = useRouter()
-    console.log(router)
+
+    // Use React Query to fetch data for each project
     const EachProject = useQuery({
         queryKey: ["EachProject"],
         queryFn: () => {
             return fetchEachProject(params.id)
         }
     })
-    console.log(EachProject)
+
+    // Custom styles for the ReactModal component
     const customStyles = {
         overlay: {
             position: "fixed",
@@ -65,10 +72,13 @@ export default function EachProject({ params }) {
         },
     };
 
+    // State variable and event handler for managing modal state
     const [modalIsOpen, setIsOpen] = React.useState(false);
+
+    // Render the component
     return (
         <div>
-            
+            {/* ReactModal component for displaying loader */}
             <ReactModal
                 isOpen={modalIsOpen}
                 style={customStyles}
@@ -81,6 +91,8 @@ export default function EachProject({ params }) {
                         data-testid="loader" />
                 </div>
             </ReactModal>
+
+            {/* Section for displaying project information */}
             <section className="background body-font">
                 <div className="container justify-center flex px-5 py-20 md:flex-row flex-col items-center">
                     <div className="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
@@ -90,6 +102,7 @@ export default function EachProject({ params }) {
                         <h1 className="titleCard !px-0">{EachProject?.data?.title}
                         </h1>
                         <p className="mb-8 bodyTextDiv">{EachProject?.data?.description}</p>
+                        {/* Conditional rendering of buttons based on user and project status */}
                         {(EachProject?.data?.created_by?.user?.id != auth.user.id) ? (
                             <>
                                 {(EachProject?.data?.status != "Open" && EachProject?.data?.team?.members?.some((x) => x.id === auth.user.id)) && (
@@ -98,9 +111,8 @@ export default function EachProject({ params }) {
                                             {(EachProject?.data?.workflow === null) && (
                                                 <button className=" text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-md m-5 text-center flex justify-center items-center" onClick={() => {
                                                     setIsOpen(true)
-                                                    axios.post('http://127.0.0.1:8000/api/v1/__send__generated__workflow__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
+                                                    axios.post('http://103.159.214.229/api/v1/__send__generated__workflow__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
                                                         EachProject.refetch()
-                                                        console.log(response.data)
                                                         setIsOpen(false)
                                                         toast('WorkFlow generated')
                                                     }).catch((Err) => {
@@ -112,9 +124,8 @@ export default function EachProject({ params }) {
                                             {(EachProject?.data?.Learning_resources == null || EachProject?.data?.Learning_resources?.length == 0) && (
                                                 <button onClick={() => {
                                                     setIsOpen(true)
-                                                    axios.post('http://127.0.0.1:8000/api/v1/__learning__resource__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
+                                                    axios.post('http://103.159.214.229/api/v1/__learning__resource__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
                                                         EachProject.refetch()
-                                                        console.log(response.data)
                                                         setIsOpen(false)
                                                         toast('Learning Resources generated')
                                                     }).catch((Err) => {
@@ -126,9 +137,8 @@ export default function EachProject({ params }) {
                                             {(EachProject?.data?.prd != null && (EachProject?.data?.project_management == null || EachProject?.data?.project_management.length == 0 || EachProject?.data?.project_management == "")) && (
                                                 <button onClick={() => {
                                                     setIsOpen(true)
-                                                    axios.post('http://127.0.0.1:8000/api/v1/__project__management__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
+                                                    axios.post('http://103.159.214.229/api/v1/__project__management__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
                                                         EachProject.refetch()
-                                                        console.log(response.data)
                                                         setIsOpen(false)
                                                         toast('Project Management generated')
                                                     }).catch((Err) => {
@@ -142,15 +152,14 @@ export default function EachProject({ params }) {
                                 )}
                             </>
                         ) : (
-
+                            // Buttons for creator user
                             <div className="grid grid-cols-2 justify-center text-center">
                                 <>
                                     {EachProject?.data?.prd == null && (
                                         <button onClick={() => {
                                             setIsOpen(true)
-                                            axios.post('http://127.0.0.1:8000/api/v1/__send__generated__prd__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
+                                            axios.post('http://103.159.214.229/api/v1/__send__generated__prd__/', { id: auth.user.id, project_id: EachProject?.data?.id }).then((response) => {
                                                 EachProject.refetch()
-                                                console.log(response.data)
                                                 setIsOpen(false)
                                                 toast('PRD generated')
                                             }).catch((Err) => {
@@ -288,7 +297,7 @@ export default function EachProject({ params }) {
 
 
 const fetchEachProject = async (id) => {
-    return axios.get(`http://127.0.0.1:8000/api/v1/__get__each__project__/${id}`).then((response) => {
+    return axios.get(`http://103.159.214.229/api/v1/__get__each__project__/${id}`).then((response) => {
         return response.data
     }).catch((error) => {
         return []
