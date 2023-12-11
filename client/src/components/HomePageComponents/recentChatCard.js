@@ -10,9 +10,9 @@ export default function recentChatCard(){
         { name: "Tim", email: "tim5678@gmail.com", image_url:"https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp"},
       ]);
   return (
-<div className="w-full max-w-md p-4 xl:p-8 bg-white border border-gray-200 rounded-lg shadow-xl text-[#5E5873] basis-1/2">
+<div className="w-full max-w-md p-4 xl:p-8 card h-min">
     <div className="flex items-center justify-between mb-4">
-        <h5 className="text-lg xl:text-xl font-bold leading-none text-[#5E5873]">Recent Chats</h5>
+        <h5 className="titleTextDiv">Recent Chats</h5>
         <Link href="#" className="text-sm font-medium text-[#0075FF] hover:underline">
             View all
         </Link>
@@ -26,10 +26,10 @@ export default function recentChatCard(){
                     <img className="w-8 h-8 rounded-full" src={item.image_url} alt="Neil image"/>
                 </div>
                 <div className="flex-1 min-w-0 ms-4">
-                    <p className="text-sm font-medium text-[#5E5873] truncate">
+                    <p className="bodyTextDiv font-semibold">
                         {item.name}
                     </p>
-                    <p className="text-sm text-[#5E5873] truncate">
+                    <p className="bodyTextDiv">
                         {item.email}
                     </p>
                 </div>

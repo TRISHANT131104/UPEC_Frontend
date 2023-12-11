@@ -59,17 +59,17 @@ export default function Home() {
   }
   console.log(randomElements)
   return (
-    <div className="flex flex-row p-2 sm:p-5 h-screen lg:text-md text-xs">
+    <div className="flex flex-row p-2 sm:p-5 lg:text-md text-xs background">
 
       <ProfileCard ele={userDetails} />
       <div className="flex flex-col w-[90%] lg:w-1/2 mx-auto">
         {/* Make a search box above the posts section*/}
-        <div className="flex gap-2 justify-center">
+        <div className="flex gap-2 justify-center items-center">
           <input onChange={(e) => {
             if (e.target.value.length == 0 | e.target.value == "") {
               setRandomElements(getRandomElements(data, 10))
             }
-          }} id="search_input" type="text" placeholder="Search for Posts/Projects" className="w-[70%] h-10 border border-gray-200 rounded-md p-2 shadow-lg" />
+          }} id="search_input" type="text" placeholder="Search for Posts/Projects" className="w-[75%] h-10 card hoverCard" />
           <button onClick={() => {
             const arr = searchPosts(randomElements, document.getElementById('search_input').value)
             if (arr.length != 0) {
@@ -79,8 +79,7 @@ export default function Home() {
             else {
               setRandomElements(getRandomElements(data, 10))
             }
-
-          }} className="w-[10%] h-10 bg-blue-500 rounded-md text-white shadow-lg">Search</button>
+          }} className="w-min px-4 h-10 bg-blue-500 rounded-md text-white shadow-lg">Search</button>
         </div>
         {randomElements.map((post, index) => (
           <div key={index}>

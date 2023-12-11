@@ -9,7 +9,7 @@ export default function Projects() {
   const {EachUsersMessage,setEachUserMessage,auth} = useContext(HomeContext)
   
   return (
-    <div className='bg-[#F7F7F7] text-[#D6DCE8] flex m-5'>
+    <div className='background flex m-5'>
       
       <Suspense fallback={<Loader/>}>
         <RecentChats   />

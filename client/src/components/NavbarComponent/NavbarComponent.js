@@ -16,7 +16,9 @@ export default function NavbarComponent() {
       setDropDown(prevState => !prevState);
     };
     const handleButtonBlur = () => {
+      setTimeout(() => {
         setDropDown(false);
+      }, 250);
     };
     const [isNavbarVisible, setIsNavbarVisible] = useState(false);
     const handleToggleNavbar = () => {
@@ -26,14 +28,14 @@ export default function NavbarComponent() {
       console.log("profile")
     }
   return (
-<nav className="bg-white border-gray-200 shadow-lg">
+<nav className="bg-white border-gray-200 shadow-lg relative">
   <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 md:overflow-visible h-min md:max-h-20">
   <Link href="/">
       <Image src="/logo.png" alt="Logo" width={100} height={40}/>
   </Link>
   <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
       <div className="">
-        <button onClick={handleClick}  type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+        <button onClick={handleClick} onFocus={handleButtonFocus} onBlur={handleButtonBlur} type="button" className="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
           <span className="sr-only">Open user menu</span>
           <img className="w-8 h-8 rounded-full" src="https://www.gravatar.com/avatar/2acfb745ecf9d4dccb3364752d17f65f?s=260&d=mp" alt="user photo"/>
         </button>

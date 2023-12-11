@@ -14,7 +14,7 @@ export default function PostCard(props) {
   const [link, setLink] = useState(props.post.link);
   return (
     <a className="flex justify-center" href={link}>
-      <article className="my-5 break-inside rounded-md bg-white flex flex-col bg-clip-border shadow-xl text-[#5E5873] h-max w-full sm:w-[90%] mx-auto">
+      <article className="my-5 break-inside flex flex-col bg-clip-border h-max w-full sm:w-[90%] mx-auto card !p-0">
         <div className="flex items-center p-3 justify-between bg-white rounded-t-md">
           <div className="flex">
             <Link className="inline-block" href="#">
@@ -22,9 +22,9 @@ export default function PostCard(props) {
             </Link>
             <div className="flex flex-col mx-2 justify-center">
               <div className="flex">
-                <a className="inline-block lg:text-lg sm:text-sm text-xs font-bold" href="#">{name}</a>
+                <a className="inline-block titleTextDiv" href="#">{name}</a>
               </div>
-              <div className="text-slate-500">
+              <div className="bodyTextDiv">
                 {tagline}
               </div>
             </div>
@@ -38,11 +38,11 @@ export default function PostCard(props) {
             </Link>
           </div>
         </div>
-        <h2 className=" text-md xs:text-lg sm:text-2xl xl:text-2xl font-bold m-5">
+        <h2 className="titleTextDiv m-5">
           {postHeading}
         </h2>
         <div className="mx-5">
-          <p>
+          <p className='bodyTextDiv'>
             {/* slice body to first 100 words */}
             {postDescription.length > 500 ? postDescription.slice(0, 500) + "..." : postDescription}
           </p>

@@ -40,3 +40,39 @@ body {
 #learning_resources h1 {
   margin: 30px 0px 0px 0px;
 }
+
+
+.headingTextDiv {
+  @apply text-xl lg:text-2xl font-semibold bg-title-bg-color text-title-text-color;
+}
+.titleTextDiv {
+  @apply text-lg lg:text-xl font-medium bg-title-bg-color text-title-text-color;
+}
+.bodyTextDiv {
+  @apply text-sm font-normal bg-title-bg-color text-title-text-color;
+}
+
+
+.headingCard{
+  @apply headingTextDiv rounded-md p-4
+}
+.titleCard{
+  @apply titleTextDiv rounded-md p-4
+}
+.bodyCard{
+  @apply bodyTextDiv rounded-md p-4
+}
+
+.hoverCard{
+  @apply hover:bg-hover-bg-color hover:border hover:border-blue-500
+}
+.parent-div .child-div {
+  background-color: inherit;
+}
+
+.background{
+  @apply bg-background-bg-color h-full
+}
+.card{
+  @apply bg-white p-5 shadow-lg rounded-md border border-gray-200
+}

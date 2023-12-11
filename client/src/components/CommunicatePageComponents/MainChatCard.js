@@ -75,12 +75,10 @@ export default function MainChatCard({id}) {
                 return (
                     <div>
                         {ele.sender == auth.user.username ? (
-                            <RecieverChatCard ele={ele}/>
-                            
-                        ):(
                             <SenderChatCard ele={ele}/>
+                        ):(
+                            <RecieverChatCard ele={ele}/>
                         )}
-                    
                     </div>
                 )
             })}
