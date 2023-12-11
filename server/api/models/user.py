@@ -5,7 +5,7 @@ from django.contrib.auth.models import (
     AbstractUser,
     BaseUserManager,
     PermissionsMixin,
-    User,
+    
 )
 from django.db import models
 from django.utils import timezone
@@ -13,11 +13,9 @@ from django.utils import timezone
 from ..helpers import getdate, gettime
 from .projects import Project
 
-# class User(AbstractBaseUser, PermissionsMixin):
-#     role = models.CharField(max_length=20, default='client')
+from django.contrib.auth import get_user_model
 
-#     class Meta:
-#       abstract = False
+User = get_user_model()
 
 
 class Talent(models.Model):
