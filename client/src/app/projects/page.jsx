@@ -23,7 +23,7 @@ export default function Projects() {
     <div className='bg-[#F7F7F7] text-[#D6DCE8]'>
       
       <div className='shadow-lg m-4 p-4 bg-white rounded-md'>
-        <h1 className="text-lg md:text-2xl xl:text-4xl font-bold">Current Projects</h1>
+        <h1 className="text-lg md:text-2xl xl:text-4xl text-slate-500 font-bold">Current Projects</h1>
         {CurrentProjects?.data?.length == 0 ? (
           <div className="flex flex-col items-center justify-start">
             <img src="noDataFoundGif.3a5ff8c8.gif" alt="" />
@@ -45,7 +45,7 @@ export default function Projects() {
 
       </div>
       <div className='shadow-lg m-4 p-2 md:p-4 bg-white rounded-md'>
-        <h1 className="text-lg md:text-2xl xl:text-4xl font-bold">Recommended Projects</h1>
+        <h1 className="text-lg md:text-2xl xl:text-4xl font-bold text-slate-500">Recommended Projects</h1>
         <Suspense fallback={<div>Loading...</div>}>
           {AllProjects?.data?.map((ele, index) => {
             return (
