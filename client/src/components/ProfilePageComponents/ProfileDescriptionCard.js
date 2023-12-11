@@ -8,19 +8,19 @@ export default function ProfileDescriptionCard({ele}) {
   const [experience, setExperience] = useState("3 Years, 6 Months")
   return (
     <div className='m-5'>
-      <div className="shadow-lg w-auto border border-gray-200 rounded-md p-5 text-gray-500">
-        <div className="w-full text-center text-lg lg:text-2xl font-bold">About</div>
-        <div className="shadow-lg border border-lg rounded-md p-4 my-4">
-          <div className="text-lg lg:text-xl font-semibold">Role:</div>
-          <div className="text-md lg:text-lg">{ele?.data?.role}</div>
+      <div className="w-auto border border-gray-200 rounded-md card">
+        <div className="w-full text-center headingCard">About</div>
+        <div className="card !p-4 shadow-md my-4">
+          <div className="titleTextDiv">Role:</div>
+          <div className="bodyTextDiv">{ele?.data?.role}</div>
         </div>
-        <div className="shadow-lg border border-lg rounded-md p-4 my-4">
-          <div className="text-lg lg:text-xl font-semibold">Experience:</div>
-          <div className="text-md lg:text-lg">{experience}</div>
+        <div className="card !p-4 shadow-md my-4">
+          <div className="titleTextDiv">Experience:</div>
+          <div className="bodyTextDiv">{experience}</div>
         </div>
-        <div className="shadow-lg border border-lg rounded-md p-4 my-4">
-          <div className="text-lg lg:text-xl font-semibold">Profile Description:</div>
-          <div className="text-md lg:text-lg">{projectDescription}</div>
+        <div className="card !p-4 shadow-md my-4">
+          <div className="titleTextDiv">Profile Description:</div>
+          <div className="bodyTextDiv">{projectDescription}</div>
         </div>
       </div>
     </div>

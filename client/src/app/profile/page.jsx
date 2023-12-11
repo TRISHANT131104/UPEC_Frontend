@@ -2,7 +2,7 @@
 import React, { useContext } from 'react'
 import ProfileCard from '@/components/ProfilePageComponents/ProfileCard'
 import SkillsCard from '@/components/ProfilePageComponents/SkillsCard'
-import SocialCard from '@/components/ProfilePageComponents/SocialCard'
+import StatsCard from '@/components/ProfilePageComponents/StatsCard'
 import ProfileDescriptionCard from '@/components/ProfilePageComponents/ProfileDescriptionCard'
 import { useQuery } from '@tanstack/react-query'
 import HomeContext from '@/context/HomeContext'
@@ -20,11 +20,11 @@ export default function page() {
     return <div>Loading...</div>
   }
   return (
-    <div className='flex max-md:flex-col'>
+    <div className='flex max-md:flex-col bg-[#F7F7F7]'>
       
       <div className="flex flex-col md:basis-1/3">
         <ProfileCard ele={userDetails}/>
-        <SocialCard ele={userDetails}/>
+        <StatsCard ele={userDetails}/>
       </div>
       <div className="flex flex-col md:basis-2/3">
         <ProfileDescriptionCard ele={userDetails}/>
