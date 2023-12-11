@@ -1,7 +1,9 @@
 import openai
-
 from ..models import *
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 def generate_project_workflow_prompt(
     project_description, project_requirements, project_timeline, students_skills
@@ -51,7 +53,7 @@ def make_workflow(project):
     prompt = generate_project_workflow_prompt(
         project_description, project_techstacks, project_timeline, skills_string
     )
-    openai.api_key = "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"
+    openai.api_key = os.environ.get("OPENAI_API_KEY")
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",
         prompt=prompt,

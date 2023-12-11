@@ -1,17 +1,14 @@
 import os
-import pprint
-
 import google.generativeai as palm
 import openai
 from dotenv import load_dotenv
-
 from ..models.projects import *
 from ..models.user import *
 
 load_dotenv()
 
 
-def generate_learning_resource_prompt(talent, project):
+def generate_learning_resource_prompt(project):
     team = Team.objects.get(project=project)
     tech_stack = project.related_techstacks
     tech_stack = ", ".join(tech_stack)
@@ -41,15 +38,23 @@ def generate_learning_resource_prompt(talent, project):
     return prompt
 
 
-def learning_resource(talent, project):
-    prompt = generate_learning_resource_prompt(talent, project)
+def learning_resource(project):
+    prompt = generate_learning_resource_prompt(project)
+
+    """
+    We have used PaLm (google generative AI) over gpt to generate the learning resources for the team members as PaLM gives us the links of the resources as well in the response.
+    """
     palm.configure(api_key=os.environ.get("PALM_API_KEY"))
+
+    # Get the list of models in palm that support text generation
     models = [
-        m
-        for m in palm.list_models()
-        if "generateText" in m.supported_generation_methods
+        model
+        for model in palm.list_models()
+        if "generateText" in model.supported_generation_methods
     ]
+    # Select the first model in the list i.e. models/text-bison-001
     model = models[0].name
+
 
     answer = palm.generate_text(
         model=model,

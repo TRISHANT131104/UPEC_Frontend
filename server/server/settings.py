@@ -8,7 +8,7 @@ SECRET_KEY = "django-insecure-6likh75ebi!_pcp@!skzsk-(4n6#+vv@qy*+)6-6pceb3m*59a
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 embed_model = None

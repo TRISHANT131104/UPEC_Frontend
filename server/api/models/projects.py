@@ -14,10 +14,6 @@ def __prd__file__path__(instance, filename):
     return "prds/{0}/{1}".format(instance.id, filename)
 
 
-def __prd__file__path__(instance, filename):
-    return "prds/{0}/{1}".format(instance.id, filename)
-
-
 def __learning__resource__path__(instance, filename):
     return "learning_resources/{0}/{1}".format(instance.id, filename)
 

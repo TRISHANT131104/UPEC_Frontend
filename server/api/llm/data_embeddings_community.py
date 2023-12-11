@@ -3,22 +3,13 @@ import os
 import pinecone
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import Pinecone
-from torch import cuda
 from dotenv import load_dotenv
-
-from server.settings import embed_model
-
 from ..models import Post
+from ..utils import *
 
 load_dotenv()
 
-pinecone.init(
-    api_key=os.environ.get("PINECONE_API_KEY2"),
-    environment=os.environ.get("PINECONE_ENVIRONMENT") or "gcp-starter",
-)
-
-index_name = "user"
-index = pinecone.Index(index_name)
+index, embed_model = initiate_pinecone(os.environ.get("PINECONE_API_KEY"), "user")
 
 
 def store_post_embeddings(post):

@@ -1,5 +1,4 @@
 import uuid
-
 from django.contrib.auth.models import (
     AbstractBaseUser,
     AbstractUser,
@@ -12,7 +11,7 @@ from django.utils import timezone
 
 from ..helpers import getdate, gettime
 from .projects import Project
-
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -28,8 +27,8 @@ class Talent(models.Model):
         blank=True,
     )
     skills = models.JSONField(default=list, blank=True, null=True)
-    learning_resources = models.JSONField(
-        default=list, blank=True, null=True, editable=False
+    Learning_resources = models.TextField(
+        _("Learning Resources"), blank=True, null=True, default=None
     )
     rating = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True)
     no_projects_completed = models.IntegerField(default=0)

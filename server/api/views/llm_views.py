@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 from ..llm import *
 from ..models import *
 from ..serializers import *
+from .get_data_views import __get__users__ongoing__projects__
 
 
 class __send__generated__prd__(APIView):
@@ -25,7 +26,7 @@ class __send__generated__prd__(APIView):
             # Check if the client is the owner of the project
             if project.created_by == client:
                 # call the llm function to generate the prd
-                prd = generate_prd_button_clicked(project)
+                prd = generate_prd(project)
                 serializer = ProjectRequirementDocumentSerializer(get_object_or_404(ProjectRequirementDocument, id=prd))
                 # Return the PRD JSON response
                 return JsonResponse(
@@ -86,7 +87,7 @@ class __project__management__(APIView):
     """
     def post(self, request):
         # Get the user ID from the request data
-        user_id = request.data.get("id")
+        user_id = request.data["id"]
         if user_id is not None:
             # Get the user object based on the provided user ID
             user = get_object_or_404(User, id=user_id)
@@ -143,7 +144,7 @@ class __learning__resource__(APIView):
 
             if team.exists():
                 # call the llm function to generate the learning resources
-                learning_resource_output = learning_resource(talent, project)
+                learning_resource_output = learning_resource(project)
                 project.Learning_resources = learning_resource_output
                 project.save()
                 return Response(
@@ -167,16 +168,26 @@ class __learning__resources__for__talents__(APIView):
     """
     def post(self, request):
         # Generate the learning resources for the talent
-        user = request.user
+        user = User.objects.get(id=request.data["id"])
         # Check if user is a talent
         is_talent = Talent.objects.filter(user=user).exists()
         if is_talent:
             # Get the talent
             talent = Talent.objects.get(user=user)
             # Get the project
-            project = Project.objects.get(id=request.data["project_id"])
+            projects = []
+            
+            teams = Team.objects.filter(members=talent)
+            # Call the get method of the view
+            projects = []
+            for team in teams:
+                projects.append(team.project)
+
             # call the llm function to generate the learning resources for a talent
-            learning_resource = generate_learning_reasources(talent, project)
+            learning_resource = generate_learning_reasources(talent, projects)
+            print(talent)
+            talent.Learning_resources = learning_resource
+            talent.save()
             return JsonResponse(
                 {
                     "success": "Learning resources generated successfully",
