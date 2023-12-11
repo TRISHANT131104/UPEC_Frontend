@@ -1,4 +1,7 @@
+// Setting the environment to use client-side rendering
 'use client'
+
+// Importing necessary dependencies and components
 import Link from 'next/link';
 import { useContext, useState } from 'react';
 import axios from 'axios';
@@ -14,10 +17,13 @@ import {
     QueryClient,
     QueryClientProvider,
 } from '@tanstack/react-query'
+
+// Functional component for rendering recent chats
 export default function RecentChats() {
+    // Destructuring values from HomeContext
     const { auth, EachUsersMessages, setEachUsersMessages, SelectedName, setSelectedName, Group, setGroup, Receiver, setReceiver, setAI } = useContext(HomeContext)
 
-
+    // Queries for fetching direct, project group, and group chat users
     const directChat = useQuery({
         queryKey: ["DirectChatUsers"],
         queryFn: () => {
@@ -39,7 +45,10 @@ export default function RecentChats() {
         }
     })
 
+    // Custom mutation hook for fetching personal chats
     const test1 = useGetPersonalChats()
+
+    // JSX structure for rendering recent chats component
     return (
         <div className='bg-white p-2 border border-gray-200 w-[300px] xl:w-1/4 xl:min-w-[350px] hidden md:block'>
             <div className="w-full flex border border-gray-200 gap-4 p-2">
@@ -52,6 +61,8 @@ export default function RecentChats() {
                 </div>
             </div>
             <div className="border border-gray-200">
+
+                {/* Direct Chat Section */}
                 <div className="w-full max-w-md p-4 bg-white">
                     <div className="flex items-center justify-between mb-4">
                         <h5 className="headingTextDiv">Direct Chat</h5>
@@ -89,6 +100,8 @@ export default function RecentChats() {
                         </ul>
                     </div>
                 </div>
+
+                {/* Project Chat Section */}
                 <div className="w-full max-w-md p-4 bg-white text-[#5E5873]">
                     <div className="flex items-center justify-between mb-4">
                         <h5 className="headingTextDiv">Project Chat</h5>
@@ -119,6 +132,8 @@ export default function RecentChats() {
                         </ul>
                     </div>
                 </div>
+
+                {/* Group Chat Section */}
                 <div className="w-full max-w-md p-4 bg-white text-[#5E5873]">
                     <div className="flex items-center justify-between mb-4">
                         <h5 className="headingTextDiv">Group Chat</h5>
@@ -151,6 +166,7 @@ export default function RecentChats() {
                     </div>
                 </div>
 
+                {/* Copilot Section */}
                 <div className="w-full max-w-md p-4 bg-white text-[#5E5873]">
                     <div className="flex items-center justify-between mb-4">
                         <h5 className="headingTextDiv">Copilot</h5>
@@ -187,26 +203,28 @@ export default function RecentChats() {
     )
 }
 
-
+// Function to fetch direct chat users
 const DirectChatUsers = async (id) => {
     return axios.get(`http://103.159.214.229/api/v1/__get__direct__chat__users__/${id}`).then((response) => {
         return response.data
     })
 }
+
+// Function to fetch group chat users
 const GroupChatUsers = async (id) => {
     return axios.get(`http://103.159.214.229/api/v1/__get__group__chat__users__/${id}`).then((response) => {
         return response.data
     })
 }
+
+// Function to fetch project-related group chats
 const getProjectGroupChats = async (id) => {
     return axios.get(`http://103.159.214.229/api/v1/__get__project__related__groups__/${id}`).then((response) => {
         return response.data
     })
 }
 
-
-
-
+// Function to fetch personal chats data from the server
 const fetchPersonalChats = async (data) => {
     return axios
         .post(

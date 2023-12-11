@@ -118,6 +118,7 @@ export default function MainChatCard({id}) {
               }))
             }}><IoSend className='text-black mx-4 w-8 h-8'  /> </button>
             {Group && <button id="ai-grp-btn" className='text-black' onClick={(e)=>{
+              // Toggling the AI button's color and setting the AI state
               if(document.getElementById('ai-grp-btn').classList.contains('text-blue-600')){
                 setAI(false)
                 document.getElementById('ai-grp-btn').className = "text-black"
@@ -135,7 +136,7 @@ export default function MainChatCard({id}) {
   )
 }
 
-
+// Function to fetch personal chats data from the server
 const fetchPersonalChats = async (data) => {
     return axios
       .post(
@@ -155,6 +156,7 @@ const fetchPersonalChats = async (data) => {
       });
   };
   
+  // Custom hook for getting personal chats data
   const useGetPersonalChats = () => {
     const queryClient = useQueryClient();
     const { EachUsersMessages, setEachUsersMessages } = useContext(HomeContext);
