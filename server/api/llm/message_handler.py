@@ -17,6 +17,7 @@ from ..utils.load_embedding_model import load_embedding_model
 
 load_dotenv()
 
+
 class MessageHandler:
     def __init__(self, api_key):
         openai.api_key = api_key

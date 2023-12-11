@@ -3,12 +3,11 @@ import parse from 'html-react-parser';
 export default function PRDCard({ele,EachProject}) {
     
     return (
-        <div>
-             <h1 className='text-center font-bold text-black my-10 text-xl'>{ele}</h1>
+        <div className=''>
+             <h1 className='text-center font-bold text-black text-xl uppercase'>{ele.replace("_"," ")}</h1>
                     <div id="learning_resources">
-                        {EachProject?.data?.prd?EachProject.data.prd[ele]:null}
+                        {EachProject?.data?.prd ? parse(EachProject.data.prd[ele]) : null}
                     </div>
-            
         </div>
     )
 }

@@ -7,7 +7,6 @@ from docx import Document
 from ..models import ProjectRequirementDocument
 from dotenv import load_dotenv
 
-
 load_dotenv()
 
 
@@ -94,8 +93,6 @@ def generate_prd(project_description, project_timeline, project_techstacks):
         Please provide the information in only in JSON format for easy storage in a database.
         JSON format is highly important for the response to be successful.
 
-        Note: Provide the output in html tags for every json response . use different html tags to make the output look good in the frontend.
-
         NOTE:All the 20 points must be addresses compulsary
         JSON format example:
         """
@@ -136,11 +133,12 @@ def generate_prd_button_clicked(project):
 
     # Generate PRD
     prd = generate_prd(project_description, project_timeline, project_techstacks)
-
+    
     # Create a Word document
     create_word_document(prd)
-    print(prd)
+    print('prd',prd)
     json_response = json.loads(prd, strict=False)
+    print('json response',json_response)
     try:
         project_details = ProjectRequirementDocument(
             project_overview=json_response["Project Overview"],

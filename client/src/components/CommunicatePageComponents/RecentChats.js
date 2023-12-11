@@ -189,17 +189,17 @@ export default function RecentChats() {
 
 
 const DirectChatUsers = async (id) => {
-    return axios.get(`http://127.0.0.1:8000/api/v1/__get__direct__chat__users__/${id}`).then((response) => {
+    return axios.get(`http://103.159.214.229/api/v1/__get__direct__chat__users__/${id}`).then((response) => {
         return response.data
     })
 }
 const GroupChatUsers = async (id) => {
-    return axios.get(`http://127.0.0.1:8000/api/v1/__get__group__chat__users__/${id}`).then((response) => {
+    return axios.get(`http://103.159.214.229/api/v1/__get__group__chat__users__/${id}`).then((response) => {
         return response.data
     })
 }
 const getProjectGroupChats = async (id) => {
-    return axios.get(`http://127.0.0.1:8000/api/v1/__get__project__related__groups__/${id}`).then((response) => {
+    return axios.get(`http://103.159.214.229/api/v1/__get__project__related__groups__/${id}`).then((response) => {
         return response.data
     })
 }
@@ -211,7 +211,7 @@ const fetchPersonalChats = async (data) => {
     console.log(data)
     return axios
         .post(
-            data.group ? `http://127.0.0.1:8000/api/v1/__get__group__messages__/` : `http://127.0.0.1:8000/api/v1/__get__personal__messages__/`,
+            data.group ? `http://103.159.214.229/api/v1/__get__group__messages__/` : `http://103.159.214.229/api/v1/__get__personal__messages__/`,
             { sender: data.sender, receiver: data.receiver, ai: data.ai },
             {
                 headers: {

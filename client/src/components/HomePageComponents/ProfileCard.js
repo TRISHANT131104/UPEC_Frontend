@@ -58,7 +58,7 @@ export default function ProfileCard({ele}) {
                 <tr>
                     <td className="px-2 py-2 text-gray-500 font-semibold">Skills</td>
                     <div className='flex flex-wrap'>
-                    {ele?.data?.skills?.map((ele)=>(<div className="px-2 py-2">{ele}</div>))}
+                    {ele?.data?.skills?.map((ele,index)=>(<div key={index} className="px-2 py-2">{ele}</div>))}
                     </div>
                     
                 </tr>

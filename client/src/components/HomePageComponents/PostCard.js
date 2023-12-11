@@ -48,8 +48,8 @@ export default function PostCard(props) {
           </p>
         </div>
         <div className="p-2 sm:p-4 flex flex-wrap items-center">
-          {tags.map((tag) => (
-            <div className="bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-600 mr-2 mb-2">
+          {tags.map((tag,index) => (
+            <div key={index} className="bg-gray-100 rounded-full px-3 py-1 text-xs font-semibold text-gray-600 mr-2 mb-2">
               {tag}
             </div>
           ))}

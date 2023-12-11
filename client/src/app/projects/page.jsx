@@ -21,7 +21,7 @@ export default function Projects() {
   })
   return (
     <div className='bg-[#F7F7F7] text-[#D6DCE8]'>
-
+      
       <div className='shadow-lg m-4 p-4 bg-white rounded-md'>
         <h1 className="text-lg md:text-2xl xl:text-4xl font-bold">Current Projects</h1>
         {CurrentProjects?.data?.length == 0 ? (
@@ -34,7 +34,9 @@ export default function Projects() {
             <Suspense fallback={<div>Loading...</div>}>
               {CurrentProjects?.data?.map((ele, index) => {
                 return (
+                  <div key={index}>
                   <ProjectCard ele={ele} />
+                  </div>
                 )
               })}
             </Suspense>
@@ -47,7 +49,9 @@ export default function Projects() {
         <Suspense fallback={<div>Loading...</div>}>
           {AllProjects?.data?.map((ele, index) => {
             return (
+              <div key={index}>
               <ProjectCard ele={ele} />
+              </div>
             )
           })}
         </Suspense>
@@ -60,7 +64,7 @@ export default function Projects() {
 
 
 const fetchAllProjects = async (id) => {
-  return axios.get(`http://127.0.0.1:8000/api/v1/__get__all__projects__`).then((response)=>{
+  return axios.get(`http://103.159.214.229/api/v1/__get__all__projects__`).then((response)=>{
     return response.data
   }).catch((err)=>{
     alert(err)
@@ -68,7 +72,7 @@ const fetchAllProjects = async (id) => {
 }
 
 const fetchCurrentProjects = async (id) => {
-  return axios.get(`http://127.0.0.1:8000/api/v1/__get__users__ongoing__projects__/${id}`).then((response)=>{
+  return axios.get(`http://103.159.214.229/api/v1/__get__users__ongoing__projects__/${id}`).then((response)=>{
     return response.data
   }).catch((err)=>{
     alert(err)
