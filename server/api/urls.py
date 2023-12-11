@@ -1,8 +1,7 @@
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
 
 from .views import (
-    __client__accept__bid__,
     __create__project__,
     __get__ai__messages__,
     __get__all__projects__,
@@ -40,7 +39,6 @@ urlpatterns = [
     path("__create__project__/", __create__project__.as_view()),
     path("__send__generated__prd__/", __send__generated__prd__.as_view()),
     path("__get__details__of__project__/<int:pk>", __get__details__of__project__.as_view(),),
-    path("__client__accept__bid__/", __client__accept__bid__.as_view()),
     path("__send__generated__workflow__/", __send__generated__workflow__.as_view()),
     path("__learning__resource__/", __learning__resource__.as_view()),
     path("__learning__resources__for__talents__", __learning__resource__.as_view()),
