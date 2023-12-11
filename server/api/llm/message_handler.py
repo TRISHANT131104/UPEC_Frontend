@@ -1,6 +1,5 @@
 import json
 import os
-
 import openai
 import pinecone
 from langchain.chains import RetrievalQA
@@ -8,9 +7,8 @@ from langchain.chat_models import ChatOpenAI
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.llms import HuggingFaceTextGenInference
 from langchain.vectorstores import Pinecone
-from torch import cuda
-
 from dotenv import load_dotenv
+from ..utils import *
 
 load_dotenv()
 openai.api_key = os.environ.get("OPENAI_API_KEY")
@@ -29,10 +27,9 @@ class MessageHandler:
             api_key=os.environ.get("PINECONE_API_KEY"),
             environment=os.environ.get("PINECONE_ENVIRONMENT") or "gcp-starter",
         )
-        index = "projects"
-        index = pinecone.Index(index)
         text_field = "text"
-        embed_model = load_embedding_model()
+        index_name = "projects"
+        index, embed_model = initiate_pinecone(os.environ.get("PINECONE_API_KEY"), index_name)
         self.vectorstore = Pinecone(index, embed_model.embed_query, text_field)
         self.llm = HuggingFaceTextGenInference(
             inference_server_url="https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-alpha",
@@ -67,15 +64,6 @@ class MessageHandler:
         return answer
 
     def handle_context_required_message(self, question):
-        # llm = HuggingFaceTextGenInference(
-        #     inference_server_url="https://api-inference.huggingface.co/models/HuggingFaceH4/zephyr-7b-alpha",
-        #     max_new_tokens=512,
-        #     top_k=10,
-        #     top_p=0.95,
-        #     typical_p=0.95,
-        #     temperature=0.01,
-        #     repetition_penalty=1.03,
-        # )
         rag_pipeline = RetrievalQA.from_chain_type(
             llm=self.llm, chain_type="stuff", retriever=self.vectorstore.as_retriever()
         )
@@ -149,6 +137,7 @@ class MessageHandler:
                     ".", ""
                 ):
                     response = self.handle_context_required_message(user_question)
+                    return response
                 else:
                     response = openai.Completion.create(
                         engine="gpt-3.5-turbo-instruct",

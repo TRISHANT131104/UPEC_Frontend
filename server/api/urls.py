@@ -24,6 +24,7 @@ from .views import (
     __get__team__related__to__project__,
     __send__generated__prd__,
     __send__generated__workflow__,
+    __learning__resources__for__talents__,
 
 )
 
@@ -41,7 +42,7 @@ urlpatterns = [
     path("__get__details__of__project__/<int:pk>", __get__details__of__project__.as_view(),),
     path("__send__generated__workflow__/", __send__generated__workflow__.as_view()),
     path("__learning__resource__/", __learning__resource__.as_view()),
-    path("__learning__resources__for__talents__", __learning__resource__.as_view()),
+    path("__learning__resources__for__talents__/", __learning__resources__for__talents__.as_view()),
     path("__project__management__/", __project__management__.as_view()),
     path("__get__all__projects__/",__get__all__projects__.as_view()),
     path("__get__each__project__/<int:pk>",__get__each__project__.as_view()),

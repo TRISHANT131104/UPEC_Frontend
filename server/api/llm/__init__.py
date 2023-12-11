@@ -11,7 +11,7 @@ from .data_embeddings_community import (
 from .learning_resource import learning_resource
 from .management import generate_management
 from .message_handler import MessageHandler
-from .prd import create_word_document, generate_prd, generate_prd_button_clicked
+from .prd_generator import create_word_document, generate_prd, generate_prd
 from .project_recommendation import project_recomendation
 from .student_skills import generate_learning_reasources
 from .workflow import make_workflow

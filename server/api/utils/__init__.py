@@ -1,1 +1,2 @@
 from .load_embedding_model import load_embedding_model
+from .initiate_pinecone import initiate_pinecone

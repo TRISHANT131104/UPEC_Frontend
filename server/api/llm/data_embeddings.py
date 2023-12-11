@@ -1,5 +1,4 @@
 import os
-
 import pinecone
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import Pinecone
@@ -9,23 +8,13 @@ from dotenv import load_dotenv
 from ..models import Project, ProjectRequirementDocument, Workflow
 
 # from server.settings import embed_model
-from ..utils.load_embedding_model import load_embedding_model
+from ..utils import *
 
 load_dotenv()
-def initiate_pinecone():
-    pinecone.init(
-        api_key=os.environ.get("PINECONE_API_KEY"),
-        environment=os.environ.get("PINECONE_ENVIRONMENT"),
-    )
-
-    index_name = "projects"
-    index = pinecone.Index(index_name)
-    return index
 
 
 def store_project_requirement_document_embeddings(project):
-    embed_model = load_embedding_model()
-    index = initiate_pinecone()
+    index,embed_model = initiate_pinecone(os.environ.get("PINECONE_API_KEY"),"projects")
     prd = project.prd
     text = [
         f"""
@@ -74,8 +63,7 @@ def store_project_requirement_document_embeddings(project):
 
 
 def update_project_workflow(project):
-    embed_model = load_embedding_model()
-    index = initiate_pinecone()
+    index,embed_model = initiate_pinecone(os.environ.get("PINECONE_API_KEY"),"projects")
     workflow = project.workflow.description
     prd = project.prd
     text = [
