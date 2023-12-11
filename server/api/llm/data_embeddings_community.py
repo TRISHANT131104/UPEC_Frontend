@@ -6,11 +6,9 @@ from langchain.vectorstores import Pinecone
 from torch import cuda
 from dotenv import load_dotenv
 
-
 from server.settings import embed_model
 
 from ..models import Post
-
 
 load_dotenv()
 

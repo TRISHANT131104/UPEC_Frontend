@@ -12,6 +12,8 @@ from torch import cuda
 
 from dotenv import load_dotenv
 
+load_dotenv()
+openai.api_key = os.environ.get("OPENAI_API_KEY")
 # from server.settings import embed_model
 from ..utils.load_embedding_model import load_embedding_model
 
@@ -25,7 +27,7 @@ class MessageHandler:
         self.role = "Alumni"
         pinecone.init(
             api_key=os.environ.get("PINECONE_API_KEY"),
-            environment=os.environ.get("PINECONE_ENVIRONMENT"),
+            environment=os.environ.get("PINECONE_ENVIRONMENT") or "gcp-starter",
         )
         index = "projects"
         index = pinecone.Index(index)
