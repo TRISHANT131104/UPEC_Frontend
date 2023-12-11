@@ -1,4 +1,3 @@
-import docx
 import openai
 from django.forms.models import model_to_dict
 from django.shortcuts import get_object_or_404
@@ -8,6 +7,16 @@ from ..models.user import *
 
 
 def generate_prompt(team, project):
+    """
+    Generate a prompt for assigning roles and tasks to team members based on project requirements and team members' skills.
+
+    Args:
+        team (QuerySet): A queryset of team members.
+        project (Project): The project object.
+
+    Returns:
+        str: The generated prompt.
+    """
     prd = project.prd
     prd = model_to_dict(prd)
     prd = {
@@ -42,6 +51,16 @@ def generate_prompt(team, project):
 
 
 def generate_management(team, project):
+    """
+    Generate management instructions for assigning roles and tasks to team members based on project requirements and team members' skills.
+
+    Args:
+        team (QuerySet): A queryset of team members.
+        project (Project): The project object.
+
+    Returns:
+        str: The generated management instructions.
+    """
     prompt = generate_prompt(team, project)
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",

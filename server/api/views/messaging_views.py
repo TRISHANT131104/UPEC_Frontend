@@ -5,9 +5,20 @@ from ..models.chat import *
 from ..serializers import *
 
 
-
 class __get__group__messages__(APIView):
     def post(self, request):
+        """
+        Retrieve the messages of a group.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+
+        Returns:
+            JsonResponse: The JSON response containing the group messages.
+
+        Raises:
+            Response: If the user is not a member of the group.
+        """
         # Get user, get the group id from pk, query the group messages and return the messages of that group if ai=True
         user = User.objects.get(id=request.data["sender"])
         grp_id = request.data["receiver"]
@@ -33,6 +44,15 @@ class __get__group__messages__(APIView):
 
 class __get__personal__chat__(APIView):
     def post(self, request):
+        """
+        Retrieve the messages of a personal chat.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+
+        Returns:
+            JsonResponse: The JSON response containing the personal chat messages.
+        """
         # Get user chats related to the user and return the messages of that user if ai = False
         user = User.objects.get(id=request.data["sender"])
         receiver = User.objects.get(id=request.data["receiver"])
@@ -62,6 +82,16 @@ class __get__personal__chat__(APIView):
 
 class __get__ai__messages__(APIView):
     def __get__ai__messages__(request, pk):
+        """
+        Retrieve the AI messages of a user.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+            pk (int): The primary key of the user.
+
+        Returns:
+            Response: The response containing the AI messages.
+        """
         # Get user chats related to the user and return the messages of that user if ai = True
         user = request.user
         receiver = User.objects.get(id=pk)
@@ -72,6 +102,15 @@ class __get__ai__messages__(APIView):
 
 class __get__users__recent__chat__(APIView):
     def get(self, request):
+        """
+        Retrieve the recent private/group chat of a user.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+
+        Returns:
+            JsonResponse: The JSON response containing the recent chat messages.
+        """
         # Get users recent private/group chat
         user = request.user
         # Get the recent chat of the user
@@ -93,6 +132,16 @@ class __get__users__recent__chat__(APIView):
 
 class __get__direct__chat__users__(APIView):
     def get(self, request, pk):
+        """
+        Retrieve the users involved in direct chats with a user.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+            pk (int): The primary key of the user.
+
+        Returns:
+            JsonResponse: The JSON response containing the direct chat users.
+        """
         user = User.objects.get(id=pk)
         users_chats = ChatMsg.objects.filter(sender=user) | ChatMsg.objects.filter(
             receiver=user
@@ -116,6 +165,16 @@ class __get__direct__chat__users__(APIView):
     
 class __get__group__chat__users__(APIView):
     def get(self, request, pk):
+        """
+        Retrieve the users involved in group chats with a user.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+            pk (int): The primary key of the user.
+
+        Returns:
+            JsonResponse: The JSON response containing the group chat users.
+        """
         user = User.objects.get(id=pk)
         team = Team.objects.filter(members=pk)
         serializer = TeamSerializer(team, many=True)
@@ -140,6 +199,16 @@ class __get__group__chat__users__(APIView):
 
 class __get__project__related__groups__(APIView):
     def get(self, request, pk):
+        """
+        Retrieve the groups related to a project.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+            pk (int): The primary key of the user.
+
+        Returns:
+            JsonResponse: The JSON response containing the project-related groups.
+        """
         user = User.objects.get(id=pk)
         team = Team.objects.filter(members=pk)
         serializer = TeamSerializer(team, many=True)
