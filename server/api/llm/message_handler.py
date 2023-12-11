@@ -10,9 +10,12 @@ from langchain.llms import HuggingFaceTextGenInference
 from langchain.vectorstores import Pinecone
 from torch import cuda
 
+from dotenv import load_dotenv
+
 # from server.settings import embed_model
 from ..utils.load_embedding_model import load_embedding_model
 
+load_dotenv()
 
 class MessageHandler:
     def __init__(self, api_key):
@@ -20,8 +23,8 @@ class MessageHandler:
         self.roles = " Project Owner: Project Manager, Project Manager: Technical Lead, Technical Lead: Developer, Developer: QA Engineer, QA Engineer: Project Manager, Web Developer, Mobile Developer, Desktop Developer, Embedded Systems Developer, Game Developer, Database Developer, DevOps, Quality Assurance and Testing, Artificial Intelligence and Machine Learning, Cloud Computing, Cybersecurity, UI UX Design, API Development, Augmented Reality and Virtual Reality, Robotics, Financial Technology, Education Technology, Blockchain"
         self.role = "Alumni"
         pinecone.init(
-            api_key="663983e5-451f-4d33-bf74-6a7b8dbc4bcb",
-            environment="gcp-starter",
+            api_key=os.environ.get("PINECONE_API_KEY"),
+            environment=os.environ.get("PINECONE_ENVIRONMENT"),
         )
         index = "projects"
         index = pinecone.Index(index)

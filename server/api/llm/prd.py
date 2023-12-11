@@ -1,9 +1,14 @@
 import json
 
+import os
 import openai
 from docx import Document
 
 from ..models import ProjectRequirementDocument
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 
 def generate_prd(project_description, project_timeline, project_techstacks):
@@ -100,7 +105,7 @@ def generate_prd(project_description, project_timeline, project_techstacks):
             "married": true,
         }"""
 
-    openai.api_key = "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"
+    openai.api_key = os.environ.get("OPENAI_API_KEY")
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",
         prompt=prompt,
