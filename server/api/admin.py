@@ -71,7 +71,6 @@ admin.site.register(Client)
 
 admin.site.register(Mentor)
 
-
 class CustomTalentAdmin(admin.ModelAdmin):
     list_display = ["id", "user"]
 
