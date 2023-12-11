@@ -9,13 +9,25 @@ load_dotenv()
 
 
 def generate_prd_content(project_description, project_timeline, project_techstacks, project_title):
+    """
+    Generate a comprehensive Product Requirements Document (PRD) for a new project.
+
+    Args:
+        project_description (str): The description of the project.
+        project_timeline (str): The timeline of the project.
+        project_techstacks (str): The tech stacks used in the project.
+        project_title (str): The title of the project.
+
+    Returns:
+        str: The generated PRD content.
+    """
     # Define the prompt based on parameters
     prompt = f"""
         You Are a Project Manager. Generate a comprehensive Product Requirements Document (PRD) for a new project. Fill In Every Minute Detail Present.
         Provide the project details in a JSON data structure, ensuring that each key corresponds to the following elements:
         The project involves {project_title}. Below are the key details:
 
-
+        
         ### Project Description:
         {project_description}
 
@@ -113,6 +125,13 @@ def generate_prd_content(project_description, project_timeline, project_techstac
 
 
 def create_word_document(content, filename="output.docx"):
+    """
+    Create a Word document with the given content.
+
+    Args:
+        content (str): The content of the document.
+        filename (str, optional): The filename of the document. Defaults to "output.docx".
+    """
     # Create a Word document
     doc = Document()
     doc.add_heading("Generated PRD", level=1)
@@ -123,8 +142,16 @@ def create_word_document(content, filename="output.docx"):
     print(f"Document saved as '{filename}'")
 
 
-# When generate PRD button is clicked
 def generate_prd(project):
+    """
+    Generate a Product Requirements Document (PRD) for a project.
+
+    Args:
+        project: The project object.
+
+    Returns:
+        int: The ID of the generated PRD in the database.
+    """
     # Get all the values from the database
     project_techstacks = project.related_techstacks
     project_description = project.description

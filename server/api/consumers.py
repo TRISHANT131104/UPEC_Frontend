@@ -1,4 +1,13 @@
 # myapp/consumers.py
+
+"""
+This module contains the implementation of a WebSocket consumer for handling chat functionality.
+
+The ChatConsumer class is responsible for handling WebSocket connections and processing incoming and outgoing messages.
+It includes methods for connecting to a WebSocket, receiving JSON data, sending messages to users or groups, creating groups, removing users from groups, and more.
+
+"""
+
 import os
 import json
 from datetime import datetime

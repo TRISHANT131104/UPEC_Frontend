@@ -5,7 +5,15 @@ import os
 load_dotenv()
 
 def project_recomendation(skills):
-    # Define the prompt based on parameters
+    """
+    Recommends projects based on given skills.
+
+    Args:
+        skills (list): List of skills.
+
+    Returns:
+        list: List of recommended project IDs.
+    """
     index, embed_model = initiate_pinecone(os.environ.get("PINECONE_API_KEY"), "projects")
     result = []
     v = embed_model.embed_documents(skills)

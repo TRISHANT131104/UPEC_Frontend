@@ -1,20 +1,27 @@
 import os
+
 import pinecone
+from dotenv import load_dotenv
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import Pinecone
-from torch import cuda
-from dotenv import load_dotenv
 
-from ..models import Project, ProjectRequirementDocument, Workflow
-
-# from server.settings import embed_model
 from ..utils import *
 
 load_dotenv()
 
-
 def store_project_requirement_document_embeddings(project):
-    index,embed_model = initiate_pinecone(os.environ.get("PINECONE_API_KEY"),"projects")
+    """
+    Stores the embeddings of project requirement documents in Pinecone index.
+
+    Args:
+        project: The project object containing requirement documents.
+
+    Returns:
+        None
+    """
+    index, embed_model = initiate_pinecone(
+        os.environ.get("PINECONE_API_KEY"), "projects"
+    )
     prd = project.prd
     text = [
         f"""
@@ -61,9 +68,19 @@ def store_project_requirement_document_embeddings(project):
     ]
     index.upsert(vectors=zip([f"{project.id}"], embeddings, record_metadatas))
 
-
 def update_project_workflow(project):
-    index,embed_model = initiate_pinecone(os.environ.get("PINECONE_API_KEY"),"projects")
+    """
+    Updates the workflow embeddings of a project in Pinecone index.
+
+    Args:
+        project: The project object containing the workflow description.
+
+    Returns:
+        None
+    """
+    index, embed_model = initiate_pinecone(
+        os.environ.get("PINECONE_API_KEY"), "projects"
+    )
     workflow = project.workflow.description
     prd = project.prd
     text = [

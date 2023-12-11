@@ -10,7 +10,16 @@ load_dotenv()
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
 def generate_learning_resource_prompt(skills, tech_stack):
+    """
+    Generate the prompt for recommending learning resources to a student based on their skills and project's required tech stacks.
 
+    Args:
+        skills (str): The skills of the student.
+        tech_stack (list): The required tech stacks for the project.
+
+    Returns:
+        str: The generated prompt.
+    """
     prompt = f"""
         You have to recommend learning resources to the student based on the project's required tech stacks and the students skills. 
         
@@ -28,6 +37,16 @@ def generate_learning_resource_prompt(skills, tech_stack):
     return prompt
 
 def generate_learning_reasources(talent, projects):
+    """
+    Generate learning resources based on the talent's skills and project's required tech stacks.
+
+    Args:
+        talent (Talent): The talent object containing the skills.
+        projects (list): The list of projects.
+
+    Returns:
+        str: The generated learning resources.
+    """
     skills = talent.skills
     tech_stacks=[]
     for project in projects:

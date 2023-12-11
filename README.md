@@ -11,6 +11,13 @@
 	TruConnect - Standalone Application developed to enhance Trumio 
 </h3>
 
+<p align="center">
+	<strong>
+		<a href="http://www.trumio.site/">Front-End</a>
+		•
+		<a href="http://103.159.214.229/redoc">Back-End</a>
+	</strong>
+</p>
 
 Welcome to the UPEC trumio standalone application. This application is a transformative community engagement platform that serves as a centralized hub for students to connect with industry professionals and alumni to deepen their ties with their alma mater. Our platform leverages AI to personalize recommendations, offer real-time support, and facilitate seamless collaboration, fostering a thriving ecosystem where individuals can flourish all while following Trumio’s objectives and Business goals.
 

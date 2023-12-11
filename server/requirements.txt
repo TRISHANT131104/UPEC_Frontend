@@ -18,3 +18,4 @@ text_generation
 python-docx
 daphne
 google-generativeai
+drf_yasg
