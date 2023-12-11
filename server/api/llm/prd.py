@@ -1,10 +1,15 @@
 import json
-
+import os
 import openai
 from docx import Document
 
 from ..models import ProjectRequirementDocument
+from dotenv import load_dotenv
 from bs4 import BeautifulSoup
+
+
+load_dotenv()
+
 
 def generate_prd(project_description, project_timeline, project_techstacks):
     # Define the prompt based on parameters
@@ -98,7 +103,7 @@ def generate_prd(project_description, project_timeline, project_techstacks):
             "married": true,
         }"""
 
-    openai.api_key = "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"
+    openai.api_key = os.environ.get("OPENAI_API_KEY")
     response = openai.Completion.create(
         engine="gpt-3.5-turbo-instruct",
         prompt=prompt,
@@ -129,12 +134,12 @@ def generate_prd_button_clicked(project):
 
     # Generate PRD
     prd = generate_prd(project_description, project_timeline, project_techstacks)
-    
+
     # Create a Word document
     create_word_document(prd)
-    print('prd',prd)
+    print("prd", prd)
     json_response = json.loads(prd, strict=False)
-    print('json response',json_response)
+    print("json response", json_response)
     try:
         project_details = ProjectRequirementDocument(
             project_overview=json_response["Project Overview"],

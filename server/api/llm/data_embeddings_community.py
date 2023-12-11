@@ -4,10 +4,13 @@ import pinecone
 from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import Pinecone
 from torch import cuda
+from dotenv import load_dotenv
 
 from server.settings import embed_model
 
 from ..models import Post
+
+load_dotenv()
 
 pinecone.init(
     api_key=os.environ.get("PINECONE_API_KEY2"),
